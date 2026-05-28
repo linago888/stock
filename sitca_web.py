@@ -389,18 +389,52 @@ def stock_detail(stock_id: str) -> dict:
     }
 
 
+def _month_list(spec: str) -> list[str]:
+    import datetime as dt
+
+    spec = spec or "202511-202604"
+    a, b = (spec.split("-", 1) + [None])[:2] if "-" in spec else (spec, spec)
+    start = dt.date(int(a[:4]), int(a[4:]), 1)
+    end = dt.date(int(b[:4]), int(b[4:]), 1)
+    out: list[str] = []
+    cur = start
+    while cur <= end:
+        out.append(cur.strftime("%Y%m"))
+        y, m = (cur.year, cur.month + 1) if cur.month < 12 else (cur.year + 1, 1)
+        cur = dt.date(y, m, 1)
+    return out
+
+
+def _company_count() -> int:
+    """Best-effort count of investment companies (35-36)."""
+    n = len(list_companies())
+    return n or 36
+
+
+def _count_csvs_for(month_list: list[str]) -> int:
+    return sum(1 for ym in month_list for _ in DATA_DIR.glob(f"{ym}_A*.csv"))
+
+
 def start_scrape_job(months: str = "", sleep: float = 0.6) -> dict:
     """Spawn a background scrape job. Returns {job_id}."""
     import subprocess
     import sys
 
     job_id = uuid.uuid4().hex
+    month_list = _month_list(months)
+    companies = _company_count()
+    expected_total = len(month_list) * companies
+    baseline = _count_csvs_for(month_list)
     JOBS[job_id] = {
         "id": job_id,
         "status": "running",
         "started_at": time.time(),
         "log_path": str(DATA_DIR / f"scrape_{job_id}.log"),
         "months": months,
+        "month_list": month_list,
+        "company_count": companies,
+        "expected_total": expected_total,
+        "baseline": baseline,
     }
 
     def worker() -> None:
@@ -440,7 +474,6 @@ def scrape_job_status(job_id: str) -> dict:
     job = JOBS.get(job_id)
     if not job:
         raise KeyError("找不到爬蟲工作")
-    # also tail last few log lines
     log_path = Path(str(job.get("log_path", "")))
     last_lines: list[str] = []
     if log_path.exists():
@@ -449,5 +482,30 @@ def scrape_job_status(job_id: str) -> dict:
                 last_lines = fh.readlines()[-10:]
         except Exception:
             last_lines = []
-    csv_count = len(list_csv_files())
-    return {**job, "csv_count": csv_count, "log_tail": [ln.rstrip() for ln in last_lines]}
+
+    month_list = list(job.get("month_list") or [])
+    expected_total = int(job.get("expected_total") or 0)
+    if month_list:
+        csv_count = _count_csvs_for(month_list)
+    else:
+        csv_count = len(list_csv_files())
+
+    started = float(job.get("started_at") or 0)
+    baseline = int(job.get("baseline") or 0)
+    elapsed = max(0.0, time.time() - started) if started else 0.0
+    done_new = max(0, csv_count - baseline)
+    work = max(0, expected_total - baseline)
+    rate = done_new / elapsed if elapsed > 0 and done_new else 0.0
+    eta = (work - done_new) / rate if rate > 0 else None
+
+    return {
+        **job,
+        "csv_count": csv_count,
+        "expected_total": expected_total,
+        "baseline": baseline,
+        "done_in_job": done_new,
+        "work_in_job": work,
+        "elapsed_sec": round(elapsed, 1),
+        "eta_sec": round(eta, 1) if eta is not None else None,
+        "log_tail": [ln.rstrip() for ln in last_lines],
+    }

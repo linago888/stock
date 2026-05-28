@@ -174,15 +174,58 @@ async function refreshAll() {
   }
 }
 
+function fmtDuration(sec) {
+  if (sec == null) return "—";
+  sec = Math.max(0, Math.round(sec));
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m > 0 ? `${m} 分 ${s} 秒` : `${s} 秒`;
+}
+
 async function pollScrape(jobId) {
-  const out = $("#scrapeProgress");
-  out.classList.remove("hidden");
+  const panel = $("#scrapeProgress");
+  const bar = $("#progressBar");
+  const pctEl = $("#progressPercent");
+  const statusEl = $("#progressStatus");
+  const detailEl = $("#progressDetail");
+  const logEl = $("#progressLog");
+  panel.classList.remove("hidden");
+  bar.style.width = "0%";
+  pctEl.textContent = "0%";
+  statusEl.className = "";
+  statusEl.textContent = "啟動中…";
+
   while (true) {
     const s = await getJSON(`/api/sitca/scrape-status?id=${jobId}`);
-    out.textContent = `狀態 ${s.status} ｜ CSV ${s.csv_count} / 216\n` +
-      (s.log_tail || []).join("\n");
+    const total = s.expected_total || 216;
+    const done = s.csv_count || 0;
+    const pct = total > 0 ? Math.min(100, (done / total) * 100) : 0;
+    bar.style.width = pct.toFixed(1) + "%";
+    pctEl.textContent = pct.toFixed(0) + "%";
+
+    if (s.status === "done") {
+      statusEl.textContent = "✓ 爬取完成";
+      statusEl.className = "progress-status-done";
+    } else if (s.status === "error") {
+      statusEl.textContent = "✗ 發生錯誤";
+      statusEl.className = "progress-status-error";
+    } else {
+      statusEl.textContent = "爬取中…";
+      statusEl.className = "";
+    }
+
+    const baselineNote = s.baseline ? `（其中 ${s.baseline} 為先前已抓）` : "";
+    const eta = s.eta_sec != null && s.status === "running"
+      ? `，剩餘約 ${fmtDuration(s.eta_sec)}`
+      : "";
+    const elapsed = s.elapsed_sec != null
+      ? `，已耗時 ${fmtDuration(s.elapsed_sec)}`
+      : "";
+    detailEl.textContent = `已處理 ${done} / ${total}${baselineNote}${elapsed}${eta}`;
+    logEl.textContent = (s.log_tail || []).join("\n");
+
     if (s.status === "done" || s.status === "error") break;
-    await new Promise((r) => setTimeout(r, 2500));
+    await new Promise((r) => setTimeout(r, 2000));
   }
   await refreshAll();
 }

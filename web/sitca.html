@@ -46,7 +46,20 @@
           <button id="refreshBtn" class="secondary" type="button">重新載入</button>
           <button id="scrapeBtn" class="primary" type="button">爬取最新 6 個月</button>
         </div>
-        <div id="scrapeProgress" class="scrape-progress hidden"></div>
+        <div id="scrapeProgress" class="scrape-progress hidden">
+          <div class="progress-head">
+            <span id="progressStatus">準備中…</span>
+            <strong id="progressPercent">0%</strong>
+          </div>
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <div id="progressDetail" class="progress-detail">已處理 0 / 0</div>
+          <details>
+            <summary>查看日誌</summary>
+            <pre id="progressLog" class="progress-log"></pre>
+          </details>
+        </div>
       </section>
 
       <section class="filters">
