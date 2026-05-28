@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/sitca.py": {
+      "runtime": "@vercel/python@4.3.1",
+      "includeFiles": "data/sitca_bundle.csv.gz",
+      "memory": 512,
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    { "source": "/api/sitca/:action", "destination": "/api/sitca?action=:action" }
+  ]
+}
