@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>台股每日起漲篩選系統</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <nav style="display:flex;gap:12px;padding:10px 20px;border-bottom:1px solid #262d36;background:#161b22;">
+        <a href="/index.html" style="color:#d6e2ee;text-decoration:none;padding:6px 12px;border-radius:6px;background:#1c232c;border:1px solid #262d36;font-size:14px;">起漲篩選</a>
+        <a href="/sitca.html" style="color:#8593a3;text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;">投信基金持股</a>
+      </nav>
+      <section class="workspace">
+        <aside class="controls" aria-label="篩選條件">
+          <div class="brand">
+            <div class="mark">TW</div>
+            <div>
+              <h1>每日台股起漲篩選</h1>
+              <p>全市場股票池、前一收盤日 K 線評分</p>
+            </div>
+          </div>
+
+          <div class="universe-box">
+            <div>
+              <span>股票池</span>
+              <strong id="universeCount">讀取中</strong>
+            </div>
+            <button id="refreshUniverse" class="secondary" type="button">更新股票池</button>
+          </div>
+
+          <div class="close-status">
+            <div>
+              <span>已蒐集收盤資料</span>
+              <strong id="closeCacheCount">讀取中</strong>
+              <small id="closeCacheDate">最新日期 -</small>
+            </div>
+            <button id="toggleCloseList" class="secondary" type="button">查看明細</button>
+          </div>
+
+          <div id="closeList" class="close-list hidden">
+            <div class="close-list-head">
+              <span>目前快取收盤價</span>
+              <button id="refreshCloseStatus" class="link-button" type="button">重新整理</button>
+            </div>
+            <div id="closeRows" class="close-rows">尚無資料</div>
+          </div>
+
+          <form id="screenForm">
+            <label class="field">
+              <span>篩選模式</span>
+              <select id="mode">
+                <option value="market" selected>全上市/上櫃股票</option>
+                <option value="manual">手動輸入代號</option>
+              </select>
+            </label>
+
+            <label class="field manual-only hidden">
+              <span>股票代號</span>
+              <textarea id="symbols" rows="4" spellcheck="false">2330,2317,2454,2308</textarea>
+            </label>
+
+            <div class="grid-two">
+              <label class="field">
+                <span>日 K 期間</span>
+                <select id="range">
+                  <option value="6mo">6 個月</option>
+                  <option value="1y" selected>1 年</option>
+                  <option value="2y">2 年</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>至少符合指標數</span>
+                <input id="minMatches" type="number" value="2" min="1" max="13" step="1" />
+              </label>
+            </div>
+
+            <section class="criteria-panel" aria-label="準備起漲條件">
+              <div class="criteria-head">
+                <span>準備起漲條件</span>
+                <button id="clearCriteria" class="link-button" type="button">清除</button>
+              </div>
+              <div class="criteria-grid">
+                <label><input type="checkbox" name="criteria" value="above_ma20" checked /> 站上 20 日線</label>
+                <label><input type="checkbox" name="criteria" value="above_ma60" checked /> 站上 60 日線</label>
+                <label><input type="checkbox" name="criteria" value="near_breakout_20d" checked /> 接近/突破 20 日高</label>
+                <label><input type="checkbox" name="criteria" value="volume_expansion" checked /> 量能放大</label>
+                <label><input type="checkbox" name="criteria" value="ma20_slope_up" checked /> 20 日線上彎</label>
+                <label><input type="checkbox" name="criteria" value="kd_golden" checked /> KD 黃金交叉</label>
+                <label><input type="checkbox" name="criteria" value="macd_rising" checked /> MACD 動能升溫</label>
+                <label><input type="checkbox" name="criteria" value="rsi_healthy" checked /> RSI 健康強勢</label>
+                <label><input type="checkbox" name="criteria" value="not_extended" checked /> 不過熱/乖離可控</label>
+              </div>
+            </section>
+
+            <div class="grid-two">
+              <label class="field">
+                <span>輸出檔數</span>
+                <input id="top" type="number" value="20" min="1" max="100" step="1" />
+              </label>
+            </div>
+
+            <div class="grid-two market-only">
+              <label class="check-field">
+                <input id="refreshPrices" type="checkbox" checked />
+                <span>更新日 K 快取</span>
+              </label>
+              <label class="field">
+                <span>平行抓取數</span>
+                <input id="workers" type="number" value="6" min="1" max="12" step="1" />
+              </label>
+            </div>
+
+            <button class="primary" type="button">
+              <span class="icon">↻</span>
+              執行每日篩選
+            </button>
+          </form>
+
+          <div class="note">
+            勾選條件會以「全部符合」過濾候選股。若不勾任何條件，系統只依分數排序。
+          </div>
+        </aside>
+
+        <section class="content" aria-live="polite">
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Daily Market Screener</p>
+              <h2>準備起漲候選清單</h2>
+            </div>
+            <div id="status" class="status">等待篩選</div>
+          </header>
+
+          <div class="summary" id="summary">
+            <div><span>分析檔數</span><strong>-</strong></div>
+            <div><span>達標檔數</span><strong>-</strong></div>
+            <div><span>最高命中</span><strong>-</strong></div>
+          </div>
+
+          <div id="progressPanel" class="progress-panel hidden">
+            <div class="progress-head">
+              <span id="progressText">準備處理</span>
+              <strong id="progressPercent">0%</strong>
+            </div>
+            <div class="progress-track">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <div id="progressDetail" class="progress-detail">已處理 0 / 0，成功 0，錯誤 0</div>
+          </div>
+
+          <section id="klinePanel" class="kline-panel hidden" aria-label="個股 K 線">
+            <div class="kline-head">
+              <div>
+                <span>個股 K 線</span>
+                <strong id="klineTitle">-</strong>
+              </div>
+              <button id="closeKline" class="secondary" type="button">關閉</button>
+            </div>
+            <div class="eps-toolbar">
+              <button id="lookupEps" class="secondary" type="button">查今年預估 EPS</button>
+            </div>
+            <div id="epsPanel" class="eps-panel hidden"></div>
+            <canvas id="klineCanvas" class="kline-canvas"></canvas>
+            <div id="klineSignals" class="signal-strip kline-signal-strip hidden"></div>
+          </section>
+
+          <div id="results" class="results empty">
+            <div class="empty-state">
+              <h3>執行全市場每日篩選</h3>
+              <p>依前一個可取得的收盤日 K 線計算指標，結果依符合條件數由多到少排列。</p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

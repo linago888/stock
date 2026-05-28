@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>投信基金持股追蹤｜SITCA 月前十大</title>
+    <link rel="stylesheet" href="/sitca.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="mark">SITCA</span>
+        <div>
+          <h1>投信基金月前十大持股追蹤</h1>
+          <p>
+            來源：中華民國證券投資信託暨顧問商業同業公會
+            <a href="https://www.sitca.org.tw/ROC/Industry/IN2629.aspx?pid=IN22601_04" target="_blank" rel="noopener">SITCA IN2629</a>
+          </p>
+        </div>
+      </div>
+      <nav>
+        <a href="/index.html">起漲篩選</a>
+        <a href="/sitca.html" class="active">基金持股</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="status-card" id="statusCard">
+        <div>
+          <span>資料月份</span>
+          <strong id="statMonths">-</strong>
+        </div>
+        <div>
+          <span>投信數</span>
+          <strong id="statCompanies">-</strong>
+        </div>
+        <div>
+          <span>總紀錄</span>
+          <strong id="statRows">-</strong>
+        </div>
+        <div>
+          <span>股票紀錄</span>
+          <strong id="statStockRows">-</strong>
+        </div>
+        <div class="status-actions">
+          <button id="refreshBtn" class="secondary" type="button">重新載入</button>
+          <button id="scrapeBtn" class="primary" type="button">爬取最新 6 個月</button>
+        </div>
+        <div id="scrapeProgress" class="scrape-progress hidden"></div>
+      </section>
+
+      <section class="filters">
+        <label class="field">
+          <span>查詢月份</span>
+          <select id="monthSelect"></select>
+        </label>
+        <label class="field">
+          <span>Top N</span>
+          <input id="topN" type="number" value="10" min="3" max="50" step="1" />
+        </label>
+        <label class="field">
+          <span>同步門檻 (delta)</span>
+          <input id="minDelta" type="number" value="3" min="2" max="20" step="1" />
+        </label>
+        <button id="applyBtn" class="primary" type="button">套用</button>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
+          <h2 id="topTitle">本月最多公司買進的股票 Top N</h2>
+          <span class="hint" id="topHint">點選列可看每月走勢</span>
+        </header>
+        <div class="table-wrap">
+          <table id="topTable" class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>代號</th>
+                <th>名稱</th>
+                <th>類型</th>
+                <th>持有公司數</th>
+                <th>持有基金數</th>
+                <th>總金額 (千)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel two-col">
+        <div>
+          <header class="panel-head">
+            <h2>半年同步買進 (公司數 delta ≥ 門檻)</h2>
+          </header>
+          <div class="table-wrap">
+            <table id="buyTable" class="data-table">
+              <thead>
+                <tr>
+                  <th>月份</th>
+                  <th>代號</th>
+                  <th>名稱</th>
+                  <th>前一月</th>
+                  <th>當月</th>
+                  <th>Δ</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <header class="panel-head">
+            <h2>半年同步賣出 (公司數 delta ≤ -門檻)</h2>
+          </header>
+          <div class="table-wrap">
+            <table id="sellTable" class="data-table">
+              <thead>
+                <tr>
+                  <th>月份</th>
+                  <th>代號</th>
+                  <th>名稱</th>
+                  <th>前一月</th>
+                  <th>當月</th>
+                  <th>Δ</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
+          <h2>各股票每月持有公司數矩陣 (Top 30)</h2>
+          <span class="hint">數字 = 該月有此股票在前十大的投信家數</span>
+        </header>
+        <div class="table-wrap matrix-wrap">
+          <table id="matrixTable" class="data-table matrix-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="detailPanel" class="panel hidden">
+        <header class="panel-head">
+          <h2 id="detailTitle">個股詳情</h2>
+          <button id="closeDetail" class="secondary" type="button">關閉</button>
+        </header>
+        <div id="detailSummary" class="detail-summary"></div>
+        <div class="table-wrap">
+          <table id="detailTable" class="data-table">
+            <thead>
+              <tr>
+                <th>月份</th>
+                <th>投信</th>
+                <th>基金名稱</th>
+                <th>名次</th>
+                <th>標的種類</th>
+                <th>金額 (千)</th>
+                <th>佔淨值 %</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="/sitca.js"></script>
+  </body>
+</html>

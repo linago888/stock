@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Project caches and scraped data
+data/sitca/*.csv
+data/sitca/_reports/
+data/sitca/*.html
+data/sitca/*.log
+data/market_prices/
+data/closes/
+data/prices/
+data/sitca_initial.html
+
+# Logs
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local Claude config
+.claude/
