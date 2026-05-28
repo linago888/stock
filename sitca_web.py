@@ -7,11 +7,13 @@ analysis helpers returning plain dicts (JSON-friendly).
 from __future__ import annotations
 
 import csv
+import re
 import threading
 import time
 import uuid
 from pathlib import Path
 from typing import Iterable
+from urllib.request import Request, urlopen
 
 import pandas as pd
 
@@ -389,10 +391,30 @@ def stock_detail(stock_id: str) -> dict:
     }
 
 
+SITCA_INDEX_URL = "https://www.sitca.org.tw/ROC/Industry/IN2629.aspx?pid=IN22601_04"
+
+
+def latest_remote_month() -> str | None:
+    """Fetch SITCA index and return the latest available YYYYMM."""
+    try:
+        req = Request(SITCA_INDEX_URL, headers={"User-Agent": "Mozilla/5.0"})
+        html = urlopen(req, timeout=15).read().decode("utf-8", "ignore")
+    except Exception:
+        return None
+    months = re.findall(r'<option[^>]*value="(\d{6})"', html)
+    return max(months) if months else None
+
+
 def _month_list(spec: str) -> list[str]:
     import datetime as dt
 
     spec = spec or "202511-202604"
+    spec = str(spec).strip()
+    if spec in ("auto", "latest"):
+        latest = latest_remote_month()
+        if latest is None:
+            return []
+        return [latest]
     a, b = (spec.split("-", 1) + [None])[:2] if "-" in spec else (spec, spec)
     start = dt.date(int(a[:4]), int(a[4:]), 1)
     end = dt.date(int(b[:4]), int(b[4:]), 1)
@@ -415,8 +437,16 @@ def _count_csvs_for(month_list: list[str]) -> int:
     return sum(1 for ym in month_list for _ in DATA_DIR.glob(f"{ym}_A*.csv"))
 
 
-def start_scrape_job(months: str = "", sleep: float = 0.6) -> dict:
-    """Spawn a background scrape job. Returns {job_id}."""
+def start_scrape_job(
+    months: str = "",
+    sleep: float = 0.6,
+    force: bool = False,
+) -> dict:
+    """Spawn a background scrape job.
+
+    months: "YYYYMM", "YYYYMM-YYYYMM", or "auto" / "latest" (detect from SITCA).
+    force: when True, scraper does NOT skip existing CSVs (full re-fetch).
+    """
     import subprocess
     import sys
 
@@ -425,6 +455,11 @@ def start_scrape_job(months: str = "", sleep: float = 0.6) -> dict:
     companies = _company_count()
     expected_total = len(month_list) * companies
     baseline = _count_csvs_for(month_list)
+    # passed to the subprocess: if month_list was resolved from 'auto', use
+    # an explicit range (single month) so the scraper doesn't repeat detection.
+    months_for_cli = (
+        f"{month_list[0]}-{month_list[-1]}" if month_list else (months or "202511-202604")
+    )
     JOBS[job_id] = {
         "id": job_id,
         "status": "running",
@@ -432,23 +467,36 @@ def start_scrape_job(months: str = "", sleep: float = 0.6) -> dict:
         "log_path": str(DATA_DIR / f"scrape_{job_id}.log"),
         "months": months,
         "month_list": month_list,
+        "resolved_months": months_for_cli,
         "company_count": companies,
         "expected_total": expected_total,
         "baseline": baseline,
+        "force": bool(force),
     }
 
     def worker() -> None:
         log = DATA_DIR / f"scrape_{job_id}.log"
         DATA_DIR.mkdir(parents=True, exist_ok=True)
+        if force:
+            # delete existing CSVs for the resolved months so progress restarts at 0
+            for ym in month_list:
+                for p in DATA_DIR.glob(f"{ym}_A*.csv"):
+                    try:
+                        p.unlink()
+                    except Exception:
+                        pass
+            # baseline is now 0 for these months
+            JOBS[job_id]["baseline"] = 0
         cmd = [
             sys.executable,
             str(ROOT / "sitca_scraper.py"),
             "--months",
-            months or "202511-202604",
+            months_for_cli,
             "--sleep",
             str(sleep),
-            "--resume",
         ]
+        if not force:
+            cmd.append("--resume")
         try:
             with log.open("w", encoding="utf-8") as fh:
                 proc = subprocess.run(

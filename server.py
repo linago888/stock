@@ -617,7 +617,10 @@ class Handler(SimpleHTTPRequestHandler):
             elif path == "/api/sitca/scrape":
                 months = str(payload.get("months", "") or "")
                 sleep = float(payload.get("sleep", 0.6))
-                self.send_json(sitca_web.start_scrape_job(months=months, sleep=sleep))
+                force = bool(payload.get("force", False))
+                self.send_json(
+                    sitca_web.start_scrape_job(months=months, sleep=sleep, force=force)
+                )
             else:
                 self.send_json(refresh_universe())
         except Exception as exc:

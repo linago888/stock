@@ -240,9 +240,23 @@ async function startScrape() {
   }
 }
 
+async function startScrapeLatest() {
+  if (!confirm("自動偵測 SITCA 最新月份並強制重抓（覆寫該月份 36 家投信 CSV，~1 分鐘）？")) return;
+  try {
+    const job = await postJSON("/api/sitca/scrape", {
+      months: "auto",
+      force: true,
+    });
+    pollScrape(job.job_id);
+  } catch (err) {
+    alert(`啟動爬蟲失敗：${err.message}`);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   $("#refreshBtn").addEventListener("click", refreshAll);
   $("#scrapeBtn").addEventListener("click", startScrape);
+  $("#scrapeLatestBtn").addEventListener("click", startScrapeLatest);
   $("#applyBtn").addEventListener("click", () => {
     loadTop();
     loadSync("buy", "buyTable");

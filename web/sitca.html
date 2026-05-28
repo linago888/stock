@@ -44,7 +44,8 @@
         </div>
         <div class="status-actions">
           <button id="refreshBtn" class="secondary" type="button">重新載入</button>
-          <button id="scrapeBtn" class="primary" type="button">爬取最新 6 個月</button>
+          <button id="scrapeLatestBtn" class="primary" type="button" title="自動偵測 SITCA 最新月份，強制覆寫該月所有投信 CSV">重抓最新月份</button>
+          <button id="scrapeBtn" class="secondary" type="button" title="使用 resume 模式爬取 202511-202604，已存在的檔案會略過">爬取最新 6 個月</button>
         </div>
         <div id="scrapeProgress" class="scrape-progress hidden">
           <div class="progress-head">
