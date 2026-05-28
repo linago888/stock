@@ -114,7 +114,7 @@ async function loadMatrix() {
   const headerRow = document.createElement("tr");
   headerRow.innerHTML =
     "<th>代號</th><th>名稱</th>" +
-    data.months.map((m) => `<th>${m.slice(2)}</th>`).join("");
+    data.months.map((m) => `<th>${m.slice(0, 4)}/${m.slice(4)}</th>`).join("");
   thead.appendChild(headerRow);
 
   data.rows.forEach((r) => {
