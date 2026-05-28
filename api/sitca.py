@@ -105,7 +105,10 @@ def action_top_stocks(params: dict[str, list[str]]) -> dict:
     )
     if month:
         sub = stats[stats["year_month"] == month].copy()
-        sub = sub.sort_values(["company_count", "total_amount"], ascending=[False, False]).head(limit)
+        sub = sub.sort_values(
+            ["fund_count", "company_count", "total_amount"],
+            ascending=[False, False, False],
+        ).head(limit)
         items = [
             {
                 "stock_id": r.stock_id,

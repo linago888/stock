@@ -52,7 +52,7 @@ async function loadTop() {
     `/api/sitca/top-stocks?month=${encodeURIComponent(month)}&limit=${limit}`
   );
   $("#topTitle").textContent = month
-    ? `${month} 月最多公司買進的股票 Top ${limit}`
+    ? `${month} 月最多基金持有的股票 Top ${limit}（依持有基金數排序）`
     : `半年內最多公司買進的股票 Top ${limit}`;
   const tbody = $("#topTable tbody");
   tbody.innerHTML = "";

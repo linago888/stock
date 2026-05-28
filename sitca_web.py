@@ -189,7 +189,8 @@ def top_stocks(month: str | None = None, limit: int = 10) -> list[dict]:
     if month:
         sub = stats[stats["year_month"] == month].copy()
         sub = sub.sort_values(
-            ["company_count", "total_amount"], ascending=[False, False]
+            ["fund_count", "company_count", "total_amount"],
+            ascending=[False, False, False],
         ).head(limit)
         return [
             {
