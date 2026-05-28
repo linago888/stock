@@ -27,7 +27,6 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 # 標的種類 keywords that count as stock (vs bond / fund / ETF / others)
 STOCK_TYPES = (
     "國內上市", "國內上櫃", "國內興櫃",
-    "國外股票", "國外存託憑證", "存託憑證",
 )
 
 

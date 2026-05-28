@@ -18,7 +18,6 @@ OUT_PATH = ROOT / "data" / "sitca_bundle.csv.gz"
 
 STOCK_TYPE_KEYWORDS = (
     "國內上市", "國內上櫃", "國內興櫃",
-    "國外股票", "存託憑證",
 )
 
 

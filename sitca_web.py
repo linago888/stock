@@ -22,7 +22,6 @@ DATA_DIR = ROOT / "data" / "sitca"
 
 STOCK_TYPE_KEYWORDS = (
     "國內上市", "國內上櫃", "國內興櫃",
-    "國外股票", "存託憑證",
 )
 
 _CACHE: dict[str, object] = {"mtime": 0.0, "df": None, "stocks": None}
