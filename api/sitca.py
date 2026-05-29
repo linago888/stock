@@ -358,11 +358,11 @@ def action_company_changes(params: dict[str, list[str]]) -> dict:
 
     added = [row(curr_idx, s) for s in added_ids]
     removed = [row(prev_idx, s) for s in removed_ids]
-    kept = []
+    kept_rows = []
     for s in kept_ids:
         c = row(curr_idx, s)
         p = row(prev_idx, s)
-        kept.append(
+        kept_rows.append(
             {
                 **c,
                 "prev_fund_count": p["fund_count"],
@@ -370,11 +370,25 @@ def action_company_changes(params: dict[str, list[str]]) -> dict:
                 "prev_best_rank": p["best_rank"],
                 "fund_delta": c["fund_count"] - p["fund_count"],
                 "amount_delta": c["amount"] - p["amount"],
+                "rank_delta": c["best_rank"] - p["best_rank"],
             }
         )
+
+    def _direction(r):
+        if r["fund_delta"]:
+            return 1 if r["fund_delta"] > 0 else -1
+        if r["amount_delta"]:
+            return 1 if r["amount_delta"] > 0 else -1
+        return 0
+
+    increased = [r for r in kept_rows if _direction(r) > 0]
+    decreased = [r for r in kept_rows if _direction(r) < 0]
+    flat = [r for r in kept_rows if _direction(r) == 0]
+
     added.sort(key=lambda r: (-r["fund_count"], r["best_rank"]))
     removed.sort(key=lambda r: (-r["fund_count"], r["best_rank"]))
-    kept.sort(key=lambda r: (-abs(r["fund_delta"]), -abs(r["amount_delta"])))
+    increased.sort(key=lambda r: (-r["fund_delta"], -r["amount_delta"]))
+    decreased.sort(key=lambda r: (r["fund_delta"], r["amount_delta"]))
 
     return {
         "company_id": company_id,
@@ -384,14 +398,19 @@ def action_company_changes(params: dict[str, list[str]]) -> dict:
         "available_months": months,
         "added": added,
         "removed": removed,
-        "kept": kept,
+        "increased": increased,
+        "decreased": decreased,
+        "flat": flat,
         "summary": {
             "added_count": len(added),
             "removed_count": len(removed),
-            "kept_count": len(kept),
+            "increased_count": len(increased),
+            "decreased_count": len(decreased),
+            "flat_count": len(flat),
             "added_amount": sum(r["amount"] for r in added),
             "removed_amount": sum(r["amount"] for r in removed),
-            "kept_amount_delta": sum(r["amount_delta"] for r in kept),
+            "increased_amount_delta": sum(r["amount_delta"] for r in increased),
+            "decreased_amount_delta": sum(r["amount_delta"] for r in decreased),
         },
     }
 

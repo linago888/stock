@@ -218,16 +218,19 @@ async function loadCompanyChanges() {
   $("#companySummary").innerHTML = `
     <div class="pill">投信<strong>${data.company_id} ${data.company_name}</strong></div>
     <div class="pill">比較<strong>${data.prev_month || "—"} → ${data.curr_month}</strong></div>
-    <div class="pill">新增<strong>${data.summary.added_count}</strong> 檔</div>
-    <div class="pill">退出<strong>${data.summary.removed_count}</strong> 檔</div>
-    <div class="pill">持有<strong>${data.summary.kept_count}</strong> 檔</div>
+    <div class="pill">新增標的<strong>${data.summary.added_count}</strong></div>
+    <div class="pill">移出標的<strong>${data.summary.removed_count}</strong></div>
+    <div class="pill">加碼<strong>${data.summary.increased_count}</strong></div>
+    <div class="pill">減碼<strong>${data.summary.decreased_count}</strong></div>
+    ${data.summary.flat_count ? `<div class="pill">持平<strong>${data.summary.flat_count}</strong></div>` : ""}
   `;
 
   $("#addedBadge").textContent = data.summary.added_count;
   $("#removedBadge").textContent = data.summary.removed_count;
-  $("#keptBadge").textContent = data.summary.kept_count;
+  $("#increasedBadge").textContent = data.summary.increased_count;
+  $("#decreasedBadge").textContent = data.summary.decreased_count;
 
-  const renderSide = (rows, tbodySel) => {
+  const renderEntry = (rows, tbodySel) => {
     const tb = document.querySelector(tbodySel);
     tb.innerHTML = rows
       .map(
@@ -245,28 +248,32 @@ async function loadCompanyChanges() {
       tr.addEventListener("click", () => openDetail(rows[i].stock_id));
     });
   };
-  renderSide(data.added, "#addedTable tbody");
-  renderSide(data.removed, "#removedTable tbody");
+  renderEntry(data.added, "#addedTable tbody");
+  renderEntry(data.removed, "#removedTable tbody");
 
-  const ktb = document.querySelector("#keptTable tbody");
-  ktb.innerHTML = data.kept
-    .map((r) => {
-      const fd = r.fund_delta;
-      const ad = r.amount_delta;
-      const fclass = fd > 0 ? "delta-pos" : fd < 0 ? "delta-neg" : "";
-      const aclass = ad > 0 ? "delta-pos" : ad < 0 ? "delta-neg" : "";
-      return `
+  const renderDelta = (rows, tbodySel) => {
+    const tb = document.querySelector(tbodySel);
+    tb.innerHTML = rows
+      .map((r) => {
+        const fd = r.fund_delta;
+        const ad = r.amount_delta;
+        const fclass = fd > 0 ? "delta-pos" : fd < 0 ? "delta-neg" : "";
+        const aclass = ad > 0 ? "delta-pos" : ad < 0 ? "delta-neg" : "";
+        return `
         <tr>
           <td>${r.stock_code}</td>
           <td>${r.stock_name}</td>
           <td class="num ${fclass}">${signedDelta(fd)} (${r.prev_fund_count}→${r.fund_count})</td>
-          <td class="num ${aclass}">${signedDelta(ad / 1)}</td>
+          <td class="num ${aclass}">${signedDelta(ad)}</td>
         </tr>`;
-    })
-    .join("");
-  ktb.querySelectorAll("tr").forEach((tr, i) => {
-    tr.addEventListener("click", () => openDetail(data.kept[i].stock_id));
-  });
+      })
+      .join("");
+    tb.querySelectorAll("tr").forEach((tr, i) => {
+      tr.addEventListener("click", () => openDetail(rows[i].stock_id));
+    });
+  };
+  renderDelta(data.increased, "#increasedTable tbody");
+  renderDelta(data.decreased, "#decreasedTable tbody");
 }
 
 async function refreshAll() {
