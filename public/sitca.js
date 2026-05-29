@@ -17,6 +17,16 @@ async function getJSON(url) {
   return res.json();
 }
 
+async function postJSON(url, body) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+  return res.json();
+}
+
 async function loadStatus() {
   const s = await getJSON("/api/sitca/status");
   $("#statMonths").textContent = s.months.length
@@ -152,14 +162,123 @@ async function openDetail(stockId) {
   panel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+async function loadCompanies() {
+  const data = await getJSON("/api/sitca/companies");
+  const sel = $("#companySelect");
+  sel.innerHTML = "";
+  data.companies.forEach((c) => {
+    const opt = document.createElement("option");
+    opt.value = c.id;
+    opt.textContent = `${c.id} ${c.name}`;
+    sel.appendChild(opt);
+  });
+}
+
+function fillMonthSelects(months, curr, prev) {
+  const c = $("#companyCurrMonth");
+  const p = $("#companyPrevMonth");
+  c.innerHTML = "";
+  p.innerHTML = "";
+  months.forEach((m) => {
+    const oc = document.createElement("option");
+    oc.value = m;
+    oc.textContent = m;
+    c.appendChild(oc);
+    const op = document.createElement("option");
+    op.value = m;
+    op.textContent = m;
+    p.appendChild(op);
+  });
+  if (curr) c.value = curr;
+  if (prev) p.value = prev;
+}
+
+const signedDelta = (n) => {
+  if (n == null || Number.isNaN(n)) return "";
+  const v = Math.round(n);
+  if (v === 0) return "0";
+  return (v > 0 ? "+" : "") + v.toLocaleString();
+};
+
+async function loadCompanyChanges() {
+  const company = $("#companySelect").value;
+  if (!company) return;
+  const curr = $("#companyCurrMonth").value;
+  const prev = $("#companyPrevMonth").value;
+  const url = `/api/sitca/company-changes?company=${encodeURIComponent(company)}` +
+    (curr ? `&curr=${curr}` : "") +
+    (prev ? `&prev=${prev}` : "");
+  const data = await getJSON(url);
+
+  // populate month selects if first call (when fields were empty)
+  if (!$("#companyCurrMonth").options.length) {
+    fillMonthSelects(data.available_months, data.curr_month, data.prev_month);
+  }
+
+  $("#companySummary").innerHTML = `
+    <div class="pill">投信<strong>${data.company_id} ${data.company_name}</strong></div>
+    <div class="pill">比較<strong>${data.prev_month || "—"} → ${data.curr_month}</strong></div>
+    <div class="pill">新增<strong>${data.summary.added_count}</strong> 檔</div>
+    <div class="pill">退出<strong>${data.summary.removed_count}</strong> 檔</div>
+    <div class="pill">持有<strong>${data.summary.kept_count}</strong> 檔</div>
+  `;
+
+  $("#addedBadge").textContent = data.summary.added_count;
+  $("#removedBadge").textContent = data.summary.removed_count;
+  $("#keptBadge").textContent = data.summary.kept_count;
+
+  const renderSide = (rows, tbodySel) => {
+    const tb = document.querySelector(tbodySel);
+    tb.innerHTML = rows
+      .map(
+        (r) => `
+        <tr>
+          <td>${r.stock_code}</td>
+          <td>${r.stock_name}</td>
+          <td class="num">${r.fund_count}</td>
+          <td class="num">${r.best_rank}</td>
+          <td class="num">${fmt(Math.round(r.amount))}</td>
+        </tr>`
+      )
+      .join("");
+    tb.querySelectorAll("tr").forEach((tr, i) => {
+      tr.addEventListener("click", () => openDetail(rows[i].stock_id));
+    });
+  };
+  renderSide(data.added, "#addedTable tbody");
+  renderSide(data.removed, "#removedTable tbody");
+
+  const ktb = document.querySelector("#keptTable tbody");
+  ktb.innerHTML = data.kept
+    .map((r) => {
+      const fd = r.fund_delta;
+      const ad = r.amount_delta;
+      const fclass = fd > 0 ? "delta-pos" : fd < 0 ? "delta-neg" : "";
+      const aclass = ad > 0 ? "delta-pos" : ad < 0 ? "delta-neg" : "";
+      return `
+        <tr>
+          <td>${r.stock_code}</td>
+          <td>${r.stock_name}</td>
+          <td class="num ${fclass}">${signedDelta(fd)} (${r.prev_fund_count}→${r.fund_count})</td>
+          <td class="num ${aclass}">${signedDelta(ad / 1)}</td>
+        </tr>`;
+    })
+    .join("");
+  ktb.querySelectorAll("tr").forEach((tr, i) => {
+    tr.addEventListener("click", () => openDetail(data.kept[i].stock_id));
+  });
+}
+
 async function refreshAll() {
   try {
     await loadStatus();
+    await loadCompanies();
     await Promise.all([
       loadTop(),
       loadSync("buy", "buyTable"),
       loadSync("sell", "sellTable"),
       loadMatrix(),
+      loadCompanyChanges(),
     ]);
   } catch (err) {
     console.error(err);
@@ -167,13 +286,97 @@ async function refreshAll() {
   }
 }
 
+function fmtDuration(sec) {
+  if (sec == null) return "—";
+  sec = Math.max(0, Math.round(sec));
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m > 0 ? `${m} 分 ${s} 秒` : `${s} 秒`;
+}
+
+async function pollScrape(jobId) {
+  const panel = $("#scrapeProgress");
+  const bar = $("#progressBar");
+  const pctEl = $("#progressPercent");
+  const statusEl = $("#progressStatus");
+  const detailEl = $("#progressDetail");
+  const logEl = $("#progressLog");
+  panel.classList.remove("hidden");
+  bar.style.width = "0%";
+  pctEl.textContent = "0%";
+  statusEl.className = "";
+  statusEl.textContent = "啟動中…";
+
+  while (true) {
+    const s = await getJSON(`/api/sitca/scrape-status?id=${jobId}`);
+    const total = s.expected_total || 216;
+    const done = s.csv_count || 0;
+    const pct = total > 0 ? Math.min(100, (done / total) * 100) : 0;
+    bar.style.width = pct.toFixed(1) + "%";
+    pctEl.textContent = pct.toFixed(0) + "%";
+
+    if (s.status === "done") {
+      statusEl.textContent = "✓ 爬取完成";
+      statusEl.className = "progress-status-done";
+    } else if (s.status === "error") {
+      statusEl.textContent = "✗ 發生錯誤";
+      statusEl.className = "progress-status-error";
+    } else {
+      statusEl.textContent = "爬取中…";
+      statusEl.className = "";
+    }
+
+    const baselineNote = s.baseline ? `（其中 ${s.baseline} 為先前已抓）` : "";
+    const eta = s.eta_sec != null && s.status === "running"
+      ? `，剩餘約 ${fmtDuration(s.eta_sec)}`
+      : "";
+    const elapsed = s.elapsed_sec != null
+      ? `，已耗時 ${fmtDuration(s.elapsed_sec)}`
+      : "";
+    detailEl.textContent = `已處理 ${done} / ${total}${baselineNote}${elapsed}${eta}`;
+    logEl.textContent = (s.log_tail || []).join("\n");
+
+    if (s.status === "done" || s.status === "error") break;
+    await new Promise((r) => setTimeout(r, 2000));
+  }
+  await refreshAll();
+}
+
+async function startScrape() {
+  if (!confirm("開始爬取最近 6 個月的基金持股資料？此動作會發送約 216 個 HTTP 請求，耗時約 3-5 分鐘。")) return;
+  try {
+    const job = await postJSON("/api/sitca/scrape", { months: "" });
+    pollScrape(job.job_id);
+  } catch (err) {
+    alert(`啟動爬蟲失敗：${err.message}`);
+  }
+}
+
+async function startScrapeLatest() {
+  if (!confirm("自動偵測 SITCA 最新月份並強制重抓（覆寫該月份 36 家投信 CSV，~1 分鐘）？")) return;
+  try {
+    const job = await postJSON("/api/sitca/scrape", {
+      months: "auto",
+      force: true,
+    });
+    pollScrape(job.job_id);
+  } catch (err) {
+    alert(`啟動爬蟲失敗：${err.message}`);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  $("#refreshBtn").addEventListener("click", refreshAll);
-  $("#applyBtn").addEventListener("click", () => {
+  $("#refreshBtn")?.addEventListener("click", refreshAll);
+  // Scrape buttons exist only on the local server build; ignore on Vercel.
+  $("#scrapeBtn")?.addEventListener("click", startScrape);
+  $("#scrapeLatestBtn")?.addEventListener("click", startScrapeLatest);
+  $("#applyBtn")?.addEventListener("click", () => {
     loadTop();
     loadSync("buy", "buyTable");
     loadSync("sell", "sellTable");
   });
-  $("#closeDetail").addEventListener("click", () => $("#detailPanel").classList.add("hidden"));
+  $("#closeDetail")?.addEventListener("click", () => $("#detailPanel").classList.add("hidden"));
+  $("#companyLoadBtn")?.addEventListener("click", loadCompanyChanges);
+  $("#companySelect")?.addEventListener("change", loadCompanyChanges);
   refreshAll();
 });

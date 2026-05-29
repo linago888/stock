@@ -287,6 +287,115 @@ def action_stock(params: dict[str, list[str]]) -> dict:
     }
 
 
+def action_company_changes(params: dict[str, list[str]]) -> dict:
+    company_id = params.get("company", [""])[0]
+    curr_month = params.get("curr", [""])[0]
+    prev_month = params.get("prev", [""])[0]
+    df = _load()
+    empty = {
+        "company_id": company_id,
+        "company_name": "",
+        "curr_month": "",
+        "prev_month": "",
+        "available_months": [],
+        "added": [],
+        "removed": [],
+        "kept": [],
+        "summary": {"added_count": 0, "removed_count": 0, "kept_count": 0},
+    }
+    if df.empty or not company_id:
+        return empty
+    sub = df[df["company_id"] == company_id]
+    if sub.empty:
+        return empty
+    company_name = sub["company_name"].iloc[0]
+    months = sorted(sub["year_month"].dropna().unique().tolist())
+    if not curr_month or curr_month not in months:
+        curr_month = months[-1]
+    if (not prev_month) or prev_month == curr_month or prev_month not in months:
+        idx = months.index(curr_month)
+        prev_month = months[idx - 1] if idx > 0 else ""
+
+    def _best_rank(s):
+        ranks = [int(x) for x in s if str(x).strip().isdigit()]
+        return min(ranks) if ranks else 99
+
+    def stock_agg(month: str):
+        m = sub[sub["year_month"] == month]
+        if m.empty:
+            return None
+        return (
+            m.groupby(["stock_id", "stock_code", "stock_name"])
+            .agg(
+                funds=("fund_name", lambda s: sorted(set(s))),
+                fund_count=("fund_name", "nunique"),
+                amount=("amount_num", "sum"),
+                best_rank=("rank", _best_rank),
+            )
+            .reset_index()
+            .set_index("stock_id")
+        )
+
+    curr_idx = stock_agg(curr_month)
+    prev_idx = stock_agg(prev_month) if prev_month else None
+    curr_ids = set(curr_idx.index) if curr_idx is not None else set()
+    prev_ids = set(prev_idx.index) if prev_idx is not None else set()
+    added_ids = curr_ids - prev_ids
+    removed_ids = prev_ids - curr_ids
+    kept_ids = curr_ids & prev_ids
+
+    def row(idx, sid):
+        r = idx.loc[sid]
+        return {
+            "stock_id": sid,
+            "stock_code": r["stock_code"],
+            "stock_name": r["stock_name"],
+            "fund_count": int(r["fund_count"]),
+            "funds": list(r["funds"]),
+            "amount": float(r["amount"]),
+            "best_rank": int(r["best_rank"]),
+        }
+
+    added = [row(curr_idx, s) for s in added_ids]
+    removed = [row(prev_idx, s) for s in removed_ids]
+    kept = []
+    for s in kept_ids:
+        c = row(curr_idx, s)
+        p = row(prev_idx, s)
+        kept.append(
+            {
+                **c,
+                "prev_fund_count": p["fund_count"],
+                "prev_amount": p["amount"],
+                "prev_best_rank": p["best_rank"],
+                "fund_delta": c["fund_count"] - p["fund_count"],
+                "amount_delta": c["amount"] - p["amount"],
+            }
+        )
+    added.sort(key=lambda r: (-r["fund_count"], r["best_rank"]))
+    removed.sort(key=lambda r: (-r["fund_count"], r["best_rank"]))
+    kept.sort(key=lambda r: (-abs(r["fund_delta"]), -abs(r["amount_delta"])))
+
+    return {
+        "company_id": company_id,
+        "company_name": company_name,
+        "curr_month": curr_month,
+        "prev_month": prev_month,
+        "available_months": months,
+        "added": added,
+        "removed": removed,
+        "kept": kept,
+        "summary": {
+            "added_count": len(added),
+            "removed_count": len(removed),
+            "kept_count": len(kept),
+            "added_amount": sum(r["amount"] for r in added),
+            "removed_amount": sum(r["amount"] for r in removed),
+            "kept_amount_delta": sum(r["amount_delta"] for r in kept),
+        },
+    }
+
+
 HANDLERS = {
     "status": lambda p: action_status(),
     "months": lambda p: action_months(),
@@ -295,6 +404,7 @@ HANDLERS = {
     "matrix": action_matrix,
     "sync": action_sync,
     "stock": action_stock,
+    "company-changes": action_company_changes,
 }
 
 

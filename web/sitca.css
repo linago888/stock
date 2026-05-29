@@ -163,6 +163,52 @@ nav a.active { color: var(--text); background: var(--panel-2); border: 1px solid
 .progress-status-done { color: var(--green); }
 .progress-status-error { color: var(--red); }
 
+.company-filters { margin-bottom: 14px; flex-wrap: wrap; }
+.company-summary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.company-summary .pill strong { color: var(--text); margin-left: 4px; }
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 1100px) {
+  .company-grid { grid-template-columns: 1fr; }
+}
+.company-col {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.company-col h3 {
+  font-size: 13px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.company-table-wrap { max-height: 360px; overflow: auto; }
+.badge {
+  display: inline-block;
+  min-width: 24px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font-size: 11px;
+  text-align: center;
+  font-weight: 600;
+}
+.badge-pos { background: rgba(74, 222, 128, 0.18); color: var(--green); border-color: rgba(74, 222, 128, 0.4); }
+.badge-neg { background: rgba(248, 113, 113, 0.18); color: var(--red); border-color: rgba(248, 113, 113, 0.4); }
+
 .filters {
   display: flex;
   gap: 14px;

@@ -437,6 +437,145 @@ def _count_csvs_for(month_list: list[str]) -> int:
     return sum(1 for ym in month_list for _ in DATA_DIR.glob(f"{ym}_A*.csv"))
 
 
+def company_changes(
+    company_id: str,
+    curr_month: str = "",
+    prev_month: str = "",
+) -> dict:
+    """Per-company month-over-month domestic stock holdings diff."""
+    df = load_stocks()
+    if df.empty or not company_id:
+        return {
+            "company_id": company_id,
+            "company_name": "",
+            "curr_month": "",
+            "prev_month": "",
+            "available_months": [],
+            "added": [],
+            "removed": [],
+            "kept": [],
+            "summary": {"added_count": 0, "removed_count": 0, "kept_count": 0},
+        }
+    sub = df[df["company_id"] == company_id]
+    if sub.empty:
+        return {
+            "company_id": company_id,
+            "company_name": "",
+            "curr_month": "",
+            "prev_month": "",
+            "available_months": [],
+            "added": [],
+            "removed": [],
+            "kept": [],
+            "summary": {"added_count": 0, "removed_count": 0, "kept_count": 0},
+        }
+
+    company_name = sub["company_name"].iloc[0]
+    months = sorted(sub["year_month"].dropna().unique().tolist())
+    if not curr_month or curr_month not in months:
+        curr_month = months[-1]
+    if (not prev_month) or prev_month == curr_month or prev_month not in months:
+        idx = months.index(curr_month)
+        prev_month = months[idx - 1] if idx > 0 else ""
+
+    def _best_rank(s) -> int:
+        ranks = [int(x) for x in s if str(x).strip().isdigit()]
+        return min(ranks) if ranks else 99
+
+    def stock_agg(month: str):
+        m = sub[sub["year_month"] == month]
+        if m.empty:
+            return pd.DataFrame(
+                columns=[
+                    "stock_id",
+                    "stock_code",
+                    "stock_name",
+                    "funds",
+                    "fund_count",
+                    "amount",
+                    "best_rank",
+                ]
+            )
+        g = (
+            m.groupby(["stock_id", "stock_code", "stock_name"])
+            .agg(
+                funds=("fund_name", lambda s: sorted(set(s))),
+                fund_count=("fund_name", "nunique"),
+                amount=("amount_num", "sum"),
+                best_rank=("rank", _best_rank),
+            )
+            .reset_index()
+        )
+        return g
+
+    curr_df = stock_agg(curr_month)
+    prev_df = stock_agg(prev_month) if prev_month else pd.DataFrame()
+
+    curr_index = curr_df.set_index("stock_id") if not curr_df.empty else None
+    prev_index = prev_df.set_index("stock_id") if not prev_df.empty else None
+
+    curr_ids = set(curr_index.index) if curr_index is not None else set()
+    prev_ids = set(prev_index.index) if prev_index is not None else set()
+
+    added_ids = curr_ids - prev_ids
+    removed_ids = prev_ids - curr_ids
+    kept_ids = curr_ids & prev_ids
+
+    def to_row(df_idx, stock_id: str) -> dict:
+        r = df_idx.loc[stock_id]
+        return {
+            "stock_id": stock_id,
+            "stock_code": r["stock_code"],
+            "stock_name": r["stock_name"],
+            "fund_count": int(r["fund_count"]),
+            "funds": list(r["funds"]),
+            "amount": float(r["amount"]),
+            "best_rank": int(r["best_rank"]),
+        }
+
+    added = [to_row(curr_index, sid) for sid in added_ids]
+    removed = [to_row(prev_index, sid) for sid in removed_ids]
+    kept = []
+    for sid in kept_ids:
+        c = to_row(curr_index, sid)
+        p = to_row(prev_index, sid)
+        kept.append(
+            {
+                **c,
+                "prev_fund_count": p["fund_count"],
+                "prev_amount": p["amount"],
+                "prev_best_rank": p["best_rank"],
+                "fund_delta": c["fund_count"] - p["fund_count"],
+                "amount_delta": c["amount"] - p["amount"],
+            }
+        )
+
+    added.sort(key=lambda r: (-r["fund_count"], r["best_rank"]))
+    removed.sort(key=lambda r: (-r["fund_count"], r["best_rank"]))
+    kept.sort(
+        key=lambda r: (-abs(r["fund_delta"]), -abs(r["amount_delta"]))
+    )
+
+    return {
+        "company_id": company_id,
+        "company_name": company_name,
+        "curr_month": curr_month,
+        "prev_month": prev_month,
+        "available_months": months,
+        "added": added,
+        "removed": removed,
+        "kept": kept,
+        "summary": {
+            "added_count": len(added),
+            "removed_count": len(removed),
+            "kept_count": len(kept),
+            "added_amount": sum(r["amount"] for r in added),
+            "removed_amount": sum(r["amount"] for r in removed),
+            "kept_amount_delta": sum(r["amount_delta"] for r in kept),
+        },
+    }
+
+
 def start_scrape_job(
     months: str = "",
     sleep: float = 0.6,

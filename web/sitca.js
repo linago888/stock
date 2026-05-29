@@ -159,14 +159,123 @@ async function openDetail(stockId) {
   panel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+async function loadCompanies() {
+  const data = await getJSON("/api/sitca/companies");
+  const sel = $("#companySelect");
+  sel.innerHTML = "";
+  data.companies.forEach((c) => {
+    const opt = document.createElement("option");
+    opt.value = c.id;
+    opt.textContent = `${c.id} ${c.name}`;
+    sel.appendChild(opt);
+  });
+}
+
+function fillMonthSelects(months, curr, prev) {
+  const c = $("#companyCurrMonth");
+  const p = $("#companyPrevMonth");
+  c.innerHTML = "";
+  p.innerHTML = "";
+  months.forEach((m) => {
+    const oc = document.createElement("option");
+    oc.value = m;
+    oc.textContent = m;
+    c.appendChild(oc);
+    const op = document.createElement("option");
+    op.value = m;
+    op.textContent = m;
+    p.appendChild(op);
+  });
+  if (curr) c.value = curr;
+  if (prev) p.value = prev;
+}
+
+const signedDelta = (n) => {
+  if (n == null || Number.isNaN(n)) return "";
+  const v = Math.round(n);
+  if (v === 0) return "0";
+  return (v > 0 ? "+" : "") + v.toLocaleString();
+};
+
+async function loadCompanyChanges() {
+  const company = $("#companySelect").value;
+  if (!company) return;
+  const curr = $("#companyCurrMonth").value;
+  const prev = $("#companyPrevMonth").value;
+  const url = `/api/sitca/company-changes?company=${encodeURIComponent(company)}` +
+    (curr ? `&curr=${curr}` : "") +
+    (prev ? `&prev=${prev}` : "");
+  const data = await getJSON(url);
+
+  // populate month selects if first call (when fields were empty)
+  if (!$("#companyCurrMonth").options.length) {
+    fillMonthSelects(data.available_months, data.curr_month, data.prev_month);
+  }
+
+  $("#companySummary").innerHTML = `
+    <div class="pill">投信<strong>${data.company_id} ${data.company_name}</strong></div>
+    <div class="pill">比較<strong>${data.prev_month || "—"} → ${data.curr_month}</strong></div>
+    <div class="pill">新增<strong>${data.summary.added_count}</strong> 檔</div>
+    <div class="pill">退出<strong>${data.summary.removed_count}</strong> 檔</div>
+    <div class="pill">持有<strong>${data.summary.kept_count}</strong> 檔</div>
+  `;
+
+  $("#addedBadge").textContent = data.summary.added_count;
+  $("#removedBadge").textContent = data.summary.removed_count;
+  $("#keptBadge").textContent = data.summary.kept_count;
+
+  const renderSide = (rows, tbodySel) => {
+    const tb = document.querySelector(tbodySel);
+    tb.innerHTML = rows
+      .map(
+        (r) => `
+        <tr>
+          <td>${r.stock_code}</td>
+          <td>${r.stock_name}</td>
+          <td class="num">${r.fund_count}</td>
+          <td class="num">${r.best_rank}</td>
+          <td class="num">${fmt(Math.round(r.amount))}</td>
+        </tr>`
+      )
+      .join("");
+    tb.querySelectorAll("tr").forEach((tr, i) => {
+      tr.addEventListener("click", () => openDetail(rows[i].stock_id));
+    });
+  };
+  renderSide(data.added, "#addedTable tbody");
+  renderSide(data.removed, "#removedTable tbody");
+
+  const ktb = document.querySelector("#keptTable tbody");
+  ktb.innerHTML = data.kept
+    .map((r) => {
+      const fd = r.fund_delta;
+      const ad = r.amount_delta;
+      const fclass = fd > 0 ? "delta-pos" : fd < 0 ? "delta-neg" : "";
+      const aclass = ad > 0 ? "delta-pos" : ad < 0 ? "delta-neg" : "";
+      return `
+        <tr>
+          <td>${r.stock_code}</td>
+          <td>${r.stock_name}</td>
+          <td class="num ${fclass}">${signedDelta(fd)} (${r.prev_fund_count}→${r.fund_count})</td>
+          <td class="num ${aclass}">${signedDelta(ad / 1)}</td>
+        </tr>`;
+    })
+    .join("");
+  ktb.querySelectorAll("tr").forEach((tr, i) => {
+    tr.addEventListener("click", () => openDetail(data.kept[i].stock_id));
+  });
+}
+
 async function refreshAll() {
   try {
     await loadStatus();
+    await loadCompanies();
     await Promise.all([
       loadTop(),
       loadSync("buy", "buyTable"),
       loadSync("sell", "sellTable"),
       loadMatrix(),
+      loadCompanyChanges(),
     ]);
   } catch (err) {
     console.error(err);
@@ -263,5 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadSync("sell", "sellTable");
   });
   $("#closeDetail").addEventListener("click", () => $("#detailPanel").classList.add("hidden"));
+  $("#companyLoadBtn").addEventListener("click", loadCompanyChanges);
+  $("#companySelect").addEventListener("change", loadCompanyChanges);
   refreshAll();
 });

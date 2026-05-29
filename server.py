@@ -581,6 +581,18 @@ class Handler(SimpleHTTPRequestHandler):
                 stock_id = params.get("id", [""])[0]
                 self.send_json(sitca_web.stock_detail(stock_id))
                 return
+            if path == "/api/sitca/company-changes":
+                from urllib.parse import parse_qs
+
+                params = parse_qs(query)
+                self.send_json(
+                    sitca_web.company_changes(
+                        company_id=params.get("company", [""])[0],
+                        curr_month=params.get("curr", [""])[0],
+                        prev_month=params.get("prev", [""])[0],
+                    )
+                )
+                return
             if path == "/api/sitca/scrape-status":
                 from urllib.parse import parse_qs
 

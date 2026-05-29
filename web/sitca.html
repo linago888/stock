@@ -158,6 +158,64 @@
         </div>
       </section>
 
+      <section class="panel">
+        <header class="panel-head">
+          <h2>投信公司國內股票持股變化</h2>
+          <span class="hint">比較同一家投信在前後兩個月份的前十大持股差異</span>
+        </header>
+        <div class="filters company-filters">
+          <label class="field">
+            <span>投信公司</span>
+            <select id="companySelect"></select>
+          </label>
+          <label class="field">
+            <span>當月</span>
+            <select id="companyCurrMonth"></select>
+          </label>
+          <label class="field">
+            <span>比較月份 (前)</span>
+            <select id="companyPrevMonth"></select>
+          </label>
+          <button id="companyLoadBtn" class="primary" type="button">查詢變化</button>
+        </div>
+        <div id="companySummary" class="company-summary"></div>
+        <div class="company-grid">
+          <div class="company-col">
+            <header class="panel-head">
+              <h3>🟢 新增持股 <span class="badge badge-pos" id="addedBadge">0</span></h3>
+            </header>
+            <div class="table-wrap company-table-wrap">
+              <table class="data-table" id="addedTable">
+                <thead><tr><th>代號</th><th>名稱</th><th class="num">基金</th><th class="num">最佳名次</th><th class="num">金額(千)</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="company-col">
+            <header class="panel-head">
+              <h3>🔴 退出持股 <span class="badge badge-neg" id="removedBadge">0</span></h3>
+            </header>
+            <div class="table-wrap company-table-wrap">
+              <table class="data-table" id="removedTable">
+                <thead><tr><th>代號</th><th>名稱</th><th class="num">基金</th><th class="num">最佳名次</th><th class="num">金額(千)</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="company-col">
+            <header class="panel-head">
+              <h3>⚪ 持有變化 <span class="badge" id="keptBadge">0</span></h3>
+            </header>
+            <div class="table-wrap company-table-wrap">
+              <table class="data-table" id="keptTable">
+                <thead><tr><th>代號</th><th>名稱</th><th class="num">基金 Δ</th><th class="num">金額 Δ(千)</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="detailPanel" class="panel hidden">
         <header class="panel-head">
           <h2 id="detailTitle">個股詳情</h2>
