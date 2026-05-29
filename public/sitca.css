@@ -206,8 +206,9 @@ nav a.active { color: var(--text); background: var(--panel-2); border: 1px solid
   text-align: center;
   font-weight: 600;
 }
-.badge-pos { background: rgba(74, 222, 128, 0.18); color: var(--green); border-color: rgba(74, 222, 128, 0.4); }
-.badge-neg { background: rgba(248, 113, 113, 0.18); color: var(--red); border-color: rgba(248, 113, 113, 0.4); }
+/* TW market colors: positive = red, negative = green */
+.badge-pos { background: rgba(248, 113, 113, 0.18); color: var(--red); border-color: rgba(248, 113, 113, 0.4); }
+.badge-neg { background: rgba(74, 222, 128, 0.18); color: var(--green); border-color: rgba(74, 222, 128, 0.4); }
 
 .filters {
   display: flex;
@@ -316,8 +317,9 @@ button.secondary:hover { background: var(--panel-2); }
   cursor: pointer;
 }
 .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
-.data-table .delta-pos { color: var(--green); font-weight: 600; }
-.data-table .delta-neg { color: var(--red); font-weight: 600; }
+/* TW market colors: positive = red (漲), negative = green (跌) */
+.data-table .delta-pos { color: var(--red); font-weight: 600; }
+.data-table .delta-neg { color: var(--green); font-weight: 600; }
 
 .matrix-wrap { max-height: 600px; overflow: auto; }
 .matrix-table th, .matrix-table td { padding: 6px 8px; }
