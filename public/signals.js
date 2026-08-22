@@ -152,14 +152,29 @@ async function loadTopRank() {
     ? `${data.total_signals} 筆訊號涵蓋 ${data.stocks_with_signal} 檔股票 · 掃描 ${data.backfill_window?.start} → ${data.backfill_window?.end}`
     : "尚無資料";
   const tbody = document.querySelector("#topRankTable tbody");
+  const techLabelMap = {
+    breakout_zone: { text: "🎯 突破區", cls: "tech-breakout" },
+    flying: { text: "🚀 已飛", cls: "tech-flying" },
+    weak: { text: "📉 弱勢", cls: "tech-weak" },
+    quiet: { text: "😴 平淡", cls: "tech-quiet" },
+  };
   tbody.innerHTML = data.items.map((it, idx) => {
     const own = new Set(it.own_labels_hit || []);
     const chips = it.labels_hit.map((l) =>
       `<span class="label-chip${own.has(l) ? '' : ' proxy'}">${l}${own.has(l) ? '' : '*'}</span>`
     ).join(" ");
     const latest = it.subjects[0]?.subject || "";
-    const bd = `訊號 ${it.signal_score} + 多元 ${it.diversity_bonus} + 集中 ${it.concentration_bonus} + 近期 ${it.recency_bonus}`;
+    const bd = `訊號 ${it.signal_score} + 多元 ${it.diversity_bonus} + 集中 ${it.concentration_bonus} + 近期 ${it.recency_bonus}${it.tech_bonus ? ` + 技術 ${it.tech_bonus > 0 ? '+' : ''}${it.tech_bonus}` : ""}`;
     const proxyPct = it.proxy_ratio != null ? Math.round(it.proxy_ratio * 100) : 0;
+    const tech = it.tech || {};
+    const tl = techLabelMap[tech.tech_signal] || { text: "—", cls: "" };
+    const techCell = tech.tech_signal
+      ? `<span class="tech-badge ${tl.cls}">${tl.text}</span><div class="subj-preview">收 ${tech.last_close} · vs 20 高 ${Math.round((tech.close_vs_20d_high || 0) * 100)}% · 量比 ${tech.volume_vs_20d_avg}×</div>`
+      : "—";
+    const mom = tech.mom_30d_pct;
+    const momCell = mom != null
+      ? `<span class="${mom > 0 ? 'delta-pos' : mom < 0 ? 'delta-neg' : ''}">${mom > 0 ? '+' : ''}${mom.toFixed(1)}%</span>`
+      : "—";
     return `
       <tr class="top-rank-row">
         <td><b>${idx + 1}</b></td>
@@ -168,7 +183,8 @@ async function loadTopRank() {
         <td class="num score-cell">${it.score}</td>
         <td class="num">${it.signal_count}${proxyPct >= 50 ? `<div class="proxy-note">代子${proxyPct}%</div>` : ""}</td>
         <td><div class="label-chips">${chips}</div></td>
-        <td class="num">${it.max_same_day}</td>
+        <td>${techCell}</td>
+        <td class="num">${momCell}</td>
         <td>${it.latest_date}<div class="subj-preview">${latest.substring(0, 40)}${latest.length > 40 ? "…" : ""}</div></td>
         <td class="score-detail">${bd}</td>
       </tr>

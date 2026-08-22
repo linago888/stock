@@ -73,6 +73,66 @@ def pick_liquid_stocks(min_avg_volume: float, limit: int) -> list[str]:
     return [c for _, c in scored[:limit]]
 
 
+def compute_tech_metrics(co_id: str) -> dict:
+    """Compute short-term price/volume metrics for a stock.
+
+    Returns:
+      last_close, last_date, close_vs_20d_high, close_vs_20d_ma,
+      volume_vs_20d_avg, mom_30d_pct (last close vs 30d ago close),
+      already_moved (mom_30d_pct >= 15%),
+      tech_signal: 'breakout_zone' | 'flying' | 'weak' | 'quiet'
+    """
+    for suffix in (".TW", ".TWO"):
+        p = PRICE_DIR / f"{co_id}{suffix}.csv"
+        if p.exists():
+            break
+    else:
+        return {}
+    try:
+        df = pd.read_csv(p)
+    except Exception:
+        return {}
+    if len(df) < 30:
+        return {}
+    df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    df = df.dropna(subset=["date", "close", "volume"]).sort_values("date").reset_index(drop=True)
+    if len(df) < 30:
+        return {}
+    last = df.iloc[-1]
+    last_close = float(last["close"])
+    last_vol = float(last["volume"])
+    win20 = df.tail(20)
+    high20 = float(win20["close"].max())
+    ma20 = float(win20["close"].mean())
+    vol20 = float(win20["volume"].mean()) or 1.0
+    close_ago_30d = float(df.iloc[-min(30, len(df) - 1)]["close"])
+    mom_30d = (last_close - close_ago_30d) / close_ago_30d if close_ago_30d else 0.0
+
+    close_vs_high = last_close / high20 if high20 else 0.0
+    close_vs_ma = last_close / ma20 if ma20 else 0.0
+    vol_ratio = last_vol / vol20 if vol20 else 0.0
+
+    if close_vs_high > 1.03 or mom_30d > 0.20:
+        tech = "flying"           # already broke out — too late
+    elif 0.95 <= close_vs_high <= 1.03 and vol_ratio > 1.5:
+        tech = "breakout_zone"    # imminent / at breakout — best zone
+    elif close_vs_ma < 0.97:
+        tech = "weak"             # below MA — no momentum
+    else:
+        tech = "quiet"            # neutral
+
+    return {
+        "last_close": round(last_close, 2),
+        "last_date": last["date"].strftime("%Y-%m-%d"),
+        "close_vs_20d_high": round(close_vs_high, 3),
+        "close_vs_20d_ma": round(close_vs_ma, 3),
+        "volume_vs_20d_avg": round(vol_ratio, 2),
+        "mom_30d_pct": round(mom_30d * 100, 1),
+        "already_moved": bool(mom_30d >= 0.15),
+        "tech_signal": tech,
+    }
+
+
 def scan_one(session_reuse: bool, co_id: str, market: str, start: dt.date, end: dt.date):
     """Wrapper around scrape_range with per-symbol JSON cache."""
     from mops_scraper import scrape_range as _scrape
@@ -104,6 +164,7 @@ def main() -> int:
 
     all_matches: list[dict] = []
     surge_history = load_surge_history(within_days=60)
+    tech_cache: dict[str, dict] = {}
     for i, code in enumerate(stocks, 1):
         info = universe.get(code)
         if not info:
@@ -114,6 +175,10 @@ def main() -> int:
         except Exception as exc:
             print(f"[WARN] {code}: {exc}", file=sys.stderr)
             continue
+        tech = tech_cache.get(code)
+        if tech is None:
+            tech = compute_tech_metrics(code) or {}
+            tech_cache[code] = tech
         for a in rows:
             labels, kws = classify(a.get("subject", ""))
             if not labels:
@@ -130,6 +195,7 @@ def main() -> int:
                 "matched_keywords": kws,
                 "already_surged": recent_t0 is not None,
                 "days_since_surge": (dt.date.today() - recent_t0).days if recent_t0 else None,
+                "tech": tech,
             })
         if i % 25 == 0:
             print(f"  {i}/{len(stocks)} scanned, matches so far: {len(all_matches)}", flush=True)

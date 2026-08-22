@@ -332,26 +332,42 @@ def _score_stock(anns: list[dict], latest_signal_date: str) -> dict:
         pass
 
     proxy_ratio = sum(1 for a in anns if _is_proxy(a.get("subject", ""))) / max(1, len(anns))
-    total = signal_score + diversity_bonus + concentration_bonus + recency_bonus
+    # Technical adjustment: use first ann's tech snapshot (all anns for the
+    # same stock share the same tech snapshot from the scan).
+    tech = next((a.get("tech") for a in anns if a.get("tech")), {}) or {}
+    tech_signal = tech.get("tech_signal", "")
+    tech_bonus_map = {"breakout_zone": 5.0, "flying": -10.0, "weak": -3.0, "quiet": 0.0}
+    tech_bonus = tech_bonus_map.get(tech_signal, 0.0)
+
+    total = signal_score + diversity_bonus + concentration_bonus + recency_bonus + tech_bonus
     return {
         "signal_score": round(signal_score, 2),
         "diversity_bonus": round(diversity_bonus, 2),
         "concentration_bonus": concentration_bonus,
         "recency_bonus": recency_bonus,
+        "tech_bonus": tech_bonus,
         "score": round(total, 2),
         "labels_hit": sorted(labels_hit),
         "own_labels_hit": sorted(own_labels_hit),
         "max_same_day": max_same_day,
         "proxy_ratio": round(proxy_ratio, 2),
+        "tech": tech,
     }
 
 
 def watchlist_ranked(limit: int = 10, exclude_surged: bool = True) -> dict:
-    """Return top-N stocks in the watchlist ranked by surge-probability heuristic."""
+    """Return top-N stocks in the watchlist ranked by surge-probability heuristic.
+
+    exclude_surged also filters items whose tech snapshot marks the stock as
+    already_moved (30-day momentum >= 15%) — those have "already moved" and
+    aren't good forward-looking candidates.
+    """
     scan = watchlist_scan()
     items = scan.get("items") or []
     if exclude_surged:
-        items = [i for i in items if not i.get("already_surged")]
+        items = [i for i in items
+                 if not i.get("already_surged")
+                 and not (i.get("tech") or {}).get("already_moved")]
 
     # group by (co_id, name)
     from collections import defaultdict

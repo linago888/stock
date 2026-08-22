@@ -133,6 +133,18 @@
 .subj-preview { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .label-chip.proxy { opacity: 0.55; font-style: italic; }
 .proxy-note { font-size: 10px; color: var(--amber); margin-top: 2px; }
+.tech-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+}
+.tech-breakout { background: rgba(248,113,113,0.18); color: var(--red); border-color: rgba(248,113,113,0.4); }
+.tech-flying   { background: rgba(74,222,128,0.18); color: var(--green); border-color: rgba(74,222,128,0.4); }
+.tech-weak     { background: rgba(96,165,250,0.10); color: var(--muted); }
+.tech-quiet    { background: transparent; color: var(--muted); }
 
 .label-chips {
   display: flex;
