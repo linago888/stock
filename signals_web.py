@@ -270,23 +270,49 @@ CATEGORY_WEIGHTS = {
 }
 
 
+PROXY_PREFIXES = ("代", "本公司代", "代重要子公司", "代子公司")
+
+
+def _is_proxy(subject: str) -> bool:
+    """A '代...公告' announcement is a parent company forwarding a subsidiary's news.
+    Halve its weight — the subsidiary's action is not the parent's own catalyst."""
+    if not subject:
+        return False
+    s = subject.lstrip()
+    return any(s.startswith(p) for p in PROXY_PREFIXES)
+
+
 def _score_stock(anns: list[dict], latest_signal_date: str) -> dict:
     """Score one stock aggregated across its 14-day announcements."""
     from collections import Counter, defaultdict
     import datetime as dt
 
     labels_hit: set[str] = set()
-    label_counts: Counter = Counter()
+    label_counts: Counter = Counter()      # (label, is_proxy) -> count
+    proxy_labels_hit: set[str] = set()
+    own_labels_hit: set[str] = set()
     for a in anns:
+        proxy = _is_proxy(a.get("subject", ""))
         for lbl in a.get("labels", []):
             labels_hit.add(lbl)
-            label_counts[lbl] += 1
+            if proxy:
+                proxy_labels_hit.add(lbl)
+                label_counts[(lbl, True)] += 1
+            else:
+                own_labels_hit.add(lbl)
+                label_counts[(lbl, False)] += 1
 
-    signal_score = sum(
-        CATEGORY_WEIGHTS.get(lbl, 0.5) * cnt
-        for lbl, cnt in label_counts.items()
-    )
-    diversity_bonus = 1.5 * len(labels_hit)  # multi-category = stronger signal
+    # own signals full weight; proxy signals half weight
+    signal_score = 0.0
+    for (lbl, is_proxy), cnt in label_counts.items():
+        w = CATEGORY_WEIGHTS.get(lbl, 0.5)
+        if is_proxy:
+            w *= 0.5
+        signal_score += w * cnt
+
+    # diversity: only own-signal categories count fully; proxy-only categories at half
+    diversity_bonus = 1.5 * len(own_labels_hit) + 0.5 * len(proxy_labels_hit - own_labels_hit)
+
     day_counts: Counter = Counter(a.get("date", "") for a in anns)
     max_same_day = max(day_counts.values()) if day_counts else 0
     concentration_bonus = 2.0 if max_same_day >= 3 else (1.0 if max_same_day >= 2 else 0.0)
@@ -305,6 +331,7 @@ def _score_stock(anns: list[dict], latest_signal_date: str) -> dict:
     except Exception:
         pass
 
+    proxy_ratio = sum(1 for a in anns if _is_proxy(a.get("subject", ""))) / max(1, len(anns))
     total = signal_score + diversity_bonus + concentration_bonus + recency_bonus
     return {
         "signal_score": round(signal_score, 2),
@@ -313,7 +340,9 @@ def _score_stock(anns: list[dict], latest_signal_date: str) -> dict:
         "recency_bonus": recency_bonus,
         "score": round(total, 2),
         "labels_hit": sorted(labels_hit),
+        "own_labels_hit": sorted(own_labels_hit),
         "max_same_day": max_same_day,
+        "proxy_ratio": round(proxy_ratio, 2),
     }
 
 

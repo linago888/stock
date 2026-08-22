@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-08-22T12:51:23",
+  "generated_at": "2026-08-22T13:26:44",
   "mode": "deep",
   "backfill_window": {
     "start": "2026-08-07",
     "end": "2026-08-21"
   },
-  "universe_size": 200,
+  "universe_size": 500,
   "source_date_range": {
     "min": "2026-08-07",
     "max": "2026-08-22"
   },
-  "raw_count": 368,
-  "matched_count": 368,
-  "not_surged_count": 368,
+  "raw_count": 687,
+  "matched_count": 687,
+  "not_surged_count": 687,
   "already_surged_count": 0,
   "items": [
     {
@@ -88,6 +88,151 @@
       "days_since_surge": null
     },
     {
+      "co_id": "6125",
+      "name": "廣運",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "18:31:07",
+      "subject": "代重要子公司-金運科技股份有限公司\r\n公告發言人及代理發言人任命",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "發言人"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6205",
+      "name": "詮欣",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "14:47:11",
+      "subject": "代重要子公司東莞詮榮電子有限公司公告\r\n董事會決議通過不分派股利。",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6205",
+      "name": "詮欣",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "14:48:03",
+      "subject": "代重要子公司A&H INTERNATIONAL CO.,LTD公告\r\n董事會決議通過不分派股利。",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "13:52:31",
+      "subject": "代子公司樂天國際商業銀行公告辦理減資及增資完成資本\r\n變更登記",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資",
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2359",
+      "name": "所羅門",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "17:57:03",
+      "subject": "代重要子公司富相科技股份有限公司公告\r\n董事會決議115年上半年度不分派股利",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8121",
+      "name": "越峰",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "16:43:23",
+      "subject": "代重要子公司越峰電子(廣州)有限公司\r\n公告董事會決議現金減資",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8121",
+      "name": "越峰",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "16:44:23",
+      "subject": "代重要子公司越峰電子(廣州)有限公司\r\n公告股東會決議辦理現金減資",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2539",
+      "name": "櫻花建",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "17:35:23",
+      "subject": "公告本公司董事會通過與子公司櫻雄營造簽訂「彰化縣員林市橋愛段」工程合約案",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "重大契約 / 訂單"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "合約"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "3236",
       "name": "千如",
       "market": "otc",
@@ -101,6 +246,188 @@
       "matched_keywords": [
         "子公司",
         "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1503",
+      "name": "士電",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "15:31:02",
+      "subject": "代重要子公司英屬維爾京群島商士林電機國際投資股份有限公司\r\n公告董事會決議盈餘分配案由",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司",
+        "盈餘分配"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3062",
+      "name": "建漢",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "18:03:51",
+      "subject": "代重要子公司 HON YAO FU Technology Company Limited\r\n公告法人董事改派代表人",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "改派"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3062",
+      "name": "建漢",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "18:06:22",
+      "subject": "代重要子公司 Fu Hai Technology Company Limited\r\n公告法人董事改派代表人",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "改派"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6176",
+      "name": "瑞儀",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:31:16",
+      "subject": "代子公司瑞儀光電(蘇州)有限公司公告辦理現金減資\r\n變更登記完成",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6274",
+      "name": "台燿",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "16:51:35",
+      "subject": "代重要子公司TAIWAN UNION TECHNOLOGY (THAILAND)\r\nCOMPANY LIMITED, 公告與聯貸銀行團簽訂聯合授信合約",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "重大契約 / 訂單"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "合約"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "18:55:27",
+      "subject": "公告本公司新任財會暨投資處副總經理",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "投資",
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:30:32",
+      "subject": "本公司董事會通過泰國子公司公司章程修訂案提高額定資本額\r\n，授權董事長得分次辦理現金增資",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資",
+        "董事長"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "21:33:30",
+      "subject": "代重要子公司東莞光群公告辦理減資事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "7788",
+      "name": "松川精密",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "17:14:14",
+      "subject": "代重要子公司台興電子企業股份有限公司公告\r\n董事會委任副總經理",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "7788",
+      "name": "松川精密",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "17:17:23",
+      "subject": "代重要子公司台興電子企業股份有限公司公告\r\n董事會決議股份銷除減資事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "減資"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -161,6 +488,204 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2305",
+      "name": "全友",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "14:05:23",
+      "subject": "代重要子公司上海中晶科技有限公司公告董事會決議分派\r\n現金股利",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "14:06:40",
+      "subject": "公告本公司115年分配現金股利暨盈餘轉增資發行新股\r\n基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "增資",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "14:07:55",
+      "subject": "代子公司樂天國際商業銀行公告減資換發股票基準日及\r\n停止過戶日",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:22:09",
+      "subject": "代子公司國際票券金融(股)公司公告總經理資格條件\r\n業經主管機關核准在案",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2634",
+      "name": "漢翔",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "13:47:10",
+      "subject": "代美國子公司公告總經理派任",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2641",
+      "name": "正德",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "17:26:34",
+      "subject": "代重要子公司NEW LUCKY LINES S.A.公告董事會決議通過\r\n辦理減資案",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8473",
+      "name": "山林水",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:38:52",
+      "subject": "代子公司綠山林開發事業(股)公司公告\r\n董事會決議一一五上半年度股利分派",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8473",
+      "name": "山林水",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:39:16",
+      "subject": "代子公司綠山林開發事業(股)公司公告\r\n一一四年下半年現金股利基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8473",
+      "name": "山林水",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:39:41",
+      "subject": "代子公司綠山林開發事業(股)公司公告\r\n一一五年上半年現金股利基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4764",
+      "name": "雙鍵",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:49:09",
+      "subject": "代子公司大豐鑫源達化工有限公司公告董事長異動",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "董事長"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3005",
+      "name": "神基",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "16:49:11",
+      "subject": "代子公司神基科技(股)公司公告董事會決議\r\n115年第2季盈餘分派之股利配發基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "2515",
       "name": "中工",
       "market": "sii",
@@ -179,6 +704,61 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "14:56:30",
+      "subject": "代子公司國票期貨(股)公司公告公司董事會調整股票股利\r\n配股率相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利",
+        "配股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5381",
+      "name": "光譜",
+      "market": "otc",
+      "date": "2026-08-14",
+      "time": "17:05:53",
+      "subject": "代重要子公司三江電機企業股份有限公司\r\n公告董事會決議第二季不分派股利",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5381",
+      "name": "光譜",
+      "market": "otc",
+      "date": "2026-08-14",
+      "time": "17:06:42",
+      "subject": "代重要子公司鋐正科技股份有限公司\r\n公告董事會決議第二季不分派股利",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "2883",
       "name": "凱基金",
       "market": "sii",
@@ -192,6 +772,24 @@
       "matched_keywords": [
         "子公司",
         "除權"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4510",
+      "name": "高鋒",
+      "market": "otc",
+      "date": "2026-08-17",
+      "time": "16:30:32",
+      "subject": "代重要子公司達佛羅股份有限公司公告通過總經理新任案",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "總經理"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -468,6 +1066,80 @@
       ],
       "matched_keywords": [
         "增資",
+        "董事長"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3376",
+      "name": "新日興",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:18:23",
+      "subject": "代重要子公司定盈投資股份有限公司公告董事、監察人\r\n任期屆滿重新指派事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司",
+        "任期屆滿"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3376",
+      "name": "新日興",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:18:52",
+      "subject": "代重要子公司定盈投資股份有限公司公告董事會推舉董事長事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司",
+        "董事長"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "16:04:16",
+      "subject": "代子公司樂天國際商業銀行公告發言人異動",
+      "labels": [
+        "投資 / 併購 / 轉投資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "發言人"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2601",
+      "name": "益航",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "14:36:31",
+      "subject": "公告本公司董事長訂定減資彌補虧損基準日\r\n(僅作為申請辦理減資變更登記之用)",
+      "labels": [
+        "庫藏股 / 減資",
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "減資",
         "董事長"
       ],
       "already_surged": false,
@@ -1146,6 +1818,38 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:28:11",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:29:28",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "3006",
       "name": "晶豪科",
       "market": "sii",
@@ -1421,6 +2125,39 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2308",
+      "name": "台達電",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:58:40",
+      "subject": "代子公司Delta Electronics (H.K.) Ltd.公告\r\n設立台達電子(杭州)有限公司",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "設立"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3615",
+      "name": "安可",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "15:13:11",
+      "subject": "代子公司振專股份有限公司公告財會主管異動",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "3211",
       "name": "順達",
       "market": "otc",
@@ -1432,6 +2169,622 @@
       ],
       "matched_keywords": [
         "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2374",
+      "name": "佳能",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:00:45",
+      "subject": "公告本公司董事會決議註銷限制員工權利新股之減資基準日",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2374",
+      "name": "佳能",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:20:21",
+      "subject": "本公司代重要子公司東莞能率科技有限公司公告\r\n修訂「資金貸與他人作業程序",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8069",
+      "name": "元太",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "17:33:30",
+      "subject": "公告本公司董事會決議115年度第2季員工認股權憑證\r\n轉換發行新股之增資基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8069",
+      "name": "元太",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "17:36:21",
+      "subject": "公告本公司董事會通過解除總經理競業禁止之限制案",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8069",
+      "name": "元太",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "17:37:38",
+      "subject": "公告本公司董事會通過取得有價證券相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5498",
+      "name": "凱崴",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "15:49:41",
+      "subject": "本公司新增資金貸與金額達公開發行公司資金貸與\r\n及背書保證處理準則第二十二條第一項第三款規定",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4540",
+      "name": "全球傳動",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:37:52",
+      "subject": "代子公司全傳科技(江蘇)有限公司公告董事會通過調整\r\n租地委建廠房預算",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4763",
+      "name": "材料*-KY",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "22:20:00",
+      "subject": "代重要子公司中峰化學有限公司公告\r\n董事會決議盈餘分派",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4763",
+      "name": "材料*-KY",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "22:21:04",
+      "subject": "代子公司北屏新材料（山東）有限公司公告新增資金貸與金額\r\n達新臺幣一千萬元以上且達該公開發行公司最近期財務報表\r\n淨值百分之二以上。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6706",
+      "name": "惠特",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:36:04",
+      "subject": "公告本公司國內第二次無擔保轉換公司債\r\n轉換普通股之增資基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6706",
+      "name": "惠特",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:37:24",
+      "subject": "代子公司武漢芯荃通科技有限公司公告設立大陸孫公司",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "設立"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2436",
+      "name": "偉詮電",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "16:01:02",
+      "subject": "公告本公司國內第一次無擔保轉換公司債轉換\r\n發行新股之增資基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "7777",
+      "name": "能率亞洲",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "21:56:48",
+      "subject": "針對投資案兆基屋管股份有限公司近期相關新聞說明",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2357",
+      "name": "華碩",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "18:05:12",
+      "subject": "代子公司亞旭電腦(股)公司公告\r\n取得Askey Technology (Vietnam) Company Limited股權之相關資料",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2357",
+      "name": "華碩",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "18:13:06",
+      "subject": "代子公司亞旭電腦(股)公司公告出售不動產之相關資訊",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1904",
+      "name": "正隆",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "15:29:23",
+      "subject": "公告本公司董事會決議增資Cheng Loong Southeast Asia \r\nHolding Co., Ltd.",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1904",
+      "name": "正隆",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "15:30:16",
+      "subject": "公告本公司之⼦公司Southeast Asia Holding\r\n董事會決議增資Cheng Loong Vietnam Investment",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1904",
+      "name": "正隆",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "15:31:35",
+      "subject": "公告本公司之⼦公司Cheng Loong (Vietnam)董事會\r\n決議增資Cheng Loong Bac Giang Company Limited",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1904",
+      "name": "正隆",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "15:35:20",
+      "subject": "代子公司Cheng Loong Southeast Asia Holding Co., Ltd.\r\n公告董事會決議現金增資",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1904",
+      "name": "正隆",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "15:40:18",
+      "subject": "公告本公司新增資⾦貸與⾦額達新臺幣1,000萬元\r\n以上且達本公司最近期財務報表淨值2%以上",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6126",
+      "name": "信音",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "17:16:10",
+      "subject": "公告本公司國內第三次無擔保轉換公司債115年第二季轉換普通股\r\n之增資基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6672",
+      "name": "騰輝電子-KY",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "13:49:25",
+      "subject": "本公司代子公司Ventec International Group Limited(HK)\r\n依「公開發行公司資金貸與及背書保證處理準則」 \r\n第二十五條第一項第二款、三款、四款規定公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6672",
+      "name": "騰輝電子-KY",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "16:08:16",
+      "subject": "公告本公司獨立董事對董事會、審計委員會討論事項\r\n表示保留意見",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "獨立董事"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2103",
+      "name": "台橡",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "14:02:04",
+      "subject": "代母公司茂實(股)公司公告訂定除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3317",
+      "name": "尼克森",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "14:03:54",
+      "subject": "公告本公司115年除息基準日相關事宜",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6125",
+      "name": "廣運",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "16:55:20",
+      "subject": "本公司發言人職務調整",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "發言人"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6125",
+      "name": "廣運",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "18:30:47",
+      "subject": "代重要子公司-金運科技股份有限公司\r\n公告設置薪資報酬委員會暨委任薪資報酬委員會委員",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2520",
+      "name": "冠德",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "17:16:08",
+      "subject": "本公司董事會通過將帳列臺北市松山區敦化段公辦都市更新\r\n案剩餘部分存貨轉列投資性不動產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6901",
+      "name": "鑽石投資",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "16:51:59",
+      "subject": "公告本公司所有投資標的股數變動及公允價值變化\r\n以及本公司每股淨值、現金及約當現金餘額",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5426",
+      "name": "振發",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "15:47:17",
+      "subject": "公告本公司除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6261",
+      "name": "久元",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "18:13:55",
+      "subject": "公告本公司除息基準日及現金股利發放日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6261",
+      "name": "久元",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "18:48:48",
+      "subject": "代子公司YTEC Holding（Samoa）Co., Ltd.依公開發行\r\n公司資金貸與及背書保證處理準則第二十二條第一項第三款公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2468",
+      "name": "華經",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "15:12:05",
+      "subject": "公告本公司董事會決議配息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "配息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6411",
+      "name": "晶焱",
+      "market": "otc",
+      "date": "2026-08-07",
+      "time": "17:49:24",
+      "subject": "公告本公司董事會決議註銷限制員工權利新股暨\r\n訂定減資基準日。",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3413",
+      "name": "京鼎",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "14:46:36",
+      "subject": "董事會通過泰國子公司\r\nUniEQ Integrated Technology Co., Ltd.\r\n二期資本支出預算案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3413",
+      "name": "京鼎",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "14:49:18",
+      "subject": "公告本公司取得泰國子公司\r\nUniEQ Integrated Technology Co., Ltd之股份",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3413",
+      "name": "京鼎",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "14:51:22",
+      "subject": "本公司董事會決議參與認購富蘭登科技股份有限公司現金增資發行新股",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3443",
+      "name": "創意",
+      "market": "sii",
+      "date": "2026-08-07",
+      "time": "16:12:59",
+      "subject": "因本公司有價證券於集中交易市場達公佈注意交易資訊標準，\r\n故公佈相關財務業務等重大訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -1510,6 +2863,22 @@
       "date": "2026-08-10",
       "time": "14:58:55",
       "subject": "永豐金控公告其與子公司115年7月合併自結損益",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1314",
+      "name": "中石化",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "18:10:28",
+      "subject": "代重要子公司鼎越開發股份有限公司公告法人董事代表人\r\n異動暨董事異動達三分之一以上",
       "labels": [
         "投資 / 併購 / 轉投資"
       ],
@@ -1770,6 +3139,70 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "17:59:47",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "18:02:38",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "18:03:49",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "18:04:23",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "1216",
       "name": "統一",
       "market": "sii",
@@ -1909,6 +3342,284 @@
       ],
       "matched_keywords": [
         "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6274",
+      "name": "台燿",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "15:06:05",
+      "subject": "本公司有價證券近期多次達公布注意交易資訊標準，\r\n故公告相關訊息，以利投資人區別暸解",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2316",
+      "name": "楠梓電",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "17:13:33",
+      "subject": "代子公司昆山先創電子有限公司公告向關係人取得使用權資產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "7777",
+      "name": "能率亞洲",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "19:39:02",
+      "subject": "公告本公司115年現金增資認股基準日等相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6173",
+      "name": "信昌電",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "16:56:12",
+      "subject": "公告本公司第十次買回庫藏股執行完畢。",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "庫藏股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2359",
+      "name": "所羅門",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "17:57:31",
+      "subject": "代重要子公司富相公司公告通過投資Lion Best Global Limited所發行之B檔債券，\r\n維持存續期至116年9月25日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2208",
+      "name": "台船",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "13:44:23",
+      "subject": "對本公司子公司台船動力科技股份有限公司之\r\n背書保證金額符合公開發行公司資金貸與及背書保證\r\n處理準則第二十五條第一項第一款之規定辦理公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2208",
+      "name": "台船",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "13:44:59",
+      "subject": "公司對子公司台船動力科技股份有限公司\r\n背書保證達公開發行公司資金貸與及背書保證\r\n處理準則第二十五條第一項第二款至第四款之規定辦理公告。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6217",
+      "name": "中探針",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "19:30:56",
+      "subject": "代重要子公司東莞中探探針有限公司依「公開發行公司資金\r\n貸與及背書保證處理準則」第25條第1項第4款規定公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3689",
+      "name": "湧德",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "20:42:33",
+      "subject": "本公司代子公司東莞德洋精密橡塑有限公司公告資金貸與\r\n達「資金貸與及背書保證處理準則」第二十二條第一項\r\n第一款之規定。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6125",
+      "name": "廣運",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "20:31:32",
+      "subject": "補更正代重要子公司-金運科技股份有限公司\r\n公告設置薪資報酬委員會暨委任薪資報酬委員會委員",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4707",
+      "name": "磐亞",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "17:51:53",
+      "subject": "公告本公司董事會決議訂定股票股利及現金股利除權暨\r\n除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "除息",
+        "除權"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4707",
+      "name": "磐亞",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "19:16:20",
+      "subject": "公告本公司最近一年累積取得有價證券達公告標準",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2439",
+      "name": "美律",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "17:36:47",
+      "subject": "公告本公司調整114年度現金股利配息率",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "配息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5386",
+      "name": "青雲",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "19:08:18",
+      "subject": "本公司董事會通過追認代理總經理",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3289",
+      "name": "宜特",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "15:31:27",
+      "subject": "本公司受邀參加富邦綜合證券投資銀行部舉辦之法人說明會",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6187",
+      "name": "萬潤",
+      "market": "otc",
+      "date": "2026-08-10",
+      "time": "14:22:17",
+      "subject": "本公司115年8月10日董事會決議增加對台灣子公司投資金額",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2539",
+      "name": "櫻花建",
+      "market": "sii",
+      "date": "2026-08-10",
+      "time": "17:36:46",
+      "subject": "公告本公司董事會通過與關係人永雋科技簽訂「台南市永康區平道段」工程合約案",
+      "labels": [
+        "重大契約 / 訂單"
+      ],
+      "matched_keywords": [
+        "合約"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -2271,6 +3982,23 @@
       "days_since_surge": null
     },
     {
+      "co_id": "6127",
+      "name": "九豪",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "16:38:17",
+      "subject": "代子公司薩摩亞九豪精密陶瓷有限公司公告新增資金貸與金額達\r\n「公開發行公司資金貸與及背書保證處理準則」第二十二條第一\r\n項第三款之標準",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "5880",
       "name": "合庫金",
       "market": "sii",
@@ -2387,6 +4115,23 @@
       "days_since_surge": null
     },
     {
+      "co_id": "1312",
+      "name": "國喬",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "17:10:48",
+      "subject": "代子公司英屬維京群島海陸有限投資公司依公開發行公司\r\n資金貸與及背書保證處理準則第22條第一項第三款規定公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "4939",
       "name": "亞電",
       "market": "otc",
@@ -2398,6 +4143,54 @@
       ],
       "matched_keywords": [
         "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "18:14:43",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "18:15:23",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "18:16:15",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -2512,6 +4305,649 @@
       ],
       "matched_keywords": [
         "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3062",
+      "name": "建漢",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "17:54:24",
+      "subject": "公告本公司董事會決議註銷限制員工權利新股減資基準日",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2338",
+      "name": "光罩",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:37:09",
+      "subject": "公告本公司之子公司資金貸與超限訂定之改善計畫執行\r\n情形",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6284",
+      "name": "佳邦",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "19:33:15",
+      "subject": "更正本公司第15次庫藏股買回股份總金額上限資訊及買回期間",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "庫藏股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2305",
+      "name": "全友",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:19:04",
+      "subject": "公告本公司董事會決議通過與子公司新友科技股份有限公司\r\n簡易合併案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2305",
+      "name": "全友",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:25:09",
+      "subject": "代子公司新友科技股份有限公司就簡易合併案辦理債權人公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3312",
+      "name": "弘憶股",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "18:14:37",
+      "subject": "公告本公司董事會決議除息基準日、現金股利發放日事宜",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6190",
+      "name": "萬泰科",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "17:35:22",
+      "subject": "公告本公司總經理異動",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "9933",
+      "name": "中鼎",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:18:43",
+      "subject": "董事會決議註銷收回限制員工權利新股之減資基準日",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "9933",
+      "name": "中鼎",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:21:40",
+      "subject": "公告本公司除權除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息",
+        "除權"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2368",
+      "name": "金像電",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:20:42",
+      "subject": "公告本公司董事會決議通過對泰國子公司增資案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4979",
+      "name": "華星光",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "16:37:38",
+      "subject": "本公司可轉換公司債華星光四(代號：49794)達公布注\r\n意交易資訊標準，故公告相關訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3234",
+      "name": "光環",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "16:15:14",
+      "subject": "公告本公司115年現金增資認股基準日等相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2504",
+      "name": "國產",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "15:33:40",
+      "subject": "董事會通過大陸投資相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2504",
+      "name": "國產",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "17:18:27",
+      "subject": "更正董事會通過大陸投資相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6834",
+      "name": "天二科技",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "15:41:35",
+      "subject": "係因本公司有價證券於集中交易市場達公布注意交易資訊\r\n標準， 故公布相關財務業務等重大訊息，以利投資人區別\r\n瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:02:55",
+      "subject": "公告本公司擬取得廠房使用權資產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:04:27",
+      "subject": "公告本公司擬取得機器設備",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:06:08",
+      "subject": "代重要子公司(高力熱能科技)公告取得不動產相關訊息",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:21:03",
+      "subject": "代子公司高力熱能科技股份有限公司擬取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:22:37",
+      "subject": "代重要子公司(高力熱能科技)公告向關係人取得使用權資產相關訊息",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:24:21",
+      "subject": "代重要子公司(高力熱能科技)公告向關係人取得使用權資產相關訊息",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8996",
+      "name": "高力",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:31:06",
+      "subject": "公告本公司泰國子公司擬建廠及設備購置投資計畫案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6446",
+      "name": "藥華藥",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "04:30:23",
+      "subject": "本公司董事會決議辦理限制員工權利新股收回註銷\r\n暨訂定減資基準日事宜",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6446",
+      "name": "藥華藥",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "04:31:15",
+      "subject": "公告本公司庫藏股轉讓員工之認股基準日",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "庫藏股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8033",
+      "name": "雷虎",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "15:11:08",
+      "subject": "公告本公司董事會決議通過對子公司科建鋁船現金增資認股",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2428",
+      "name": "興勤",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:33:55",
+      "subject": "公告本公司董事會決議訂定除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "17:36:06",
+      "subject": "公告本公司董事會決議買回庫藏股",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "庫藏股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "19:56:13",
+      "subject": "公告本公司進行轉投資之子公司南昌光群雷射科技有限公司之投資架構調整",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "轉投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "20:13:57",
+      "subject": "本公司之子公司Treasure新增背書保證餘額達「資金貸與\r\n及背書保證處理準則」第25條第1項第3款及第4款",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "20:51:39",
+      "subject": "本公司之子公司Treasure對南昌光群新增資金貸與餘額達「資金\r\n貸與及背書保證處理準則」第22條第1項第2款及第3款",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "21:25:21",
+      "subject": "本公司董事會決議辦理限制員工權利新股收回註銷減資事宜",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "21:28:26",
+      "subject": "公告本公司董事會決議115年第二季不分派股利",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2461",
+      "name": "光群雷",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "21:31:51",
+      "subject": "公告本公司董事會決議轉投資之子公司湖南和銳鐳射\r\n科技有限公司辦理解散及清算",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "轉投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "7788",
+      "name": "松川精密",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "16:59:12",
+      "subject": "代子公司台興電子企業股份有限公司依「公開發行公司資金貸與及\r\n背書保證處理準則」第二十五條第一項第四款規定公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "7788",
+      "name": "松川精密",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "17:04:11",
+      "subject": "代子公司TSE International Co., Ltd.依「公開發行公司資金\r\n貸與及背書保證處理準則」第二十五條第一項第四款規定公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3323",
+      "name": "加百裕",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "17:34:52",
+      "subject": "公告本公司國內第三次無擔保轉換公司債轉換普通股增資基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3323",
+      "name": "加百裕",
+      "market": "otc",
+      "date": "2026-08-11",
+      "time": "17:41:36",
+      "subject": "公告本公司董事會決議新增資金貸與加百裕(南通)電子有限公\r\n司金額達第二十二條第一項第三款公告標準",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6177",
+      "name": "達麗",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "14:05:40",
+      "subject": "公告本公司員工酬勞發行新股轉增資基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6177",
+      "name": "達麗",
+      "market": "sii",
+      "date": "2026-08-11",
+      "time": "14:06:51",
+      "subject": "本公司董事會通過對子公司達麗左眷開發（股）公司增資案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -2821,6 +5257,22 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2489",
+      "name": "瑞軒",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "16:45:07",
+      "subject": "本公司董事會決議一一五年上半年度不分派股利。",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "1301",
       "name": "台塑",
       "market": "sii",
@@ -3094,6 +5546,38 @@
       ],
       "matched_keywords": [
         "發言人"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:30:20",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:34:26",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -3374,6 +5858,751 @@
       "matched_keywords": [
         "投資",
         "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2308",
+      "name": "台達電",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "17:53:01",
+      "subject": "本公司代子公司台達電子(重慶)有限公司公告決議興建重慶二期廠房相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1727",
+      "name": "中華化",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "16:29:17",
+      "subject": "公告本公司董事會決議辦理現金增資發行普通股",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2605",
+      "name": "新興",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:42:24",
+      "subject": "本公司為100%持股之子公司Norley Corporation Inc.\r\n提供背書保證。(原額度到期續約)。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2605",
+      "name": "新興",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:43:36",
+      "subject": "本公司及子公司背書保證金額達\r\n『公開發行公司資金貸與及背書 保證處理準則』\r\n第二十五條第一項第一款之公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5392",
+      "name": "能率",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "16:35:55",
+      "subject": "代重要子公司毅金精密股份有限公司公告董事會決議\r\n辦理現金增資發行新股",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5392",
+      "name": "能率",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "18:36:05",
+      "subject": "代重要子公司毅金精密(股)公司公告，受讓股權。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5392",
+      "name": "能率",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "18:37:15",
+      "subject": "代重要子公司捷邦國際公告出售Phoenix Place 100%持有\r\nPrecise Plus,Cranmer Enterprises,Art Empire 股權",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:21:31",
+      "subject": "公告本公司獨立董事對第六屆薪資報酬委員會第三次會議討論事項\r\n第一案表示反對意見",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "獨立董事"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2359",
+      "name": "所羅門",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "16:58:04",
+      "subject": "本公司董事會決議115年上半年度不分派股利",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2359",
+      "name": "所羅門",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "17:53:57",
+      "subject": "本公司投資Lion Best Global Limited所發行之五年期不可轉讓債券\r\n「A檔及B檔」，維持存續期至116年9月25日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:17:43",
+      "subject": "董事會決議股利分派",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:17:59",
+      "subject": "公告本公司董事會決議新增資金貸與金額達新臺幣一千萬元以\r\n上且達本公司最近期財務報表淨值百分之二以上",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:18:27",
+      "subject": "公告本公司董事會決議新增資金貸與金額達新臺幣一千萬元以\r\n上且達本公司最近期財務報表淨值百分之二以上",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:19:00",
+      "subject": "公告本公司董事會決議新增背書保證餘額達新臺幣一千萬元以\r\n上且對其背書保證、長期投資及資金貸與餘額合計數達本公司\r\n最近期財務報表淨值百分之三十以上",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:19:10",
+      "subject": "公告本公司董事會決議新增背書保證餘額達新臺幣一千萬元以\r\n上且對其背書保證、長期投資及資金貸與餘額合計數達本公司\r\n最近期財務報表淨值百分之三十以上",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:19:35",
+      "subject": "公告本公司董事會決議以分割方式轉型為投資控股公司",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:19:48",
+      "subject": "公告本公司董事會決議將台灣工紙及紙箱事業分割讓與並轉型為\r\n投資控股公司",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:20:02",
+      "subject": "代子公司榮成低碳紙箱股份有限公司公告董事會決議受讓台灣工紙\r\n與紙箱事業",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1909",
+      "name": "榮成",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:20:50",
+      "subject": "公告本公司暨代子公司榮成低碳紙箱股份有限公司今日召開\r\n重大訊息說明記者會內容",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2634",
+      "name": "漢翔",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "13:48:24",
+      "subject": "公告本公司副總經理異動",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "總經理"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4976",
+      "name": "佳凌",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:47:10",
+      "subject": "公告本公司董事會決議辦理限制員工權利新股收回\r\n註銷減資事宜",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2641",
+      "name": "正德",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "17:23:40",
+      "subject": "本公司董事會通過投資子公司Franbo Lines (Singapore) PTE. LTD.",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2641",
+      "name": "正德",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "17:24:17",
+      "subject": "代子公司Franbo Lines (Singapore) PTE. LTD.公告董事會通過\r\n投資孫公司FRANBO JADE PTE. LTD.(暫定)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2641",
+      "name": "正德",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "17:29:33",
+      "subject": "公告本公司對子公司及孫公司背書保證金額達「公開發行\r\n公司資金貸與及背書保證處理準則」第二十五條第一項第\r\n四款規定。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3044",
+      "name": "健鼎",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:29:57",
+      "subject": "代本公司之子公司Tripod Overseas Co.,Ltd公告，\r\n其對單一企業資金貸與餘額達本公司最近期財務報表\r\n淨值百分之十以上。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3406",
+      "name": "玉晶光",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:14:02",
+      "subject": "本公司董事會決議115年上半年度不分派股利",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3406",
+      "name": "玉晶光",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:18:31",
+      "subject": "代子公司玉晶光電(廈門)有限公司依據\r\n公開發行公司資金貸與及背書保證準則\r\n第二十二條第一項第三款規定辦理",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3406",
+      "name": "玉晶光",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:22:40",
+      "subject": "代子公司GLOBALIZE INTERNATIONAL LTD.公告董事會決議\r\n盈餘匯回案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3017",
+      "name": "奇鋐",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "16:11:35",
+      "subject": "董事會決議員工認股權憑證執行轉換普通股之增資基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8473",
+      "name": "山林水",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:40:30",
+      "subject": "公告本公司董事會決議除權息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除權"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2601",
+      "name": "益航",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:06:39",
+      "subject": "代子公司FIRST STEAMSHIP S.A.公告新增資金貸與\r\n金額達資金貸與及背書保證處理準則第22條第1項\r\n第3款公告標準",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1305",
+      "name": "華夏",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "17:03:49",
+      "subject": "代重要子公司台灣氯乙烯工業股份有限公司公告研發主管異動。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3209",
+      "name": "全科",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "17:45:58",
+      "subject": "公告本公司訂定除權息基準日之相關事宜",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除權"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5475",
+      "name": "德宏",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "19:15:28",
+      "subject": "本公司有價證券近期多次達公布注意交易資訊標準，故公告\r\n相關訊息，以利投資人區別暸解",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2903",
+      "name": "遠百",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "17:03:07",
+      "subject": "公告本公司董事會決議通過現金增資亞東百貨(股)公司案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6509",
+      "name": "聚和",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "16:50:24",
+      "subject": "公告本公司董事會決議取得土地使用權資產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6163",
+      "name": "華電網",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "16:58:52",
+      "subject": "公告本公司訂定除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6141",
+      "name": "柏承",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "17:41:57",
+      "subject": "公告本公司及子公司資金貸與及背書保證超限\r\n改善計畫執行情形",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3605",
+      "name": "宏致",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "16:37:32",
+      "subject": "公告本公司國內第三次無擔保轉換公司債(簡稱:宏致三，\r\n代碼:36053)於櫃檯買賣市場交易達公布注意交易資訊標準，\r\n故公布相關訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1907",
+      "name": "永豐餘",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:56:58",
+      "subject": "代子公司永豐餘工業用紙股份有限公司公告董事會決議通過\r\n參與YFY Cayman Co., Ltd.現金增資案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1907",
+      "name": "永豐餘",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:58:01",
+      "subject": "代子公司YFY Cayman Co., Ltd.公告向Up High Developments Limited \r\n購買其所持有永尚包裝投資公司30%股權",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1907",
+      "name": "永豐餘",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:58:20",
+      "subject": "代子公司公告YFY Cayman Co., Ltd.董事會決議辦理\r\n現金增資",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1907",
+      "name": "永豐餘",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "18:58:36",
+      "subject": "代子公司YFY Cayman Co., Ltd.公告董事會決議現金增資\r\n基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6214",
+      "name": "精誠",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "20:18:56",
+      "subject": "有關台灣大哥大(股)公司透過全資子公司台信電訊(股)公司\r\n擬公開收購本公司普通股說明",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4764",
+      "name": "雙鍵",
+      "market": "sii",
+      "date": "2026-08-12",
+      "time": "15:49:30",
+      "subject": "公告本公司董事會決議115年上半年度不分派股利",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6234",
+      "name": "高僑",
+      "market": "otc",
+      "date": "2026-08-12",
+      "time": "21:54:05",
+      "subject": "公告本公司董事會決議除息基準日相關事宜",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -3772,6 +7001,87 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "17:38:25",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "17:40:10",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "17:40:47",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "18:21:33",
+      "subject": "公告本公司股利配息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "配息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "18:22:31",
+      "subject": "公告本公司訂定115年度減資基準日及現金減資換股作業計劃書\r\n相關事宜",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "3260",
       "name": "威剛",
       "market": "otc",
@@ -3895,6 +7205,434 @@
       ],
       "matched_keywords": [
         "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4989",
+      "name": "榮科",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "15:19:38",
+      "subject": "公告本公司董事會決議通過設立泰國子公司",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "設立"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3362",
+      "name": "先進光",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "17:31:21",
+      "subject": "補充7/9公告本公司取得廠務工程及設備",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8299",
+      "name": "群聯",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:37:55",
+      "subject": "公告本公司董事會決議通過民國115年上半年度盈餘分配現金股利案",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "盈餘分配"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5392",
+      "name": "能率",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "17:37:33",
+      "subject": "公告本公司訂定除權息基準日相關事宜",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除權"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1229",
+      "name": "聯華",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "16:31:26",
+      "subject": "代重要子公司聯華置產(股)公司依「公開發行公司資金貸與及\r\n背書保證處理準則」第二十五條第一項第四款公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3691",
+      "name": "碩禾",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "15:58:02",
+      "subject": "公告本公司董事會決議辦理現金增資發行新股",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3691",
+      "name": "碩禾",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "15:58:51",
+      "subject": "代子公司芯和能源股份有限公司公告資金貸與他人超限改善計畫",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3691",
+      "name": "碩禾",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "15:59:49",
+      "subject": "公告本公司董事會決議通過放棄參與子公司禾迅綠電(股)公\r\n司115年現金增資現金增資案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8932",
+      "name": "智通*",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:24:13",
+      "subject": "公告本公司訂定除權息基準日暨股利發放日相關事宜",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "除權"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8932",
+      "name": "智通*",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "20:20:32",
+      "subject": "董事會決議通過子公司GLOBAL LINE NETWORK SDN BHD\r\n轉投資額度符合取得或處分資產處理準則公告規定",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "投資",
+        "轉投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8255",
+      "name": "朋程",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:53:54",
+      "subject": "更正本公司115年第二季個別財務報告IFRS iXBRL申報資訊-\r\n保留意見╱結論－報告類型細分：非重要子公司或採用權益法\r\n之投資未經會計師查核或核閱。（刪除「其他」選項）",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3162",
+      "name": "精確",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:21:43",
+      "subject": "公告本公司董事會決議辦理已發行之限制員工權利新股收回\r\n註銷減資事宜",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3162",
+      "name": "精確",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:22:41",
+      "subject": "代子公司廣州精確新能源科技有限公司依公開發行公司\r\n資金貸與及背書保證處理準則第二十五條第一項第四款規定公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3162",
+      "name": "精確",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:23:21",
+      "subject": "代子公司東台精玖旺硬質合金科技有限公司依公開發行公司\r\n資金貸與及背書保證處理準則第二十五條第一項第四款規定公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3162",
+      "name": "精確",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:24:07",
+      "subject": "本公司114年辦理現金增資發行新股向中國證監會申請備案\r\n，提交補充相關信息及說明",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3162",
+      "name": "精確",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:25:17",
+      "subject": "代子公司嘉興精確汽車零部件有限公司公告投資設立廣州子公司",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司",
+        "設立"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2392",
+      "name": "正崴",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "18:17:33",
+      "subject": "公告取消本公司向關係人取得土地及廠房",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1907",
+      "name": "永豐餘",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "16:31:23",
+      "subject": "永豐餘投資控股股份有限公司及其子公司公告背書保證事項",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3081",
+      "name": "聯亞",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "16:30:32",
+      "subject": "本公司取得廠務工程公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4533",
+      "name": "協易機",
+      "market": "otc",
+      "date": "2026-08-13",
+      "time": "20:49:00",
+      "subject": "公告本公司董事會決議買回庫藏股",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "庫藏股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4764",
+      "name": "雙鍵",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "14:16:45",
+      "subject": "公告本公司調整115年現金增資認股基準日相關事宜\r\n(補充每股發行價格及調整與代收及專戶存儲價款行庫訂約日期)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2101",
+      "name": "南港",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "18:00:37",
+      "subject": "董事會決議115年上半年度股利分派",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2101",
+      "name": "南港",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "18:25:16",
+      "subject": "公告本公司董事會決議除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2101",
+      "name": "南港",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "18:38:46",
+      "subject": "公告本公司向關係人租賃取得使用權資產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3443",
+      "name": "創意",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "17:15:41",
+      "subject": "本公司受邀參加華南永昌證券投資論壇",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3443",
+      "name": "創意",
+      "market": "sii",
+      "date": "2026-08-13",
+      "time": "17:16:07",
+      "subject": "本公司受邀參加國泰證券投資論壇",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -4214,6 +7952,22 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "17:20:24",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "2845",
       "name": "遠東銀",
       "market": "sii",
@@ -4276,6 +8030,22 @@
       ],
       "matched_keywords": [
         "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2376",
+      "name": "技嘉",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "17:27:18",
+      "subject": "本公司辦理現金增資發行普通股參與發行海外存託憑證",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -4344,6 +8114,251 @@
         "庫藏股",
         "減資",
         "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2646",
+      "name": "星宇航空",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "23:04:42",
+      "subject": "本公司取得1架A350自有客機相關訊息",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3305",
+      "name": "昇貿",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "14:38:35",
+      "subject": "公告本公司庫藏股註銷辦理資本額變更登記完成",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "庫藏股",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2501",
+      "name": "國建",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "17:02:02",
+      "subject": "代子公司三重置業地產股份有限公司公告取得國泰玉成置業開發股份有限公司（暫定）\r\n股權",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8021",
+      "name": "尖點",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "14:02:22",
+      "subject": "本公司擬辦理115年現金增資發行新股",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "14:55:30",
+      "subject": "代子公司國票期貨(股)公司公告115年第一次股東臨時會\r\n召開日期、地點暨主要議案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "14:57:18",
+      "subject": "代子公司國票期貨(股)公司公告董事會決議現金增資\r\n發行普通股案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2641",
+      "name": "正德",
+      "market": "otc",
+      "date": "2026-08-14",
+      "time": "17:17:05",
+      "subject": "代重要子公司NEW LUCKY LINES S.A.公告公司董事異動",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2641",
+      "name": "正德",
+      "market": "otc",
+      "date": "2026-08-14",
+      "time": "17:17:41",
+      "subject": "公告本公司法人董事改派代表人",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "改派"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1316",
+      "name": "上曜",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "18:12:21",
+      "subject": "董事會決議115年上半年度不分派股利案",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3162",
+      "name": "精確",
+      "market": "otc",
+      "date": "2026-08-14",
+      "time": "16:03:05",
+      "subject": "代子公司奧威科技股份有限公司公告投資設立上海子公司",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司",
+        "設立"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8076",
+      "name": "伍豐",
+      "market": "otc",
+      "date": "2026-08-14",
+      "time": "15:43:33",
+      "subject": "公告本公司決議除息基準日",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6141",
+      "name": "柏承",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "16:39:02",
+      "subject": "更正本公司115年第二季合併財務報告iXBRL申報資訊之\r\n被投資公司附表揭露資訊",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3665",
+      "name": "貿聯-KY",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "18:35:45",
+      "subject": "公告本公司現金增資發行普通股參與發行海外存託憑證\r\n已依中國證券監督管理委員會發佈之「境內企業境外發行證\r\n券和上市管理試行辦法」辦理備案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3014",
+      "name": "聯陽",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "13:59:38",
+      "subject": "本公司限制員工權利新股辦理註銷完成公告",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2101",
+      "name": "南港",
+      "market": "sii",
+      "date": "2026-08-14",
+      "time": "16:02:59",
+      "subject": "公告本公司向關係人租賃取得使用權資產(補充公告交易總金額、付款期間等)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -4515,6 +8530,22 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "17:15:44",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "8422",
       "name": "可寧衛*",
       "market": "sii",
@@ -4559,6 +8590,171 @@
       ],
       "matched_keywords": [
         "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4989",
+      "name": "榮科",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "16:25:34",
+      "subject": "公告本公司114年現金增資催繳期間屆滿暨股票發放事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2605",
+      "name": "新興",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "15:37:35",
+      "subject": "(補充公告)代本公司全資子公司Norley 100%轉投資子公司\r\nDelight Way Limited公告終止購置中程成品油輪事宜。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "轉投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6126",
+      "name": "信音",
+      "market": "otc",
+      "date": "2026-08-17",
+      "time": "14:34:54",
+      "subject": "公告本公司調整現金股利配息率",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "配息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6139",
+      "name": "亞翔",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "15:22:56",
+      "subject": "公告本公司調整114年度現金股利配息率",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "配息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4510",
+      "name": "高鋒",
+      "market": "otc",
+      "date": "2026-08-17",
+      "time": "16:35:19",
+      "subject": "代重要子公司達佛羅股份有限公司公告董事會通過解除經理\r\n人競業禁止限制案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4977",
+      "name": "眾達-KY",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "16:17:09",
+      "subject": "公告本公司訂定115年現金增資認股基準日等相關事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2393",
+      "name": "億光",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "17:03:46",
+      "subject": "代子公司Everlight Electronics (Thailand) Co.,Ltd.公告自地委建興建廠房",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3135",
+      "name": "凌航",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "17:06:08",
+      "subject": "公告本公司調整配股配息率",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "配息",
+        "配股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3141",
+      "name": "晶宏",
+      "market": "otc",
+      "date": "2026-08-17",
+      "time": "17:59:15",
+      "subject": "公告本公司除息基準日相關事宜",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6214",
+      "name": "精誠",
+      "market": "sii",
+      "date": "2026-08-17",
+      "time": "14:09:38",
+      "subject": "公告本公司發言人及代理發言人異動",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "發言人"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -4779,6 +8975,38 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-18",
+      "time": "18:13:13",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-18",
+      "time": "18:14:50",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "6285",
       "name": "啟碁",
       "market": "sii",
@@ -4839,6 +9067,134 @@
       ],
       "matched_keywords": [
         "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3615",
+      "name": "安可",
+      "market": "otc",
+      "date": "2026-08-18",
+      "time": "16:53:09",
+      "subject": "代子公司振專(股)公司公告決議召開115年第一次臨時股東會",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4989",
+      "name": "榮科",
+      "market": "sii",
+      "date": "2026-08-18",
+      "time": "11:19:17",
+      "subject": "公告本公司114年現金增資催繳期間屆滿暨股票發放事宜\r\n(補充發放日)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "9933",
+      "name": "中鼎",
+      "market": "sii",
+      "date": "2026-08-18",
+      "time": "17:38:57",
+      "subject": "代子公司源鼎水資源股份有限公司公告與關係人簽訂工程服務契約",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "7777",
+      "name": "能率亞洲",
+      "market": "otc",
+      "date": "2026-08-18",
+      "time": "17:07:29",
+      "subject": "公告本公司115年現金增資認股基準日等相關事宜(補充\r\n公告現金增資發行價格)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6173",
+      "name": "信昌電",
+      "market": "otc",
+      "date": "2026-08-18",
+      "time": "15:03:32",
+      "subject": "本公司有價證券近期達公佈注意交易資訊標準，故公告\r\n相關訊息，以利投資人區別暸解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3234",
+      "name": "光環",
+      "market": "otc",
+      "date": "2026-08-18",
+      "time": "14:48:44",
+      "subject": "本公司有價證券近期多次達公布注意交易資訊標準，\r\n故公告相關訊息，以利投資人區別暸解",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3026",
+      "name": "禾伸堂",
+      "market": "sii",
+      "date": "2026-08-18",
+      "time": "14:40:37",
+      "subject": "係因本公司有價證券於集中交易市場達公布注意交易資訊標準，\r\n故公布相關財務業務等重大訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8033",
+      "name": "雷虎",
+      "market": "sii",
+      "date": "2026-08-18",
+      "time": "16:28:30",
+      "subject": "係因本公司有價證券於集中交易市場達公布注意交易資訊標\r\n準，故公布相關財務業務等重大訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -5263,6 +9619,70 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "16:28:44",
+      "subject": "公告本公司辦理現金減資完成實收資本額變更登記事宜",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "17:06:30",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "17:08:46",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5876",
+      "name": "上海商銀",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "15:48:03",
+      "subject": "代子公司上海商業銀行有限公司公告董事會通過召開第76屆\r\n股東周年大會日期",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "3715",
       "name": "定穎投控",
       "market": "sii",
@@ -5290,6 +9710,252 @@
       ],
       "matched_keywords": [
         "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1710",
+      "name": "東聯",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "16:55:47",
+      "subject": "更正本公司115年第二季合併財務報告iXBRL申報資訊之\r\n被投資公司附表揭露資訊",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2347",
+      "name": "聯強",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "13:48:07",
+      "subject": "代子公司PEER DEVELOPMENTS LTD.公告董事會決定處分TD SYNNEX CORP.股票",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2347",
+      "name": "聯強",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "13:50:22",
+      "subject": "(補充115/7/24公告)代子公司PEER DEVELOPMENTS LTD.公告處份TD SYNNEX CORP.股票",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2605",
+      "name": "新興",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "15:22:47",
+      "subject": "本公司全資子公司Norley 100%轉投資子公司Potter Grand Inc.\r\n擬購置阿芙拉型油輪壹艘。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "轉投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2605",
+      "name": "新興",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "15:23:16",
+      "subject": "本公司全資子公司Norley 100%轉投資子公司Claymore Limited\r\n擬購置阿芙拉型油輪壹艘。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "轉投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2605",
+      "name": "新興",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "15:23:42",
+      "subject": "本公司全資子公司Norley 100%轉投資子公司Gifted Works Corp.\r\n擬購置遠洋2型油輪壹艘。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "轉投資",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3441",
+      "name": "聯一光電",
+      "market": "otc",
+      "date": "2026-08-19",
+      "time": "14:42:57",
+      "subject": "本公司有價證券於集中交易市場達公布注意交易資訊標準，\r\n故公布相關財務業務等重大訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "9933",
+      "name": "中鼎",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "14:46:19",
+      "subject": "代子公司源鼎水資源股份有限公司公告與關係人簽訂工程服務契約(更正關係人公司名稱)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "17:04:09",
+      "subject": "代子公司國際票券公告法人監察人異動",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6672",
+      "name": "騰輝電子-KY",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "15:37:49",
+      "subject": "本公司可轉換公司債騰輝電子二KY (代號:66722)\r\n近期達公布注意交易資訊標準， 故公告相關訊息，以利\r\n投資人區別瞭解",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3005",
+      "name": "神基",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "16:58:55",
+      "subject": "代子公司神基科技(股)公司公告董事會\r\n代行115年股東會重要決議事項",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4976",
+      "name": "佳凌",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "13:51:06",
+      "subject": "本公司註銷收回已發行之限制員工權利新股完成變更登記公告",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3234",
+      "name": "光環",
+      "market": "otc",
+      "date": "2026-08-19",
+      "time": "15:11:34",
+      "subject": "公告本公司115年現金增資認股基準日等相關事宜(補充公告\r\n發行價格)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3081",
+      "name": "聯亞",
+      "market": "otc",
+      "date": "2026-08-19",
+      "time": "14:34:34",
+      "subject": "本公司有價證券近期多次達公布注意交易資訊標準，故公告\r\n相關訊息，以利投資人區別暸解",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3443",
+      "name": "創意",
+      "market": "sii",
+      "date": "2026-08-19",
+      "time": "17:30:22",
+      "subject": "公告本公司董事會決議通過與\r\n兆豐國際商業銀行等銀行團簽訂聯貸合約案",
+      "labels": [
+        "重大契約 / 訂單"
+      ],
+      "matched_keywords": [
+        "合約"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -5603,6 +10269,22 @@
       "days_since_surge": null
     },
     {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "17:22:38",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "2855",
       "name": "統一證",
       "market": "sii",
@@ -5632,6 +10314,265 @@
       ],
       "matched_keywords": [
         "除息"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3016",
+      "name": "嘉晶",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "16:52:07",
+      "subject": "公告本公司現金增資認股基準日等相關事宜(補充發行價格)",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6176",
+      "name": "瑞儀",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "18:26:09",
+      "subject": "公告本公司與同一相對人取得營業用機器設備一年內累積達五億元以上",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4763",
+      "name": "材料*-KY",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "18:40:29",
+      "subject": "代重要子公司濟南大自然新材料有限公司公告\r\n董事會決議變更盈餘分派金額",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2351",
+      "name": "順德",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "16:50:27",
+      "subject": "本公司受邀參加國泰證券舉辦之投資人說明會",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2351",
+      "name": "順德",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "16:59:37",
+      "subject": "本公司受邀參加元大證券舉辦之投資人說明會",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "9933",
+      "name": "中鼎",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "14:21:17",
+      "subject": "公告本公司調整股利配股配息比率",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "股利",
+        "配息",
+        "配股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6488",
+      "name": "環球晶",
+      "market": "otc",
+      "date": "2026-08-20",
+      "time": "15:54:25",
+      "subject": "代子公司依公開發行公司資金貸與及背書保證處理準則第二十五條\r\n第一項第四款公告背書保證事項",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4977",
+      "name": "眾達-KY",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "17:31:21",
+      "subject": "公告本公司擬增資子公司PCL TECHNOLOGIES TRADING, INC.",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4977",
+      "name": "眾達-KY",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "17:31:44",
+      "subject": "公告本公司新增資金貸與金額達「公開發行公司資金貸與及\r\n背書保證處理準則」第二十二條第一項第三款之公告標準。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "4977",
+      "name": "眾達-KY",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "17:32:03",
+      "subject": "本公司為子公司及孫公司提供背書保證，依公開發行公司資金貸\r\n與及背書保證處理準則公告。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3717",
+      "name": "聯嘉投控",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "15:04:25",
+      "subject": "公告本公司法人董事改派代表人",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "改派"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3717",
+      "name": "聯嘉投控",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "15:04:48",
+      "subject": "公告本公司法人董事改派代表人",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "改派"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3026",
+      "name": "禾伸堂",
+      "market": "sii",
+      "date": "2026-08-20",
+      "time": "14:37:43",
+      "subject": "本公司受邀參加統一證券舉辦之2026 Q3秋季投資論壇",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6187",
+      "name": "萬潤",
+      "market": "otc",
+      "date": "2026-08-20",
+      "time": "14:44:03",
+      "subject": "因本公司有價證券於集中交易市場達公布注意交易資訊\r\n標準，故公布相關訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3081",
+      "name": "聯亞",
+      "market": "otc",
+      "date": "2026-08-20",
+      "time": "14:58:23",
+      "subject": "本公司可轉換公司債聯亞一(代號：30811)達公布注\r\n意交易資訊標準，故公告相關訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3081",
+      "name": "聯亞",
+      "market": "otc",
+      "date": "2026-08-20",
+      "time": "15:05:47",
+      "subject": "本公司取得廠務工程公告",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
       ],
       "already_surged": false,
       "days_since_surge": null
@@ -5929,6 +10870,38 @@
       "days_since_surge": null
     },
     {
+      "co_id": "1312",
+      "name": "國喬",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:10:28",
+      "subject": "公告本公司資安長及代理發言人異動",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "發言人"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2323",
+      "name": "中環",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:06:59",
+      "subject": "公告本公司取得有價證券",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
       "co_id": "2855",
       "name": "統一證",
       "market": "sii",
@@ -6015,6 +10988,305 @@
       "date": "2026-08-21",
       "time": "15:56:51",
       "subject": "係因本公司有價證券於集中交易市場達公布注意交易資訊標準，\r\n故公布相關財務業務等重大訊息，以利投資人區別瞭解",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3376",
+      "name": "新日興",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:19:23",
+      "subject": "代重要子公司定盈投資股份有限公司公告董事會決議現金增資\r\n發行普通股案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3376",
+      "name": "新日興",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:19:48",
+      "subject": "代重要子公司定盈投資股份有限公司公告董事會決議現金增資\r\n基準日",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資",
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2486",
+      "name": "一詮",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "15:39:25",
+      "subject": "本公司有價證券於集中交易市場達公布注意交易資訊標準，\r\n故公布有關財務業務等重大訊息，以利投資人區別瞭解。",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2338",
+      "name": "光罩",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:13:50",
+      "subject": "代子公司群豐科技股份有限公司公告接獲\r\n臺灣苗栗地方法院民事裁定",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2413",
+      "name": "環科",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "11:58:48",
+      "subject": "公告本公司發言人及代理發言人異動",
+      "labels": [
+        "高階人事異動"
+      ],
+      "matched_keywords": [
+        "發言人"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2606",
+      "name": "裕民",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "13:43:01",
+      "subject": "代子公司裕民航運(新加坡)私人有限公司公告\r\n法人董事代表人異動事宜",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8299",
+      "name": "群聯",
+      "market": "otc",
+      "date": "2026-08-21",
+      "time": "14:34:19",
+      "subject": "公告本公司受邀參加Cathay證券舉辦之投資論壇",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "投資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "16:03:35",
+      "subject": "代子公司樂天國際商業銀行公告公司治理主管異動",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "2889",
+      "name": "國票金",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "16:04:54",
+      "subject": "代子公司樂天國際商業銀行公告財務主管異動",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1229",
+      "name": "聯華",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "16:22:49",
+      "subject": "代重要子公司神通資訊科技股份有限公司公告向關係人取得使用權資產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1229",
+      "name": "聯華",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "16:23:07",
+      "subject": "代重要子公司神通資訊科技股份有限公司公告向關係人取得使用權資產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "1229",
+      "name": "聯華",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "16:23:18",
+      "subject": "代重要子公司神通資訊科技股份有限公司公告向關係人取得使用權資產",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "取得",
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8042",
+      "name": "金山電",
+      "market": "otc",
+      "date": "2026-08-21",
+      "time": "15:18:50",
+      "subject": "代子公司廣州金日科技有限公司公告資金貸與達處理準則第22\r\n條第一項第三款應公告申報事項",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "8473",
+      "name": "山林水",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "14:51:09",
+      "subject": "公告本公司調整配股配息率",
+      "labels": [
+        "股利政策 / 除權息"
+      ],
+      "matched_keywords": [
+        "配息",
+        "配股"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "5289",
+      "name": "宜鼎",
+      "market": "otc",
+      "date": "2026-08-21",
+      "time": "18:20:14",
+      "subject": "公告本公司註銷收回之限制員工權利新股\r\n辦理減資變更登記完成",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "6446",
+      "name": "藥華藥",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "17:53:33",
+      "subject": "公告本公司註銷限制員工權利新股減資變更登記完成",
+      "labels": [
+        "庫藏股 / 減資"
+      ],
+      "matched_keywords": [
+        "減資",
+        "註銷"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3665",
+      "name": "貿聯-KY",
+      "market": "sii",
+      "date": "2026-08-21",
+      "time": "13:34:09",
+      "subject": "本公司間接以現金增資子公司BizLink Tech. Inc.並代子公司公告現金增資案",
+      "labels": [
+        "投資 / 併購 / 轉投資"
+      ],
+      "matched_keywords": [
+        "子公司",
+        "增資"
+      ],
+      "already_surged": false,
+      "days_since_surge": null
+    },
+    {
+      "co_id": "3081",
+      "name": "聯亞",
+      "market": "otc",
+      "date": "2026-08-21",
+      "time": "14:44:26",
+      "subject": "本公司可轉換公司債聯亞二(代號：30812)達公布注\r\n意交易資訊標準，故公告相關訊息，以利投資人區別瞭解。",
       "labels": [
         "投資 / 併購 / 轉投資"
       ],

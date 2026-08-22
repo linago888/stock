@@ -131,6 +131,8 @@
 }
 .score-detail { font-size: 11px; color: var(--muted); }
 .subj-preview { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.label-chip.proxy { opacity: 0.55; font-style: italic; }
+.proxy-note { font-size: 10px; color: var(--amber); margin-top: 2px; }
 
 .label-chips {
   display: flex;

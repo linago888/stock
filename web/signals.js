@@ -153,16 +153,20 @@ async function loadTopRank() {
     : "尚無資料";
   const tbody = document.querySelector("#topRankTable tbody");
   tbody.innerHTML = data.items.map((it, idx) => {
-    const chips = it.labels_hit.map((l) => `<span class="label-chip">${l}</span>`).join(" ");
+    const own = new Set(it.own_labels_hit || []);
+    const chips = it.labels_hit.map((l) =>
+      `<span class="label-chip${own.has(l) ? '' : ' proxy'}">${l}${own.has(l) ? '' : '*'}</span>`
+    ).join(" ");
     const latest = it.subjects[0]?.subject || "";
     const bd = `訊號 ${it.signal_score} + 多元 ${it.diversity_bonus} + 集中 ${it.concentration_bonus} + 近期 ${it.recency_bonus}`;
+    const proxyPct = it.proxy_ratio != null ? Math.round(it.proxy_ratio * 100) : 0;
     return `
       <tr class="top-rank-row">
         <td><b>${idx + 1}</b></td>
         <td>${it.co_id}</td>
         <td>${it.name}</td>
         <td class="num score-cell">${it.score}</td>
-        <td class="num">${it.signal_count}</td>
+        <td class="num">${it.signal_count}${proxyPct >= 50 ? `<div class="proxy-note">代子${proxyPct}%</div>` : ""}</td>
         <td><div class="label-chips">${chips}</div></td>
         <td class="num">${it.max_same_day}</td>
         <td>${it.latest_date}<div class="subj-preview">${latest.substring(0, 40)}${latest.length > 40 ? "…" : ""}</div></td>

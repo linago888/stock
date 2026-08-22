@@ -225,18 +225,41 @@ CATEGORY_WEIGHTS = {
 }
 
 
+PROXY_PREFIXES = ("代", "本公司代", "代重要子公司", "代子公司")
+
+
+def _is_proxy(subject):
+    if not subject:
+        return False
+    s = subject.lstrip()
+    return any(s.startswith(p) for p in PROXY_PREFIXES)
+
+
 def _score_stock(anns, latest_signal_date):
     from collections import Counter
     import datetime as dt
 
     labels_hit = set()
-    label_counts = Counter()
+    label_counts = Counter()  # (lbl, is_proxy) -> cnt
+    proxy_only = set()
+    own_labels = set()
     for a in anns:
+        proxy = _is_proxy(a.get("subject", ""))
         for lbl in a.get("labels", []):
             labels_hit.add(lbl)
-            label_counts[lbl] += 1
-    signal_score = sum(CATEGORY_WEIGHTS.get(l, 0.5) * c for l, c in label_counts.items())
-    diversity_bonus = 1.5 * len(labels_hit)
+            if proxy:
+                proxy_only.add(lbl)
+                label_counts[(lbl, True)] += 1
+            else:
+                own_labels.add(lbl)
+                label_counts[(lbl, False)] += 1
+    signal_score = 0.0
+    for (lbl, is_proxy), cnt in label_counts.items():
+        w = CATEGORY_WEIGHTS.get(lbl, 0.5)
+        if is_proxy:
+            w *= 0.5
+        signal_score += w * cnt
+    diversity_bonus = 1.5 * len(own_labels) + 0.5 * len(proxy_only - own_labels)
     day_counts = Counter(a.get("date", "") for a in anns)
     max_same_day = max(day_counts.values()) if day_counts else 0
     concentration_bonus = 2.0 if max_same_day >= 3 else (1.0 if max_same_day >= 2 else 0.0)
@@ -248,6 +271,7 @@ def _score_stock(anns, latest_signal_date):
         recency_bonus = 3.0 if d <= 3 else (2.0 if d <= 7 else (1.0 if d <= 14 else 0.0))
     except Exception:
         pass
+    proxy_ratio = sum(1 for a in anns if _is_proxy(a.get("subject", ""))) / max(1, len(anns))
     total = signal_score + diversity_bonus + concentration_bonus + recency_bonus
     return {
         "signal_score": round(signal_score, 2),
@@ -256,7 +280,9 @@ def _score_stock(anns, latest_signal_date):
         "recency_bonus": recency_bonus,
         "score": round(total, 2),
         "labels_hit": sorted(labels_hit),
+        "own_labels_hit": sorted(own_labels),
         "max_same_day": max_same_day,
+        "proxy_ratio": round(proxy_ratio, 2),
     }
 
 
