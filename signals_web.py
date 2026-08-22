@@ -266,6 +266,7 @@ CATEGORY_WEIGHTS = {
     "庫藏股 / 減資": 5.0,
     "高階人事異動": 5.0,
     "股利政策 / 除權息": 5.0,
+    "現金增資 / 私募 / CB": 1.0,   # low weight — control-comparison lift ≈ 1×
     "重大契約 / 訂單": 1.5,
 }
 
@@ -355,12 +356,19 @@ def _score_stock(anns: list[dict], latest_signal_date: str) -> dict:
     }
 
 
-def watchlist_ranked(limit: int = 10, exclude_surged: bool = True) -> dict:
+def watchlist_ranked(
+    limit: int = 10,
+    exclude_surged: bool = True,
+    mom_range: tuple[float, float] | None = None,
+) -> dict:
     """Return top-N stocks in the watchlist ranked by surge-probability heuristic.
 
     exclude_surged also filters items whose tech snapshot marks the stock as
     already_moved (30-day momentum >= 15%) — those have "already moved" and
     aren't good forward-looking candidates.
+
+    mom_range: optional (lo, hi) pct — keep only items whose 30-day momentum
+    falls in [lo, hi]. Use e.g. (5, 14) for a "brewing" list.
     """
     scan = watchlist_scan()
     items = scan.get("items") or []
@@ -368,6 +376,10 @@ def watchlist_ranked(limit: int = 10, exclude_surged: bool = True) -> dict:
         items = [i for i in items
                  if not i.get("already_surged")
                  and not (i.get("tech") or {}).get("already_moved")]
+    if mom_range is not None:
+        lo, hi = mom_range
+        items = [i for i in items
+                 if lo <= (i.get("tech") or {}).get("mom_30d_pct", -999) <= hi]
 
     # group by (co_id, name)
     from collections import defaultdict

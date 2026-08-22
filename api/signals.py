@@ -221,6 +221,7 @@ CATEGORY_WEIGHTS = {
     "庫藏股 / 減資": 5.0,
     "高階人事異動": 5.0,
     "股利政策 / 除權息": 5.0,
+    "現金增資 / 私募 / CB": 1.0,
     "重大契約 / 訂單": 1.5,
 }
 
@@ -297,6 +298,10 @@ def action_watchlist_top(params) -> dict:
 
     limit = int((params.get("limit") or ["10"])[0])
     exclude_surged = (params.get("exclude_surged") or ["1"])[0] != "0"
+    mom_lo_raw = (params.get("mom_min") or [None])[0]
+    mom_hi_raw = (params.get("mom_max") or [None])[0]
+    mom_lo = float(mom_lo_raw) if mom_lo_raw not in (None, "") else None
+    mom_hi = float(mom_hi_raw) if mom_hi_raw not in (None, "") else None
     d = _load()
     scan = d.get("watchlist") or {}
     items = scan.get("items") or []
@@ -304,6 +309,9 @@ def action_watchlist_top(params) -> dict:
         items = [i for i in items
                  if not i.get("already_surged")
                  and not (i.get("tech") or {}).get("already_moved")]
+    if mom_lo is not None and mom_hi is not None:
+        items = [i for i in items
+                 if mom_lo <= (i.get("tech") or {}).get("mom_30d_pct", -999) <= mom_hi]
 
     per_stock = defaultdict(list)
     for it in items:

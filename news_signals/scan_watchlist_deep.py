@@ -202,17 +202,9 @@ def main() -> int:
         # be polite to MOPS
         time.sleep(0.2)
 
-    # merge with fresh daily scan (if exists)
+    # do NOT merge with previous scan — old items may have stale labels from
+    # earlier classifier rules; always start from this run's fresh classification
     merged = list(all_matches)
-    if OUT.exists():
-        try:
-            existing = json.loads(OUT.read_text(encoding="utf-8"))
-            for it in existing.get("items", []):
-                key = (it["co_id"], it["date"], it["time"], it["subject"])
-                if not any((m["co_id"], m["date"], m["time"], m["subject"]) == key for m in merged):
-                    merged.append(it)
-        except Exception:
-            pass
 
     merged.sort(key=lambda r: (0 if not r["already_surged"] else 1,
                                -len(r["labels"]),

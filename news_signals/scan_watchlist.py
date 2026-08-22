@@ -39,12 +39,15 @@ MOPS_URL = "https://mopsov.twse.com.tw/mops/web/ajax_t05sr01_1"
 
 # The categories that survived the control-group comparison.
 WHITELIST_RULES: list[tuple[str, list[str]]] = [
-    ("投資 / 併購 / 轉投資", ["取得", "併購", "投資", "轉投資", "子公司", "設立", "增資", "策略聯盟", "MOU", "合作"]),
+    # tightened: dropped naked 投資 (matches 投資顧問/投資信託) and 增資
+    # (moved to its own category — 增資 is capital-structure, not investment)
+    ("投資 / 併購 / 轉投資", ["取得", "併購", "轉投資", "設立", "策略聯盟", "MOU"]),
     ("庫藏股 / 減資", ["庫藏股", "減資", "註銷"]),
-    ("高階人事異動", ["發言人", "董事長", "總經理", "財務長", "獨立董事", "改派", "解任", "任期屆滿"]),
-    ("股利政策 / 除權息", ["股利", "配息", "配股", "盈餘分配", "股東常會", "除息", "除權"]),
-    # bonus category: sales / order news (not in original whitelist but
-    # often accompanies genuine growth catalysts) — kept but tagged.
+    ("高階人事異動", ["董事長", "總經理", "財務長", "獨立董事", "改派", "解任", "任期屆滿"]),
+    ("股利政策 / 除權息", ["股利", "配息", "配股", "盈餘分配", "除息", "除權"]),
+    # capital-structure changes — split out from 投資
+    ("現金增資 / 私募 / CB", ["現金增資", "私募", "轉換公司債"]),
+    # bonus category: real order/contract news (not in verified whitelist)
     ("重大契約 / 訂單", ["合約", "訂單", "簽署"]),
 ]
 

@@ -192,6 +192,49 @@ async function loadTopRank() {
   }).join("");
 }
 
+async function loadBrewing() {
+  const data = await getJSON("/api/signals/watchlist-top?limit=10&mom_min=5&mom_max=14");
+  $("#brewingMeta").textContent = data.items && data.items.length
+    ? `${data.items.length} 檔 · 掃描 ${data.backfill_window?.start} → ${data.backfill_window?.end}`
+    : "當前無符合條件（動能 5-14% 且未飆漲）";
+  const techLabelMap = {
+    breakout_zone: { text: "🎯 突破區", cls: "tech-breakout" },
+    flying: { text: "🚀 已飛", cls: "tech-flying" },
+    weak: { text: "📉 弱勢", cls: "tech-weak" },
+    quiet: { text: "😴 平淡", cls: "tech-quiet" },
+  };
+  const tbody = document.querySelector("#brewingTable tbody");
+  tbody.innerHTML = data.items.map((it, idx) => {
+    const own = new Set(it.own_labels_hit || []);
+    const chips = it.labels_hit.map((l) =>
+      `<span class="label-chip${own.has(l) ? '' : ' proxy'}">${l}${own.has(l) ? '' : '*'}</span>`
+    ).join(" ");
+    const latest = it.subjects[0]?.subject || "";
+    const tech = it.tech || {};
+    const tl = techLabelMap[tech.tech_signal] || { text: "—", cls: "" };
+    const techCell = tech.tech_signal
+      ? `<span class="tech-badge ${tl.cls}">${tl.text}</span>`
+      : "—";
+    const mom = tech.mom_30d_pct;
+    const momCell = mom != null
+      ? `<span class="${mom > 0 ? 'delta-pos' : mom < 0 ? 'delta-neg' : ''}">${mom > 0 ? '+' : ''}${mom.toFixed(1)}%</span>`
+      : "—";
+    return `
+      <tr class="top-rank-row">
+        <td><b>${idx + 1}</b></td>
+        <td>${it.co_id}</td>
+        <td>${it.name}</td>
+        <td class="num score-cell">${it.score}</td>
+        <td class="num">${it.signal_count}</td>
+        <td><div class="label-chips">${chips}</div></td>
+        <td>${techCell}</td>
+        <td class="num">${momCell}</td>
+        <td>${it.latest_date}<div class="subj-preview">${latest.substring(0, 40)}${latest.length > 40 ? "…" : ""}</div></td>
+      </tr>
+    `;
+  }).join("");
+}
+
 async function loadWatchlist() {
   const data = await getJSON("/api/signals/watchlist");
   watchlistData = data;
@@ -223,7 +266,7 @@ async function loadWatchlist() {
 async function refreshAll() {
   try {
     await loadStatus();
-    await Promise.all([loadTopRank(), loadWatchlist(), loadComparison(), loadWhitelist(), loadStocks("poc")]);
+    await Promise.all([loadTopRank(), loadBrewing(), loadWatchlist(), loadComparison(), loadWhitelist(), loadStocks("poc")]);
   } catch (err) {
     console.error(err);
     alert(`載入失敗：${err.message}`);
