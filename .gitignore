@@ -29,3 +29,6 @@ Thumbs.db
 .claude/
 
 .vercel
+news_signals/mops_probe.html
+news_signals/mops_detail.html
+news_signals/batch_*.log

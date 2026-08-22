@@ -6,9 +6,16 @@
       "includeFiles": "data/sitca_bundle.csv.gz",
       "memory": 512,
       "maxDuration": 10
+    },
+    "api/signals.py": {
+      "runtime": "@vercel/python@4.3.1",
+      "includeFiles": "data/signals_bundle.json.gz",
+      "memory": 512,
+      "maxDuration": 10
     }
   },
   "rewrites": [
-    { "source": "/api/sitca/:action", "destination": "/api/sitca?action=:action" }
+    { "source": "/api/sitca/:action", "destination": "/api/sitca?action=:action" },
+    { "source": "/api/signals/:action", "destination": "/api/signals?action=:action" }
   ]
 }

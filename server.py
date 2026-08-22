@@ -37,6 +37,7 @@ from stock_picker import (
     score_technicals,
 )
 import sitca_web
+import signals_web
 
 
 ROOT = Path(__file__).resolve().parent
@@ -532,6 +533,41 @@ class Handler(SimpleHTTPRequestHandler):
 
                 params = parse_qs(query)
                 self.send_json(job_status(params.get("id", [""])[0]))
+                return
+            if path == "/api/signals/status":
+                self.send_json(signals_web.status())
+                return
+            if path == "/api/signals/comparison":
+                self.send_json(signals_web.comparison())
+                return
+            if path == "/api/signals/stocks":
+                from urllib.parse import parse_qs
+
+                params = parse_qs(query)
+                self.send_json(signals_web.stocks(group=params.get("group", ["poc"])[0]))
+                return
+            if path == "/api/signals/announcements":
+                from urllib.parse import parse_qs
+
+                params = parse_qs(query)
+                self.send_json(
+                    signals_web.announcements(
+                        symbol=params.get("symbol", [""])[0],
+                        group=params.get("group", ["poc"])[0],
+                    )
+                )
+                return
+            if path == "/api/signals/whitelist":
+                from urllib.parse import parse_qs
+
+                params = parse_qs(query)
+                self.send_json(
+                    signals_web.whitelist(
+                        min_delta=float(params.get("min_delta", ["0.2"])[0]),
+                        min_lift=float(params.get("min_lift", ["2.0"])[0]),
+                        min_stocks=int(params.get("min_stocks", ["3"])[0]),
+                    )
+                )
                 return
             if path == "/api/sitca/status":
                 self.send_json(sitca_web.status())

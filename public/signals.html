@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>台股飆漲前夕領先訊號｜MOPS 重訊分析</title>
+    <link rel="stylesheet" href="/sitca.css" />
+    <link rel="stylesheet" href="/signals.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="mark">SIG</span>
+        <div>
+          <h1>台股飆漲前夕領先訊號</h1>
+          <p>
+            對照組驗證後的 MOPS 重大訊息領先指標。資料來源
+            <a href="https://mops.twse.com.tw/mops/#/web/t05st01" target="_blank" rel="noopener">公開資訊觀測站</a>
+          </p>
+        </div>
+      </div>
+      <nav>
+        <a href="/">基金持股</a>
+        <a href="/signals.html" class="active">領先訊號</a>
+        <a href="https://github.com/linago888/stock" target="_blank" rel="noopener">原始碼</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="status-card">
+        <div><span>飆漲事件</span><strong id="sigSurgeCount">-</strong></div>
+        <div><span>PoC 樣本</span><strong id="sigPocCount">-</strong></div>
+        <div><span>對照組樣本</span><strong id="sigCtlCount">-</strong></div>
+        <div><span>PoC 命中率</span><strong id="sigPocHit">-</strong></div>
+        <div><span>對照組命中率</span><strong id="sigCtlHit">-</strong></div>
+        <div><span>資料日期</span><strong id="sigDateRange">-</strong></div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
+          <h2>訊號類型 · 飆漲組 vs 對照組</h2>
+          <span class="hint">Δ 覆蓋率 = 飆漲組 − 對照組（正值大 = 領先性強）</span>
+        </header>
+        <div class="table-wrap">
+          <table class="data-table" id="compTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>訊號類型</th>
+                <th class="num">飆漲組</th>
+                <th class="num">對照組</th>
+                <th class="num">Δ 覆蓋率</th>
+                <th class="num">Lift</th>
+                <th>Δ 圖示</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
+          <h2>建議關鍵字白名單</h2>
+          <span class="hint">Δ ≥ 20pp、lift ≥ 2×、至少 3 檔命中的訊號類型</span>
+        </header>
+        <div id="whitelistPanel" class="whitelist-panel"></div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
+          <h2>樣本股票逐檔明細</h2>
+          <div class="group-toggle">
+            <button class="primary" data-group="poc" id="grpPoc">飆漲組 (20)</button>
+            <button class="secondary" data-group="ctl" id="grpCtl">對照組 (20)</button>
+          </div>
+        </header>
+        <div class="table-wrap">
+          <table class="data-table" id="stocksTable">
+            <thead>
+              <tr>
+                <th>代號</th>
+                <th>名稱</th>
+                <th>T0</th>
+                <th class="num">20 日漲幅</th>
+                <th class="num">量比</th>
+                <th class="num">重訊數</th>
+                <th>命中訊號類型</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="annPanel" class="panel hidden">
+        <header class="panel-head">
+          <h2 id="annTitle">個股 T-30 重訊</h2>
+          <button id="annClose" class="secondary" type="button">關閉</button>
+        </header>
+        <div class="table-wrap">
+          <table class="data-table" id="annTable">
+            <thead>
+              <tr>
+                <th>距 T0</th>
+                <th>日期</th>
+                <th>訊號分類</th>
+                <th>主旨</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="footer">
+        本站為個人研究專案，內容僅供資訊分析教學參考，非投資建議。資料來源 MOPS 公開資訊觀測站。
+      </footer>
+    </main>
+
+    <script src="/signals.js"></script>
+  </body>
+</html>

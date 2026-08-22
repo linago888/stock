@@ -1,0 +1,272 @@
+"""领先訊號分析後端 — 讀取 PoC 20 檔 + 對照組 + MOPS 重訊，供 API 使用。"""
+
+from __future__ import annotations
+
+import csv
+import datetime as dt
+import json
+import threading
+from collections import Counter
+from pathlib import Path
+from typing import Iterable
+
+ROOT = Path(__file__).resolve().parent
+DATA_DIR = ROOT / "data"
+MOPS_DIR = DATA_DIR / "mops"
+
+POC_CANDIDATES = DATA_DIR / "poc20_candidates.csv"
+CTL_CANDIDATES = DATA_DIR / "control20_candidates.csv"
+POC_SUMMARY = DATA_DIR / "poc20_summary.json"
+CTL_SUMMARY = DATA_DIR / "control20_summary.json"
+SURGE_CSV = DATA_DIR / "surge_events.csv"
+
+SIGNAL_RULES: list[tuple[str, list[str]]] = [
+    ("資產處分（賣廠、賣土地、賣設備）", ["出售", "處分", "廠房", "土地", "設備", "轉讓"]),
+    ("庫藏股 / 減資", ["庫藏股", "減資", "註銷"]),
+    ("轉換公司債 / 現金增資 / 私募",
+     ["轉換公司債", "現金增資", "私募", "有擔保", "無擔保"]),
+    ("董事會決議 / 董事會召開", ["董事會", "決議"]),
+    ("財務報告 / 財報公告", ["財務報告", "財報", "自結", "合併財務報告"]),
+    ("法說會 / 券商論壇", ["法人說明會", "法說會", "投資論壇", "券商", "受邀參加"]),
+    ("高階人事異動 (董監事 / CEO / CFO / 發言人)",
+     ["發言人", "董事長", "總經理", "財務長", "獨立董事", "人事", "改派", "解任"]),
+    ("重大契約 / 訂單", ["合約", "訂單", "簽署", "MOU", "策略聯盟", "合作"]),
+    ("投資 / 併購 / 轉投資", ["取得", "併購", "投資", "轉投資", "子公司", "設立"]),
+    ("股利政策 / 除權息", ["股利", "配息", "配股", "盈餘分配", "股東常會"]),
+    ("注意 / 處置股 (異常波動)", ["注意", "處置", "異常", "警示"]),
+    ("信用交易 / 融資融券變動", ["融資", "融券", "信用交易"]),
+]
+
+
+def classify(subject: str) -> list[str]:
+    hits = [lbl for lbl, kws in SIGNAL_RULES if any(k in subject for k in kws)]
+    return hits or ["其他"]
+
+
+_LOCK = threading.Lock()
+_CACHE: dict[str, object] = {"mtime": 0.0, "data": None}
+
+
+def _cache_mtime() -> float:
+    mts = []
+    for p in (POC_CANDIDATES, CTL_CANDIDATES, POC_SUMMARY, CTL_SUMMARY):
+        if p.exists():
+            mts.append(p.stat().st_mtime)
+    if MOPS_DIR.exists():
+        for p in MOPS_DIR.glob("*.json"):
+            mts.append(p.stat().st_mtime)
+    return max(mts, default=0.0)
+
+
+def _load_all(force: bool = False) -> dict:
+    with _LOCK:
+        m = _cache_mtime()
+        if not force and _CACHE["data"] is not None and m == _CACHE["mtime"]:
+            return _CACHE["data"]  # type: ignore[return-value]
+
+        def load_candidates(path: Path) -> list[dict]:
+            if not path.exists():
+                return []
+            return list(csv.DictReader(path.open("r", encoding="utf-8-sig")))
+
+        def load_summary(path: Path) -> dict:
+            if not path.exists():
+                return {}
+            return json.loads(path.read_text(encoding="utf-8"))
+
+        def load_anns(candidates: list[dict]) -> dict[str, list[dict]]:
+            out: dict[str, list[dict]] = {}
+            for c in candidates:
+                sym = c["symbol"]
+                code = sym.split(".")[0]
+                try:
+                    t0 = dt.date.fromisoformat(c["T0"])
+                except Exception:
+                    continue
+                start = (t0 - dt.timedelta(days=30)).isoformat()
+                end = (t0 - dt.timedelta(days=1)).isoformat()
+                p = MOPS_DIR / f"{code}_{start}_{end}.json"
+                if not p.exists():
+                    out[sym] = []
+                    continue
+                anns = json.loads(p.read_text(encoding="utf-8"))
+                for a in anns:
+                    try:
+                        a["_dbefore"] = (t0 - dt.date.fromisoformat(a["date"])).days
+                    except Exception:
+                        a["_dbefore"] = None
+                    a["_labels"] = classify(a["subject"])
+                anns.sort(key=lambda a: (a["date"], a.get("spoke_time", "")))
+                out[sym] = anns
+            return out
+
+        poc_c = load_candidates(POC_CANDIDATES)
+        ctl_c = load_candidates(CTL_CANDIDATES)
+        poc_s = load_summary(POC_SUMMARY)
+        ctl_s = load_summary(CTL_SUMMARY)
+        poc_a = load_anns(poc_c)
+        ctl_a = load_anns(ctl_c)
+
+        surge_count = 0
+        if SURGE_CSV.exists():
+            with SURGE_CSV.open("r", encoding="utf-8-sig") as fh:
+                surge_count = sum(1 for _ in csv.reader(fh)) - 1
+
+        data = {
+            "poc_candidates": poc_c,
+            "ctl_candidates": ctl_c,
+            "poc_summary": poc_s,
+            "ctl_summary": ctl_s,
+            "poc_anns": poc_a,
+            "ctl_anns": ctl_a,
+            "surge_event_count": surge_count,
+            "mops_files": len(list(MOPS_DIR.glob("*.json"))) if MOPS_DIR.exists() else 0,
+            "cache_mtime": m,
+        }
+        _CACHE["data"] = data
+        _CACHE["mtime"] = m
+        return data
+
+
+def status() -> dict:
+    d = _load_all()
+    return {
+        "surge_event_count": d["surge_event_count"],
+        "poc_count": len(d["poc_candidates"]),
+        "ctl_count": len(d["ctl_candidates"]),
+        "poc_hit_rate": _hit_rate(d["poc_anns"]),
+        "ctl_hit_rate": _hit_rate(d["ctl_anns"]),
+        "poc_total_anns": sum(len(v) for v in d["poc_anns"].values()),
+        "ctl_total_anns": sum(len(v) for v in d["ctl_anns"].values()),
+        "date_range": _date_range(d["poc_candidates"] + d["ctl_candidates"]),
+        "mops_files": d["mops_files"],
+        "cache_mtime": d["cache_mtime"],
+    }
+
+
+def _hit_rate(anns_map: dict[str, list[dict]]) -> dict:
+    total = len(anns_map) or 1
+    hit = sum(1 for v in anns_map.values() if v)
+    return {"hit": hit, "total": total, "pct": round(100 * hit / total, 1)}
+
+
+def _date_range(candidates: list[dict]) -> dict:
+    dates = []
+    for c in candidates:
+        try:
+            dates.append(dt.date.fromisoformat(c["T0"]))
+        except Exception:
+            pass
+    if not dates:
+        return {"min": "", "max": ""}
+    return {"min": min(dates).isoformat(), "max": max(dates).isoformat()}
+
+
+def comparison() -> dict:
+    d = _load_all()
+    p_summary, c_summary = d["poc_summary"], d["ctl_summary"]
+    p_n = p_summary.get("n_stocks") or len(d["poc_candidates"]) or 1
+    c_n = c_summary.get("n_stocks") or len(d["ctl_candidates"]) or 1
+    p_counts = p_summary.get("signal_stock_count", {})
+    c_counts = c_summary.get("signal_stock_count", {})
+    labels = set(p_counts) | set(c_counts)
+    rows = []
+    for lbl in labels:
+        p_stocks = p_counts.get(lbl, 0)
+        c_stocks = c_counts.get(lbl, 0)
+        p_cov = p_stocks / p_n
+        c_cov = c_stocks / c_n
+        rows.append(
+            {
+                "label": lbl,
+                "poc_stocks": p_stocks,
+                "poc_total": p_n,
+                "poc_cov": round(p_cov, 4),
+                "ctl_stocks": c_stocks,
+                "ctl_total": c_n,
+                "ctl_cov": round(c_cov, 4),
+                "delta": round(p_cov - c_cov, 4),
+                "lift": (round(p_cov / c_cov, 3) if c_cov > 0 else None),
+            }
+        )
+    rows.sort(key=lambda r: (-r["delta"], -r["poc_cov"]))
+    return {"rows": rows}
+
+
+def stocks(group: str = "poc") -> dict:
+    d = _load_all()
+    if group == "control" or group == "ctl":
+        candidates = d["ctl_candidates"]
+        anns = d["ctl_anns"]
+    else:
+        candidates = d["poc_candidates"]
+        anns = d["poc_anns"]
+
+    out = []
+    for c in candidates:
+        sym = c["symbol"]
+        stock_anns = anns.get(sym, [])
+        label_hits: Counter = Counter()
+        for a in stock_anns:
+            for lbl in a.get("_labels", []):
+                label_hits[lbl] += 1
+        out.append(
+            {
+                "symbol": sym,
+                "name": c.get("name", ""),
+                "T0": c.get("T0", ""),
+                "return_pct": _num(c.get("return_pct")),
+                "vol_ratio": _num(c.get("vol_ratio")),
+                "ann_count": len(stock_anns),
+                "labels": list(label_hits),
+            }
+        )
+    return {"group": group, "items": out}
+
+
+def announcements(symbol: str, group: str = "poc") -> dict:
+    d = _load_all()
+    anns_map = d["ctl_anns"] if group in ("ctl", "control") else d["poc_anns"]
+    anns = anns_map.get(symbol, [])
+    return {
+        "symbol": symbol,
+        "count": len(anns),
+        "items": [
+            {
+                "date": a.get("date"),
+                "days_before": a.get("_dbefore"),
+                "time": a.get("roc_time"),
+                "subject": a.get("subject"),
+                "labels": a.get("_labels", []),
+                "detail": a.get("detail", ""),
+            }
+            for a in anns
+        ],
+    }
+
+
+def whitelist(min_delta: float = 0.2, min_lift: float = 2.0,
+              min_stocks: int = 3) -> dict:
+    """Return the signal categories that survive the control comparison."""
+    comp = comparison()
+    keep = []
+    for r in comp["rows"]:
+        if r["delta"] < min_delta:
+            continue
+        if r["poc_stocks"] < min_stocks:
+            continue
+        if r["lift"] is not None and r["lift"] < min_lift:
+            continue
+        # gather keywords from rules
+        keywords = next((kws for lbl, kws in SIGNAL_RULES if lbl == r["label"]), [])
+        keep.append({**r, "keywords": keywords})
+    return {"items": keep, "min_delta": min_delta, "min_lift": min_lift, "min_stocks": min_stocks}
+
+
+def _num(v: object) -> float | None:
+    if v in (None, ""):
+        return None
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
