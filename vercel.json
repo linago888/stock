@@ -1,21 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "api/sitca.py": {
-      "runtime": "@vercel/python@4.3.1",
-      "includeFiles": "data/sitca_bundle.csv.gz",
-      "memory": 512,
-      "maxDuration": 10
+  "builds": [
+    {
+      "src": "api/*.py",
+      "use": "@vercel/python",
+      "config": { "includeFiles": "data/*.gz" }
     },
-    "api/signals.py": {
-      "runtime": "@vercel/python@4.3.1",
-      "includeFiles": "data/signals_bundle.json.gz",
-      "memory": 512,
-      "maxDuration": 10
-    }
-  },
-  "rewrites": [
-    { "source": "/api/sitca/:action", "destination": "/api/sitca?action=:action" },
-    { "source": "/api/signals/:action", "destination": "/api/signals?action=:action" }
+    { "src": "public/**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/sitca/(?<action>[^/]+)", "dest": "/api/sitca.py?action=$action" },
+    { "src": "/api/signals/(?<action>[^/]+)", "dest": "/api/signals.py?action=$action" },
+    { "src": "/api/(?<fn>[a-zA-Z0-9_-]+)", "dest": "/api/$fn.py" },
+    { "handle": "filesystem" },
+    { "src": "/", "dest": "/public/index.html" },
+    { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }

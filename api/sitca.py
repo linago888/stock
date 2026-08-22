@@ -427,25 +427,47 @@ HANDLERS = {
 }
 
 
+def _resolve(path: str, params: dict[str, list[str]]) -> tuple[int, dict]:
+    action = (params.get("action", [""])[0]).strip()
+    if not action and path:
+        tail = path.split("/api/sitca", 1)[-1].lstrip("/").split("?", 1)[0]
+        if tail:
+            action = tail.strip("/")
+    if not action:
+        return 400, {"error": "missing action"}
+    fn = HANDLERS.get(action)
+    if not fn:
+        return 404, {"error": f"unknown action: {action}", "path": path}
+    try:
+        return 200, fn(params)
+    except Exception as exc:
+        return 500, {"error": str(exc), "action": action}
+
+
+def app(environ, start_response):
+    """WSGI entry — modern @vercel/python builder looks for `app` first."""
+    path = environ.get("PATH_INFO", "")
+    query = environ.get("QUERY_STRING", "")
+    params = parse_qs(query)
+    status, payload = _resolve(path, params)
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    reason = {200: "OK", 400: "Bad Request", 404: "Not Found", 500: "Internal Server Error"}.get(status, "OK")
+    start_response(
+        f"{status} {reason}",
+        [
+            ("Content-Type", "application/json; charset=utf-8"),
+            ("Cache-Control", "public, max-age=300"),
+            ("Content-Length", str(len(body))),
+        ],
+    )
+    return [body]
+
+
 class handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
         params = parse_qs(parsed.query)
-        action = (params.get("action", [""])[0]).strip()
-        if not action:
-            self._send_json({"error": "missing action"}, status=400)
-            return
-        fn = HANDLERS.get(action)
-        if not fn:
-            self._send_json({"error": f"unknown action: {action}"}, status=404)
-            return
-        try:
-            body = fn(params)
-            self._send_json(body)
-        except Exception as exc:
-            self._send_json({"error": str(exc), "action": action}, status=500)
-
-    def _send_json(self, payload: dict, status: int = 200) -> None:
+        status, payload = _resolve(parsed.path, params)
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
