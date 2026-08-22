@@ -262,11 +262,32 @@ async function loadBrewing() {
   }).join("");
 }
 
+let wlActiveTech = new Set();
+
+function buildWatchlistUrl() {
+  const q = new URLSearchParams();
+  q.set("limit", "999");
+  const hs = document.querySelector("#wlHideSurged");
+  q.set("exclude_surged", hs && hs.checked === false ? "0" : "1");
+  const vals = {
+    date_from: document.querySelector("#wlDateFrom")?.value,
+    date_to: document.querySelector("#wlDateTo")?.value,
+    mom_min: document.querySelector("#wlMomMin")?.value,
+    mom_max: document.querySelector("#wlMomMax")?.value,
+    min_score: document.querySelector("#wlMinScore")?.value,
+    max_proxy: document.querySelector("#wlMaxProxy")?.value,
+  };
+  for (const [k, v] of Object.entries(vals)) {
+    if (v !== undefined && v !== "") q.set(k, v);
+  }
+  wlActiveTech.forEach((t) => q.append("tech", t));
+  wlActiveLabels.forEach((l) => q.append("labels", l));
+  return "/api/signals/watchlist-top?" + q.toString();
+}
+
 async function loadWatchlist() {
-  const hideSurged = document.querySelector("#wlHideSurged")?.checked !== false;
-  // Aggregated per-stock (all stocks, not just Top 10)
-  const url = `/api/signals/watchlist-top?limit=999&exclude_surged=${hideSurged ? 1 : 0}`;
-  const data = await getJSON(url);
+  // Aggregated per-stock (all stocks) with all filters applied server-side
+  const data = await getJSON(buildWatchlistUrl());
   watchlistData = data;
   // Raw meta for total counts (fetch once, cached)
   if (!watchlistRawMeta) {
@@ -299,10 +320,43 @@ async function loadWatchlist() {
     });
     chipEl.appendChild(b);
   });
-  const hs = document.querySelector("#wlHideSurged");
-  if (hs && !hs._wired) {
-    hs._wired = true;
-    hs.addEventListener("change", loadWatchlist);
+  // wire once
+  const wl = document.querySelector("#wlHideSurged");
+  if (wl && !wl._wired) {
+    wl._wired = true;
+    wl.addEventListener("change", loadWatchlist);
+    // apply/reset buttons
+    document.querySelector("#wlApply")?.addEventListener("click", loadWatchlist);
+    document.querySelector("#wlReset")?.addEventListener("click", () => {
+      wlActiveLabels.clear();
+      wlActiveTech.clear();
+      ["#wlDateFrom", "#wlDateTo", "#wlMomMin", "#wlMomMax", "#wlMinScore", "#wlMaxProxy"]
+        .forEach((s) => { const el = document.querySelector(s); if (el) el.value = ""; });
+      document.querySelector("#wlHideSurged").checked = true;
+      loadWatchlist();
+    });
+    // Enter key on inputs applies
+    ["#wlDateFrom", "#wlDateTo", "#wlMomMin", "#wlMomMax", "#wlMinScore", "#wlMaxProxy"]
+      .forEach((s) => {
+        const el = document.querySelector(s);
+        if (el) el.addEventListener("keydown", (e) => { if (e.key === "Enter") loadWatchlist(); });
+      });
+    // pre-fill period with the scan window
+    if (watchlistRawMeta?.backfill_window) {
+      const f = document.querySelector("#wlDateFrom");
+      const t = document.querySelector("#wlDateTo");
+      if (f && !f.value) f.value = watchlistRawMeta.backfill_window.start;
+      if (t && !t.value) t.value = watchlistRawMeta.backfill_window.end;
+    }
+    // wire tech chips
+    document.querySelectorAll("#wlTechChips [data-tech]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const t = btn.dataset.tech;
+        if (wlActiveTech.has(t)) { wlActiveTech.delete(t); btn.classList.remove("on"); }
+        else { wlActiveTech.add(t); btn.classList.add("on"); }
+        loadWatchlist();
+      });
+    });
   }
   renderWatchlist();
 }

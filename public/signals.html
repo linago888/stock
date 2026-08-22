@@ -20,7 +20,9 @@
         </div>
       </div>
       <nav>
-        <a href="/">基金持股</a><a href="/signals.html" class="active">領先訊號</a><a href="https://github.com/linago888/stock" target="_blank" rel="noopener">原始碼</a>
+        <a href="/">基金持股</a>
+        <a href="/signals.html" class="active">領先訊號</a>
+        <a href="https://github.com/linago888/stock" target="_blank" rel="noopener">原始碼</a>
       </nav>
     </header>
 
@@ -103,12 +105,50 @@
           <h2>🎯 前瞻性觀察名單全表（每檔股票一列，指標彙整）</h2>
           <span class="hint" id="watchlistMeta">-</span>
         </header>
-        <div class="watchlist-filters">
-          <label class="check-inline">
-            <input type="checkbox" id="wlHideSurged" checked />
-            <span>只看未飆漲</span>
-          </label>
-          <div class="chip-filters" id="wlLabelChips"></div>
+        <div class="watchlist-filters watchlist-filters-adv">
+          <div class="wl-filter-row">
+            <label class="field">
+              <span>期間 從</span>
+              <input type="date" id="wlDateFrom" />
+            </label>
+            <label class="field">
+              <span>到</span>
+              <input type="date" id="wlDateTo" />
+            </label>
+            <label class="field">
+              <span>動能下限 (%)</span>
+              <input type="number" id="wlMomMin" step="0.5" placeholder="—" />
+            </label>
+            <label class="field">
+              <span>動能上限 (%)</span>
+              <input type="number" id="wlMomMax" step="0.5" placeholder="—" />
+            </label>
+            <label class="field">
+              <span>最低綜合分</span>
+              <input type="number" id="wlMinScore" step="1" placeholder="0" />
+            </label>
+            <label class="field">
+              <span>最高代子比例</span>
+              <input type="number" id="wlMaxProxy" step="0.1" min="0" max="1" placeholder="1.0" />
+            </label>
+            <label class="check-inline">
+              <input type="checkbox" id="wlHideSurged" checked />
+              <span>只看未飆漲</span>
+            </label>
+            <button id="wlApply" class="primary" type="button">套用篩選</button>
+            <button id="wlReset" class="secondary" type="button">重設</button>
+          </div>
+          <div class="wl-filter-row">
+            <span class="wl-filter-label">技術面：</span>
+            <div class="chip-filters" id="wlTechChips">
+              <button type="button" class="chip-filter" data-tech="breakout_zone">🎯 突破區</button>
+              <button type="button" class="chip-filter" data-tech="quiet">😴 平淡</button>
+              <button type="button" class="chip-filter" data-tech="weak">📉 弱勢</button>
+              <button type="button" class="chip-filter" data-tech="flying">🚀 已飛</button>
+            </div>
+            <span class="wl-filter-label">訊號類別：</span>
+            <div class="chip-filters" id="wlLabelChips"></div>
+          </div>
         </div>
         <div class="table-wrap">
           <table class="data-table" id="watchlistTable">

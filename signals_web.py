@@ -360,15 +360,23 @@ def watchlist_ranked(
     limit: int = 10,
     exclude_surged: bool = True,
     mom_range: tuple[float, float] | None = None,
+    date_from: str = "",
+    date_to: str = "",
+    min_score: float | None = None,
+    max_proxy_ratio: float | None = None,
+    tech_signals: list[str] | None = None,
+    required_labels: list[str] | None = None,
 ) -> dict:
     """Return top-N stocks in the watchlist ranked by surge-probability heuristic.
 
-    exclude_surged also filters items whose tech snapshot marks the stock as
-    already_moved (30-day momentum >= 15%) — those have "already moved" and
-    aren't good forward-looking candidates.
-
-    mom_range: optional (lo, hi) pct — keep only items whose 30-day momentum
-    falls in [lo, hi]. Use e.g. (5, 14) for a "brewing" list.
+    Filters (all optional):
+    - exclude_surged: drop stocks with surge_events T0 <60d ago or tech.already_moved
+    - mom_range (lo, hi): keep only stocks with 30d momentum in this range
+    - date_from / date_to: restrict announcements to this date window before aggregating
+    - min_score: require final score >= X
+    - max_proxy_ratio: require proxy_ratio <= X (0.0-1.0)
+    - tech_signals: keep only stocks whose tech_signal is in this list
+    - required_labels: keep only stocks whose labels_hit contains at least one of these
     """
     scan = watchlist_scan()
     items = scan.get("items") or []
@@ -380,6 +388,10 @@ def watchlist_ranked(
         lo, hi = mom_range
         items = [i for i in items
                  if lo <= (i.get("tech") or {}).get("mom_30d_pct", -999) <= hi]
+    if date_from:
+        items = [i for i in items if (i.get("date") or "") >= date_from]
+    if date_to:
+        items = [i for i in items if (i.get("date") or "") <= date_to]
 
     # group by (co_id, name)
     from collections import defaultdict
@@ -413,6 +425,19 @@ def watchlist_ranked(
         })
 
     scored.sort(key=lambda r: (-r["score"], -r["signal_count"]))
+
+    # post-aggregate filters
+    if min_score is not None:
+        scored = [r for r in scored if r["score"] >= min_score]
+    if max_proxy_ratio is not None:
+        scored = [r for r in scored if r.get("proxy_ratio", 0) <= max_proxy_ratio]
+    if tech_signals:
+        tech_set = set(tech_signals)
+        scored = [r for r in scored if (r.get("tech") or {}).get("tech_signal") in tech_set]
+    if required_labels:
+        req_set = set(required_labels)
+        scored = [r for r in scored if req_set & set(r.get("labels_hit", []))]
+
     return {
         "generated_at": scan.get("generated_at", ""),
         "backfill_window": scan.get("backfill_window"),

@@ -296,12 +296,22 @@ def _score_stock(anns, latest_signal_date):
 def action_watchlist_top(params) -> dict:
     from collections import defaultdict
 
-    limit = int((params.get("limit") or ["10"])[0])
-    exclude_surged = (params.get("exclude_surged") or ["1"])[0] != "0"
-    mom_lo_raw = (params.get("mom_min") or [None])[0]
-    mom_hi_raw = (params.get("mom_max") or [None])[0]
-    mom_lo = float(mom_lo_raw) if mom_lo_raw not in (None, "") else None
-    mom_hi = float(mom_hi_raw) if mom_hi_raw not in (None, "") else None
+    def _first(k, default=None):
+        v = (params.get(k) or [None])[0]
+        return v if v not in ("", None) else default
+    def _f(k):
+        v = _first(k)
+        return float(v) if v is not None else None
+    limit = int(_first("limit", "10"))
+    exclude_surged = _first("exclude_surged", "1") != "0"
+    mom_lo = _f("mom_min"); mom_hi = _f("mom_max")
+    date_from = _first("date_from", "") or ""
+    date_to = _first("date_to", "") or ""
+    min_score = _f("min_score")
+    max_proxy = _f("max_proxy")
+    tech_signals = [t for t in (params.get("tech") or []) if t]
+    required_labels = [l for l in (params.get("labels") or []) if l]
+
     d = _load()
     scan = d.get("watchlist") or {}
     items = scan.get("items") or []
@@ -312,6 +322,10 @@ def action_watchlist_top(params) -> dict:
     if mom_lo is not None and mom_hi is not None:
         items = [i for i in items
                  if mom_lo <= (i.get("tech") or {}).get("mom_30d_pct", -999) <= mom_hi]
+    if date_from:
+        items = [i for i in items if (i.get("date") or "") >= date_from]
+    if date_to:
+        items = [i for i in items if (i.get("date") or "") <= date_to]
 
     per_stock = defaultdict(list)
     for it in items:
@@ -334,6 +348,16 @@ def action_watchlist_top(params) -> dict:
             **s, "subjects": subjects,
         })
     scored.sort(key=lambda r: (-r["score"], -r["signal_count"]))
+    if min_score is not None:
+        scored = [r for r in scored if r["score"] >= min_score]
+    if max_proxy is not None:
+        scored = [r for r in scored if r.get("proxy_ratio", 0) <= max_proxy]
+    if tech_signals:
+        tech_set = set(tech_signals)
+        scored = [r for r in scored if (r.get("tech") or {}).get("tech_signal") in tech_set]
+    if required_labels:
+        req_set = set(required_labels)
+        scored = [r for r in scored if req_set & set(r.get("labels_hit", []))]
     return {
         "generated_at": scan.get("generated_at", ""),
         "backfill_window": scan.get("backfill_window"),

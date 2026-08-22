@@ -564,14 +564,25 @@ class Handler(SimpleHTTPRequestHandler):
                 from urllib.parse import parse_qs
 
                 params = parse_qs(query)
+                def _f(k):
+                    v = params.get(k, [""])[0]
+                    return float(v) if v not in ("", None) else None
                 mom_lo = params.get("mom_min", [None])[0]
                 mom_hi = params.get("mom_max", [None])[0]
                 mom_range = (float(mom_lo), float(mom_hi)) if mom_lo and mom_hi else None
+                tech_signals = [t for t in params.get("tech", []) if t]
+                required_labels = [l for l in params.get("labels", []) if l]
                 self.send_json(
                     signals_web.watchlist_ranked(
                         limit=int(params.get("limit", ["10"])[0]),
                         exclude_surged=params.get("exclude_surged", ["1"])[0] != "0",
                         mom_range=mom_range,
+                        date_from=params.get("date_from", [""])[0],
+                        date_to=params.get("date_to", [""])[0],
+                        min_score=_f("min_score"),
+                        max_proxy_ratio=_f("max_proxy"),
+                        tech_signals=tech_signals or None,
+                        required_labels=required_labels or None,
                     )
                 )
                 return
