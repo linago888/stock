@@ -210,12 +210,19 @@ def action_whitelist(params: dict[str, list[str]]) -> dict:
     return {"items": keep, "min_delta": min_delta, "min_lift": min_lift, "min_stocks": min_stocks}
 
 
+def action_watchlist(_p) -> dict:
+    d = _load()
+    wl = d.get("watchlist") or {"items": [], "matched_count": 0}
+    return wl
+
+
 HANDLERS = {
     "status": action_status,
     "comparison": action_comparison,
     "stocks": action_stocks,
     "announcements": action_announcements,
     "whitelist": action_whitelist,
+    "watchlist": action_watchlist,
 }
 
 

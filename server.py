@@ -557,6 +557,9 @@ class Handler(SimpleHTTPRequestHandler):
                     )
                 )
                 return
+            if path == "/api/signals/watchlist":
+                self.send_json(signals_web.watchlist_scan())
+                return
             if path == "/api/signals/whitelist":
                 from urllib.parse import parse_qs
 

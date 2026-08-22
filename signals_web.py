@@ -19,6 +19,7 @@ CTL_CANDIDATES = DATA_DIR / "control20_candidates.csv"
 POC_SUMMARY = DATA_DIR / "poc20_summary.json"
 CTL_SUMMARY = DATA_DIR / "control20_summary.json"
 SURGE_CSV = DATA_DIR / "surge_events.csv"
+WATCHLIST = DATA_DIR / "watchlist_scan.json"
 
 SIGNAL_RULES: list[tuple[str, list[str]]] = [
     ("資產處分（賣廠、賣土地、賣設備）", ["出售", "處分", "廠房", "土地", "設備", "轉讓"]),
@@ -243,6 +244,19 @@ def announcements(symbol: str, group: str = "poc") -> dict:
             for a in anns
         ],
     }
+
+
+def watchlist_scan() -> dict:
+    """Load the pre-computed watchlist (produced offline by scan_watchlist* scripts)."""
+    if not WATCHLIST.exists():
+        return {
+            "generated_at": "",
+            "items": [],
+            "matched_count": 0,
+            "not_surged_count": 0,
+            "already_surged_count": 0,
+        }
+    return json.loads(WATCHLIST.read_text(encoding="utf-8"))
 
 
 def whitelist(min_delta: float = 0.2, min_lift: float = 2.0,

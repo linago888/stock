@@ -38,6 +38,34 @@
 
       <section class="panel">
         <header class="panel-head">
+          <h2>🎯 前瞻性觀察名單（訊號已發、股價未動）</h2>
+          <span class="hint" id="watchlistMeta">-</span>
+        </header>
+        <div class="watchlist-filters">
+          <label class="check-inline">
+            <input type="checkbox" id="wlHideSurged" checked />
+            <span>只看未飆漲</span>
+          </label>
+          <div class="chip-filters" id="wlLabelChips"></div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="watchlistTable">
+            <thead>
+              <tr>
+                <th>代號</th>
+                <th>名稱</th>
+                <th>日期</th>
+                <th>訊號類型</th>
+                <th>主旨</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
           <h2>訊號類型 · 飆漲組 vs 對照組</h2>
           <span class="hint">Δ 覆蓋率 = 飆漲組 − 對照組（正值大 = 領先性強）</span>
         </header>

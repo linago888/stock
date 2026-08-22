@@ -117,10 +117,67 @@ async function openAnnouncements(symbol, name, t0) {
   panel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+let watchlistData = null;
+let wlActiveLabels = new Set();
+
+function renderWatchlist() {
+  if (!watchlistData) return;
+  const hideSurged = document.querySelector("#wlHideSurged")?.checked;
+  const tbody = document.querySelector("#watchlistTable tbody");
+  const items = watchlistData.items.filter((it) => {
+    if (hideSurged && it.already_surged) return false;
+    if (wlActiveLabels.size && !it.labels.some((l) => wlActiveLabels.has(l))) return false;
+    return true;
+  });
+  tbody.innerHTML = items.map((it) => {
+    const chips = (it.labels || []).map((l) => `<span class="label-chip">${l}</span>`).join(" ");
+    const cls = it.already_surged ? "wl-surged-row" : "";
+    const noteBits = [];
+    if (it.already_surged) noteBits.push(`⚠️ 已飆漲 ${it.days_since_surge} 天前`);
+    return `
+      <tr class="${cls}">
+        <td>${it.co_id}</td>
+        <td>${it.name}</td>
+        <td>${it.date || "-"}</td>
+        <td><div class="label-chips">${chips}</div></td>
+        <td>${it.subject} ${noteBits.length ? `<span class="hint">${noteBits.join(" · ")}</span>` : ""}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+async function loadWatchlist() {
+  const data = await getJSON("/api/signals/watchlist");
+  watchlistData = data;
+  $("#watchlistMeta").textContent = data.items && data.items.length
+    ? `${data.generated_at?.slice(0,16).replace('T', ' ')} · 訊號 ${data.matched_count} 筆（未飆 ${data.not_surged_count} / 已飆 ${data.already_surged_count}）` +
+      (data.backfill_window ? ` · 掃描 ${data.backfill_window.start} → ${data.backfill_window.end}` : "")
+    : "尚未掃描（本機執行 news_signals/scan_watchlist_deep.py）";
+  // build chip filters
+  const labelSet = new Set();
+  (data.items || []).forEach((it) => it.labels.forEach((l) => labelSet.add(l)));
+  const chipEl = $("#wlLabelChips");
+  chipEl.innerHTML = "";
+  Array.from(labelSet).sort().forEach((lbl) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip-filter";
+    b.textContent = lbl;
+    b.addEventListener("click", () => {
+      if (wlActiveLabels.has(lbl)) { wlActiveLabels.delete(lbl); b.classList.remove("on"); }
+      else { wlActiveLabels.add(lbl); b.classList.add("on"); }
+      renderWatchlist();
+    });
+    chipEl.appendChild(b);
+  });
+  document.querySelector("#wlHideSurged").addEventListener("change", renderWatchlist);
+  renderWatchlist();
+}
+
 async function refreshAll() {
   try {
     await loadStatus();
-    await Promise.all([loadComparison(), loadWhitelist(), loadStocks("poc")]);
+    await Promise.all([loadWatchlist(), loadComparison(), loadWhitelist(), loadStocks("poc")]);
   } catch (err) {
     console.error(err);
     alert(`載入失敗：${err.message}`);

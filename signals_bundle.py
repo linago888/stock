@@ -66,6 +66,9 @@ def main() -> int:
         with surge_csv.open("r", encoding="utf-8-sig") as fh:
             surge_count = sum(1 for _ in csv.reader(fh)) - 1
 
+    watchlist_path = DATA / "watchlist_scan.json"
+    watchlist = json.loads(watchlist_path.read_text(encoding="utf-8")) if watchlist_path.exists() else {}
+
     bundle = {
         "surge_event_count": surge_count,
         "poc_candidates": poc_c,
@@ -74,6 +77,7 @@ def main() -> int:
         "ctl_summary": ctl_s,
         "poc_anns": poc_a,
         "ctl_anns": ctl_a,
+        "watchlist": watchlist,
     }
     raw = json.dumps(bundle, ensure_ascii=False).encode("utf-8")
     with gzip.open(OUT, "wb", compresslevel=9) as fh:
