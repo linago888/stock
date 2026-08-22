@@ -103,8 +103,25 @@
       <section class="panel">
         <header class="panel-head">
           <h2>🎯 前瞻性觀察名單全表（每檔股票一列，指標彙整）</h2>
-          <span class="hint" id="watchlistMeta">-</span>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="hint" id="watchlistMeta">-</span>
+            <button id="wlRescan" class="primary" type="button" title="重新到 MOPS 抓取最新 14 天重訊">🔄 重新抓取資料</button>
+          </div>
         </header>
+        <div id="wlRescanProgress" class="scrape-progress hidden">
+          <div class="progress-head">
+            <span id="wlRescanStatus">啟動中…</span>
+            <strong id="wlRescanPct">0%</strong>
+          </div>
+          <div class="progress-track">
+            <div id="wlRescanBar" class="progress-bar"></div>
+          </div>
+          <div id="wlRescanDetail" class="progress-detail">已處理 0 / 0</div>
+          <details>
+            <summary>查看日誌</summary>
+            <pre id="wlRescanLog" class="progress-log"></pre>
+          </details>
+        </div>
         <div class="watchlist-filters watchlist-filters-adv">
           <div class="wl-filter-row">
             <label class="field">

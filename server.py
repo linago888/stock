@@ -560,6 +560,12 @@ class Handler(SimpleHTTPRequestHandler):
             if path == "/api/signals/watchlist":
                 self.send_json(signals_web.watchlist_scan())
                 return
+            if path == "/api/signals/rescrape-status":
+                from urllib.parse import parse_qs
+
+                params = parse_qs(query)
+                self.send_json(signals_web.rescan_status(params.get("id", [""])[0]))
+                return
             if path == "/api/signals/watchlist-top":
                 from urllib.parse import parse_qs
 
@@ -680,6 +686,7 @@ class Handler(SimpleHTTPRequestHandler):
                 "/api/screen-market-job",
                 "/api/refresh-universe",
                 "/api/sitca/scrape",
+                "/api/signals/rescrape",
             }:
                 self.send_error(404, "Not found")
                 return
@@ -691,6 +698,14 @@ class Handler(SimpleHTTPRequestHandler):
                 self.send_json(screen_whole_market(payload))
             elif path == "/api/screen-market-job":
                 self.send_json(create_screen_job(payload))
+            elif path == "/api/signals/rescrape":
+                self.send_json(
+                    signals_web.start_rescan_job(
+                        limit=int(payload.get("limit", 500) or 500),
+                        days=int(payload.get("days", 14) or 14),
+                        min_volume=float(payload.get("min_volume", 2_000_000) or 2_000_000),
+                    )
+                )
             elif path == "/api/sitca/scrape":
                 months = str(payload.get("months", "") or "")
                 sleep = float(payload.get("sleep", 0.6))

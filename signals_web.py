@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 MOPS_DIR = DATA_DIR / "mops"
 
+SCAN_JOBS: dict[str, dict[str, object]] = {}
+
 POC_CANDIDATES = DATA_DIR / "poc20_candidates.csv"
 CTL_CANDIDATES = DATA_DIR / "control20_candidates.csv"
 POC_SUMMARY = DATA_DIR / "poc20_summary.json"
@@ -243,6 +245,100 @@ def announcements(symbol: str, group: str = "poc") -> dict:
             }
             for a in anns
         ],
+    }
+
+
+def start_rescan_job(limit: int = 500, days: int = 14, min_volume: float = 2_000_000) -> dict:
+    """Spawn a background scan job that runs scan_watchlist_deep.py.
+    Returns {"job_id": "..."}.
+    """
+    import subprocess
+    import sys
+    import threading
+    import time
+    import uuid
+
+    job_id = uuid.uuid4().hex
+    log_path = DATA_DIR / f"rescan_{job_id}.log"
+    SCAN_JOBS[job_id] = {
+        "id": job_id,
+        "status": "running",
+        "started_at": time.time(),
+        "log_path": str(log_path),
+        "limit": limit,
+        "days": days,
+        "min_volume": min_volume,
+        "processed": 0,
+        "total": limit,
+    }
+
+    def worker():
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        cmd = [
+            sys.executable,
+            str(ROOT / "news_signals" / "scan_watchlist_deep.py"),
+            "--limit", str(limit),
+            "--days", str(days),
+            "--min-volume", str(min_volume),
+        ]
+        try:
+            with log_path.open("w", encoding="utf-8") as fh:
+                proc = subprocess.run(cmd, stdout=fh, stderr=fh, text=True, encoding="utf-8")
+            SCAN_JOBS[job_id]["status"] = "done" if proc.returncode == 0 else "error"
+            SCAN_JOBS[job_id]["exit_code"] = proc.returncode
+        except Exception as exc:
+            SCAN_JOBS[job_id]["status"] = "error"
+            SCAN_JOBS[job_id]["error"] = str(exc)
+        SCAN_JOBS[job_id]["finished_at"] = time.time()
+        # trigger rebuild of the Vercel bundle so the dashboard gets fresh data too
+        try:
+            subprocess.run([sys.executable, str(ROOT / "signals_bundle.py")], check=False)
+        except Exception:
+            pass
+        # reset watchlist cache
+        with _LOCK:
+            _CACHE["mtime"] = 0.0
+            _CACHE["data"] = None
+            _CACHE["stocks"] = None
+
+    threading.Thread(target=worker, daemon=True).start()
+    return {"job_id": job_id}
+
+
+def rescan_status(job_id: str) -> dict:
+    import time
+    job = SCAN_JOBS.get(job_id)
+    if not job:
+        raise KeyError("找不到掃描工作")
+    log_path = Path(str(job.get("log_path", "")))
+    last_lines: list[str] = []
+    processed = 0
+    if log_path.exists():
+        try:
+            with log_path.open("r", encoding="utf-8") as fh:
+                lines = fh.readlines()
+                last_lines = [ln.rstrip() for ln in lines[-8:]]
+                # count progress from "  N/500 scanned" markers
+                for ln in reversed(lines):
+                    if "scanned" in ln and "/" in ln:
+                        try:
+                            processed = int(ln.strip().split("/")[0].strip())
+                            break
+                        except Exception:
+                            pass
+        except Exception:
+            pass
+    started = float(job.get("started_at") or 0)
+    total = int(job.get("total") or 500)
+    elapsed = max(0.0, time.time() - started) if started else 0.0
+    rate = processed / elapsed if elapsed > 0 and processed else 0.0
+    eta = (total - processed) / rate if rate > 0 else None
+    return {
+        **job,
+        "processed": processed,
+        "elapsed_sec": round(elapsed, 1),
+        "eta_sec": round(eta, 1) if eta is not None else None,
+        "log_tail": last_lines,
     }
 
 

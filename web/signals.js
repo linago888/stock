@@ -285,6 +285,72 @@ function buildWatchlistUrl() {
   return "/api/signals/watchlist-top?" + q.toString();
 }
 
+function fmtSec(sec) {
+  if (sec == null) return "—";
+  sec = Math.max(0, Math.round(sec));
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m > 0 ? `${m} 分 ${s} 秒` : `${s} 秒`;
+}
+
+async function pollRescan(jobId) {
+  const panel = $("#wlRescanProgress");
+  panel.classList.remove("hidden");
+  while (true) {
+    let s;
+    try { s = await getJSON(`/api/signals/rescrape-status?id=${jobId}`); }
+    catch (err) { $("#wlRescanStatus").textContent = "✗ 讀取狀態失敗"; break; }
+    const total = s.total || 500;
+    const done = s.processed || 0;
+    const pct = total > 0 ? Math.min(100, (done / total) * 100) : 0;
+    $("#wlRescanBar").style.width = pct.toFixed(1) + "%";
+    $("#wlRescanPct").textContent = pct.toFixed(0) + "%";
+    $("#wlRescanStatus").textContent =
+      s.status === "done" ? "✓ 掃描完成" :
+      s.status === "error" ? "✗ 發生錯誤" : "掃描中…";
+    $("#wlRescanStatus").className =
+      s.status === "done" ? "progress-status-done" :
+      s.status === "error" ? "progress-status-error" : "";
+    const eta = s.eta_sec != null && s.status === "running"
+      ? `，剩餘約 ${fmtSec(s.eta_sec)}` : "";
+    const el = s.elapsed_sec != null ? `，已耗時 ${fmtSec(s.elapsed_sec)}` : "";
+    $("#wlRescanDetail").textContent = `已處理 ${done} / ${total}${el}${eta}`;
+    $("#wlRescanLog").textContent = (s.log_tail || []).join("\n");
+    if (s.status === "done" || s.status === "error") break;
+    await new Promise((r) => setTimeout(r, 2000));
+  }
+  // reload watchlist with new data
+  watchlistRawMeta = null;
+  await loadWatchlist();
+  await loadTopRank();
+  await loadBrewing();
+  await loadStatus();
+}
+
+async function startRescan() {
+  const isLocal = /localhost|127\.0\.0\.1/.test(location.hostname);
+  if (!isLocal) {
+    if (confirm("Vercel 版本不支援即時抓取（serverless 有 10 秒上限）。\n" +
+                "要開啟 GitHub Actions 手動觸發頁面嗎？點 Run workflow 可跑一次。")) {
+      window.open("https://github.com/linago888/stock/actions/workflows/scan-signals.yml", "_blank");
+    }
+    return;
+  }
+  if (!confirm("開始重新抓取 MOPS 資料？將掃描 500 檔高流動性股票 x 14 天，約需 3-5 分鐘（已快取則更快）。")) return;
+  try {
+    const r = await fetch("/api/signals/rescrape", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ limit: 500, days: 14, min_volume: 2000000 }),
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const { job_id } = await r.json();
+    pollRescan(job_id);
+  } catch (err) {
+    alert(`啟動失敗：${err.message}`);
+  }
+}
+
 async function loadWatchlist() {
   // Aggregated per-stock (all stocks) with all filters applied server-side
   const data = await getJSON(buildWatchlistUrl());
@@ -376,5 +442,6 @@ document.addEventListener("DOMContentLoaded", () => {
     b.addEventListener("click", () => loadStocks(b.dataset.group));
   });
   $("#annClose").addEventListener("click", () => $("#annPanel").classList.add("hidden"));
+  document.querySelector("#wlRescan")?.addEventListener("click", startRescan);
   refreshAll();
 });
