@@ -117,30 +117,57 @@ async function openAnnouncements(symbol, name, t0) {
   panel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-let watchlistData = null;
+let watchlistData = null;      // per-stock aggregated (from watchlist-top)
+let watchlistRawMeta = null;   // raw meta (for total counts)
 let wlActiveLabels = new Set();
+
+const TECH_LABEL_MAP = {
+  breakout_zone: { text: "🎯 突破區", cls: "tech-breakout" },
+  flying: { text: "🚀 已飛", cls: "tech-flying" },
+  weak: { text: "📉 弱勢", cls: "tech-weak" },
+  quiet: { text: "😴 平淡", cls: "tech-quiet" },
+};
 
 function renderWatchlist() {
   if (!watchlistData) return;
-  const hideSurged = document.querySelector("#wlHideSurged")?.checked;
   const tbody = document.querySelector("#watchlistTable tbody");
   const items = watchlistData.items.filter((it) => {
-    if (hideSurged && it.already_surged) return false;
-    if (wlActiveLabels.size && !it.labels.some((l) => wlActiveLabels.has(l))) return false;
+    if (wlActiveLabels.size && !(it.labels_hit || []).some((l) => wlActiveLabels.has(l))) return false;
     return true;
   });
-  tbody.innerHTML = items.map((it) => {
-    const chips = (it.labels || []).map((l) => `<span class="label-chip">${l}</span>`).join(" ");
-    const cls = it.already_surged ? "wl-surged-row" : "";
-    const noteBits = [];
-    if (it.already_surged) noteBits.push(`⚠️ 已飆漲 ${it.days_since_surge} 天前`);
+  tbody.innerHTML = items.map((it, idx) => {
+    const own = new Set(it.own_labels_hit || []);
+    const chips = (it.labels_hit || []).map((l) =>
+      `<span class="label-chip${own.has(l) ? '' : ' proxy'}">${l}${own.has(l) ? '' : '*'}</span>`
+    ).join(" ");
+    const tech = it.tech || {};
+    const tl = TECH_LABEL_MAP[tech.tech_signal] || { text: "—", cls: "" };
+    const techCell = tech.tech_signal
+      ? `<span class="tech-badge ${tl.cls}">${tl.text}</span>`
+      : "—";
+    const mom = tech.mom_30d_pct;
+    const momCell = mom != null
+      ? `<span class="${mom > 0 ? 'delta-pos' : mom < 0 ? 'delta-neg' : ''}">${mom > 0 ? '+' : ''}${mom.toFixed(1)}%</span>`
+      : "—";
+    const subjectList = (it.subjects || []).slice(0, 6).map((s) => {
+      const proxyMark = /^代/.test((s.subject || "").trim())
+        ? '<span class="proxy-mark" title="代子公司公告">代</span> ' : "";
+      const txt = (s.subject || "").substring(0, 70);
+      return `<li>${s.date} ${proxyMark}${txt}${(s.subject || "").length > 70 ? "…" : ""}</li>`;
+    }).join("");
+    const more = (it.subjects || []).length > 6 ? `<li class="hint">…共 ${it.subjects.length} 筆</li>` : "";
     return `
-      <tr class="${cls}">
+      <tr>
+        <td class="num">${idx + 1}</td>
         <td>${it.co_id}</td>
         <td>${it.name}</td>
-        <td>${it.date || "-"}</td>
+        <td class="num score-cell">${it.score}</td>
+        <td class="num">${it.signal_count}</td>
         <td><div class="label-chips">${chips}</div></td>
-        <td>${it.subject} ${noteBits.length ? `<span class="hint">${noteBits.join(" · ")}</span>` : ""}</td>
+        <td>${techCell}</td>
+        <td class="num">${momCell}</td>
+        <td>${it.latest_date}</td>
+        <td><ul class="subject-list">${subjectList}${more}</ul></td>
       </tr>
     `;
   }).join("");
@@ -236,21 +263,34 @@ async function loadBrewing() {
 }
 
 async function loadWatchlist() {
-  const data = await getJSON("/api/signals/watchlist");
+  const hideSurged = document.querySelector("#wlHideSurged")?.checked !== false;
+  // Aggregated per-stock (all stocks, not just Top 10)
+  const url = `/api/signals/watchlist-top?limit=999&exclude_surged=${hideSurged ? 1 : 0}`;
+  const data = await getJSON(url);
   watchlistData = data;
-  $("#watchlistMeta").textContent = data.items && data.items.length
-    ? `${data.generated_at?.slice(0,16).replace('T', ' ')} · 訊號 ${data.matched_count} 筆（未飆 ${data.not_surged_count} / 已飆 ${data.already_surged_count}）` +
-      (data.backfill_window ? ` · 掃描 ${data.backfill_window.start} → ${data.backfill_window.end}` : "")
+  // Raw meta for total counts (fetch once, cached)
+  if (!watchlistRawMeta) {
+    try { watchlistRawMeta = await getJSON("/api/signals/watchlist"); }
+    catch { watchlistRawMeta = null; }
+  }
+  const raw = watchlistRawMeta || {};
+  const rawInfo = raw.matched_count != null
+    ? `訊號 ${raw.matched_count} 筆彙整為 ${data.items.length} 檔股票（未飆 ${raw.not_surged_count} / 已飆 ${raw.already_surged_count}）`
+    : `${data.items.length} 檔股票`;
+  const win = raw.backfill_window;
+  const ts = raw.generated_at ? raw.generated_at.slice(0, 16).replace("T", " ") : "";
+  $("#watchlistMeta").textContent = data.items.length
+    ? `${ts} · ${rawInfo}${win ? ` · 掃描 ${win.start} → ${win.end}` : ""}`
     : "尚未掃描（本機執行 news_signals/scan_watchlist_deep.py）";
-  // build chip filters
+  // Chip filters from aggregated labels
   const labelSet = new Set();
-  (data.items || []).forEach((it) => it.labels.forEach((l) => labelSet.add(l)));
+  (data.items || []).forEach((it) => (it.labels_hit || []).forEach((l) => labelSet.add(l)));
   const chipEl = $("#wlLabelChips");
   chipEl.innerHTML = "";
   Array.from(labelSet).sort().forEach((lbl) => {
     const b = document.createElement("button");
     b.type = "button";
-    b.className = "chip-filter";
+    b.className = "chip-filter" + (wlActiveLabels.has(lbl) ? " on" : "");
     b.textContent = lbl;
     b.addEventListener("click", () => {
       if (wlActiveLabels.has(lbl)) { wlActiveLabels.delete(lbl); b.classList.remove("on"); }
@@ -259,7 +299,11 @@ async function loadWatchlist() {
     });
     chipEl.appendChild(b);
   });
-  document.querySelector("#wlHideSurged").addEventListener("change", renderWatchlist);
+  const hs = document.querySelector("#wlHideSurged");
+  if (hs && !hs._wired) {
+    hs._wired = true;
+    hs.addEventListener("change", loadWatchlist);
+  }
   renderWatchlist();
 }
 

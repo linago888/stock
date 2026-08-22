@@ -112,6 +112,23 @@
   border-color: rgba(96, 165, 250, 0.5);
 }
 .wl-surged-row td { opacity: 0.55; }
+.subject-list {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 11px;
+  color: var(--muted);
+  max-width: 560px;
+}
+.subject-list li { padding: 1px 0; }
+.proxy-mark {
+  background: rgba(251, 191, 36, 0.18);
+  color: var(--amber);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 10px;
+  margin-right: 2px;
+}
 
 .top-rank-row td:first-child b {
   display: inline-block;
