@@ -259,6 +259,114 @@ def watchlist_scan() -> dict:
     return json.loads(WATCHLIST.read_text(encoding="utf-8"))
 
 
+# Signal category weights derived from the PoC 20 vs Control 20 lift values.
+# Categories with lift infinity (no control-group matches) are capped at 5.
+CATEGORY_WEIGHTS = {
+    "投資 / 併購 / 轉投資": 2.75,
+    "庫藏股 / 減資": 5.0,
+    "高階人事異動": 5.0,
+    "股利政策 / 除權息": 5.0,
+    "重大契約 / 訂單": 1.5,
+}
+
+
+def _score_stock(anns: list[dict], latest_signal_date: str) -> dict:
+    """Score one stock aggregated across its 14-day announcements."""
+    from collections import Counter, defaultdict
+    import datetime as dt
+
+    labels_hit: set[str] = set()
+    label_counts: Counter = Counter()
+    for a in anns:
+        for lbl in a.get("labels", []):
+            labels_hit.add(lbl)
+            label_counts[lbl] += 1
+
+    signal_score = sum(
+        CATEGORY_WEIGHTS.get(lbl, 0.5) * cnt
+        for lbl, cnt in label_counts.items()
+    )
+    diversity_bonus = 1.5 * len(labels_hit)  # multi-category = stronger signal
+    day_counts: Counter = Counter(a.get("date", "") for a in anns)
+    max_same_day = max(day_counts.values()) if day_counts else 0
+    concentration_bonus = 2.0 if max_same_day >= 3 else (1.0 if max_same_day >= 2 else 0.0)
+
+    recency_bonus = 0.0
+    try:
+        today = dt.date.today()
+        latest = dt.date.fromisoformat(latest_signal_date)
+        d = (today - latest).days
+        if d <= 3:
+            recency_bonus = 3.0
+        elif d <= 7:
+            recency_bonus = 2.0
+        elif d <= 14:
+            recency_bonus = 1.0
+    except Exception:
+        pass
+
+    total = signal_score + diversity_bonus + concentration_bonus + recency_bonus
+    return {
+        "signal_score": round(signal_score, 2),
+        "diversity_bonus": round(diversity_bonus, 2),
+        "concentration_bonus": concentration_bonus,
+        "recency_bonus": recency_bonus,
+        "score": round(total, 2),
+        "labels_hit": sorted(labels_hit),
+        "max_same_day": max_same_day,
+    }
+
+
+def watchlist_ranked(limit: int = 10, exclude_surged: bool = True) -> dict:
+    """Return top-N stocks in the watchlist ranked by surge-probability heuristic."""
+    scan = watchlist_scan()
+    items = scan.get("items") or []
+    if exclude_surged:
+        items = [i for i in items if not i.get("already_surged")]
+
+    # group by (co_id, name)
+    from collections import defaultdict
+    per_stock: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    for it in items:
+        per_stock[(it["co_id"], it.get("name", ""))].append(it)
+
+    scored = []
+    for (co_id, name), anns in per_stock.items():
+        latest_date = max((a.get("date", "") for a in anns), default="")
+        earliest_date = min((a.get("date", "") for a in anns), default="")
+        s = _score_stock(anns, latest_date)
+        # collect the subject headlines for context
+        subjects = [
+            {
+                "date": a.get("date"),
+                "labels": a.get("labels", []),
+                "subject": a.get("subject", ""),
+            }
+            for a in sorted(anns, key=lambda a: a.get("date", ""), reverse=True)
+        ]
+        scored.append({
+            "co_id": co_id,
+            "name": name,
+            "market": anns[0].get("market") if anns else "",
+            "signal_count": len(anns),
+            "latest_date": latest_date,
+            "earliest_date": earliest_date,
+            **s,
+            "subjects": subjects,
+        })
+
+    scored.sort(key=lambda r: (-r["score"], -r["signal_count"]))
+    return {
+        "generated_at": scan.get("generated_at", ""),
+        "backfill_window": scan.get("backfill_window"),
+        "universe_size": scan.get("universe_size"),
+        "total_signals": len(items),
+        "stocks_with_signal": len(scored),
+        "limit": limit,
+        "items": scored[:limit],
+    }
+
+
 def whitelist(min_delta: float = 0.2, min_lift: float = 2.0,
               min_stocks: int = 3) -> dict:
     """Return the signal categories that survive the control comparison."""

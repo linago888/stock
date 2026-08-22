@@ -560,6 +560,17 @@ class Handler(SimpleHTTPRequestHandler):
             if path == "/api/signals/watchlist":
                 self.send_json(signals_web.watchlist_scan())
                 return
+            if path == "/api/signals/watchlist-top":
+                from urllib.parse import parse_qs
+
+                params = parse_qs(query)
+                self.send_json(
+                    signals_web.watchlist_ranked(
+                        limit=int(params.get("limit", ["10"])[0]),
+                        exclude_surged=params.get("exclude_surged", ["1"])[0] != "0",
+                    )
+                )
+                return
             if path == "/api/signals/whitelist":
                 from urllib.parse import parse_qs
 

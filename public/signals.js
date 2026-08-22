@@ -146,6 +146,32 @@ function renderWatchlist() {
   }).join("");
 }
 
+async function loadTopRank() {
+  const data = await getJSON("/api/signals/watchlist-top?limit=10");
+  $("#topRankMeta").textContent = data.items && data.items.length
+    ? `${data.total_signals} 筆訊號涵蓋 ${data.stocks_with_signal} 檔股票 · 掃描 ${data.backfill_window?.start} → ${data.backfill_window?.end}`
+    : "尚無資料";
+  const tbody = document.querySelector("#topRankTable tbody");
+  tbody.innerHTML = data.items.map((it, idx) => {
+    const chips = it.labels_hit.map((l) => `<span class="label-chip">${l}</span>`).join(" ");
+    const latest = it.subjects[0]?.subject || "";
+    const bd = `訊號 ${it.signal_score} + 多元 ${it.diversity_bonus} + 集中 ${it.concentration_bonus} + 近期 ${it.recency_bonus}`;
+    return `
+      <tr class="top-rank-row">
+        <td><b>${idx + 1}</b></td>
+        <td>${it.co_id}</td>
+        <td>${it.name}</td>
+        <td class="num score-cell">${it.score}</td>
+        <td class="num">${it.signal_count}</td>
+        <td><div class="label-chips">${chips}</div></td>
+        <td class="num">${it.max_same_day}</td>
+        <td>${it.latest_date}<div class="subj-preview">${latest.substring(0, 40)}${latest.length > 40 ? "…" : ""}</div></td>
+        <td class="score-detail">${bd}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
 async function loadWatchlist() {
   const data = await getJSON("/api/signals/watchlist");
   watchlistData = data;
@@ -177,7 +203,7 @@ async function loadWatchlist() {
 async function refreshAll() {
   try {
     await loadStatus();
-    await Promise.all([loadWatchlist(), loadComparison(), loadWhitelist(), loadStocks("poc")]);
+    await Promise.all([loadTopRank(), loadWatchlist(), loadComparison(), loadWhitelist(), loadStocks("poc")]);
   } catch (err) {
     console.error(err);
     alert(`載入失敗：${err.message}`);

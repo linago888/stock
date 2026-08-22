@@ -216,6 +216,93 @@ def action_watchlist(_p) -> dict:
     return wl
 
 
+CATEGORY_WEIGHTS = {
+    "投資 / 併購 / 轉投資": 2.75,
+    "庫藏股 / 減資": 5.0,
+    "高階人事異動": 5.0,
+    "股利政策 / 除權息": 5.0,
+    "重大契約 / 訂單": 1.5,
+}
+
+
+def _score_stock(anns, latest_signal_date):
+    from collections import Counter
+    import datetime as dt
+
+    labels_hit = set()
+    label_counts = Counter()
+    for a in anns:
+        for lbl in a.get("labels", []):
+            labels_hit.add(lbl)
+            label_counts[lbl] += 1
+    signal_score = sum(CATEGORY_WEIGHTS.get(l, 0.5) * c for l, c in label_counts.items())
+    diversity_bonus = 1.5 * len(labels_hit)
+    day_counts = Counter(a.get("date", "") for a in anns)
+    max_same_day = max(day_counts.values()) if day_counts else 0
+    concentration_bonus = 2.0 if max_same_day >= 3 else (1.0 if max_same_day >= 2 else 0.0)
+    recency_bonus = 0.0
+    try:
+        today = dt.date.today()
+        latest = dt.date.fromisoformat(latest_signal_date)
+        d = (today - latest).days
+        recency_bonus = 3.0 if d <= 3 else (2.0 if d <= 7 else (1.0 if d <= 14 else 0.0))
+    except Exception:
+        pass
+    total = signal_score + diversity_bonus + concentration_bonus + recency_bonus
+    return {
+        "signal_score": round(signal_score, 2),
+        "diversity_bonus": round(diversity_bonus, 2),
+        "concentration_bonus": concentration_bonus,
+        "recency_bonus": recency_bonus,
+        "score": round(total, 2),
+        "labels_hit": sorted(labels_hit),
+        "max_same_day": max_same_day,
+    }
+
+
+def action_watchlist_top(params) -> dict:
+    from collections import defaultdict
+
+    limit = int((params.get("limit") or ["10"])[0])
+    exclude_surged = (params.get("exclude_surged") or ["1"])[0] != "0"
+    d = _load()
+    scan = d.get("watchlist") or {}
+    items = scan.get("items") or []
+    if exclude_surged:
+        items = [i for i in items if not i.get("already_surged")]
+
+    per_stock = defaultdict(list)
+    for it in items:
+        per_stock[(it["co_id"], it.get("name", ""))].append(it)
+
+    scored = []
+    for (co_id, name), anns in per_stock.items():
+        latest_date = max((a.get("date", "") for a in anns), default="")
+        earliest_date = min((a.get("date", "") for a in anns), default="")
+        s = _score_stock(anns, latest_date)
+        subjects = [
+            {"date": a.get("date"), "labels": a.get("labels", []), "subject": a.get("subject", "")}
+            for a in sorted(anns, key=lambda a: a.get("date", ""), reverse=True)
+        ]
+        scored.append({
+            "co_id": co_id, "name": name,
+            "market": anns[0].get("market") if anns else "",
+            "signal_count": len(anns),
+            "latest_date": latest_date, "earliest_date": earliest_date,
+            **s, "subjects": subjects,
+        })
+    scored.sort(key=lambda r: (-r["score"], -r["signal_count"]))
+    return {
+        "generated_at": scan.get("generated_at", ""),
+        "backfill_window": scan.get("backfill_window"),
+        "universe_size": scan.get("universe_size"),
+        "total_signals": len(items),
+        "stocks_with_signal": len(scored),
+        "limit": limit,
+        "items": scored[:limit],
+    }
+
+
 HANDLERS = {
     "status": action_status,
     "comparison": action_comparison,
@@ -223,6 +310,7 @@ HANDLERS = {
     "announcements": action_announcements,
     "whitelist": action_whitelist,
     "watchlist": action_watchlist,
+    "watchlist-top": action_watchlist_top,
 }
 
 

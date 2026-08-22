@@ -38,7 +38,38 @@
 
       <section class="panel">
         <header class="panel-head">
-          <h2>🎯 前瞻性觀察名單（訊號已發、股價未動）</h2>
+          <h2>🔥 最近 14 天飆漲機率最高 Top 10</h2>
+          <span class="hint" id="topRankMeta">-</span>
+        </header>
+        <div class="table-wrap">
+          <table class="data-table" id="topRankTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>代號</th>
+                <th>名稱</th>
+                <th class="num">綜合分</th>
+                <th class="num">訊號數</th>
+                <th>命中類別</th>
+                <th class="num">同日集中</th>
+                <th>最新訊號</th>
+                <th>加分明細</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint" style="margin-top: 8px;">
+          綜合分 = <b>訊號分</b>（類別 × Lift 權重，如庫藏股/減資 ×5、投資併購 ×2.75）
+          + <b>多元加分</b>（每命中一個類別 +1.5）
+          + <b>集中加分</b>（同日 ≥3 筆 +2、≥2 筆 +1）
+          + <b>近期加分</b>（3 天內 +3、7 天內 +2、14 天內 +1）
+        </p>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
+          <h2>🎯 前瞻性觀察名單全表（訊號已發、股價未動）</h2>
           <span class="hint" id="watchlistMeta">-</span>
         </header>
         <div class="watchlist-filters">
