@@ -23,9 +23,10 @@ async function loadStatus() {
   $("#sigCtlCount").textContent = fmt(s.ctl_count);
   $("#sigPocHit").textContent = `${s.poc_hit_rate.hit}/${s.poc_hit_rate.total} (${s.poc_hit_rate.pct}%)`;
   $("#sigCtlHit").textContent = `${s.ctl_hit_rate.hit}/${s.ctl_hit_rate.total} (${s.ctl_hit_rate.pct}%)`;
-  $("#sigDateRange").textContent = s.date_range.min && s.date_range.max
-    ? `${s.date_range.min} ~ ${s.date_range.max}`
-    : "-";
+  const pt = s.poc_ctl_t0_range || {};
+  $("#sigPocCtlRange").textContent = pt.min && pt.max ? `${pt.min} ~ ${pt.max}` : "-";
+  const ww = s.watchlist_window || {};
+  $("#sigScanWindow").textContent = ww.start && ww.end ? `${ww.start} ~ ${ww.end}` : "-";
 }
 
 async function loadComparison() {

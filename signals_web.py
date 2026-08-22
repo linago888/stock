@@ -133,6 +133,7 @@ def _load_all(force: bool = False) -> dict:
 
 def status() -> dict:
     d = _load_all()
+    wl_scan = watchlist_scan()
     return {
         "surge_event_count": d["surge_event_count"],
         "poc_count": len(d["poc_candidates"]),
@@ -141,7 +142,11 @@ def status() -> dict:
         "ctl_hit_rate": _hit_rate(d["ctl_anns"]),
         "poc_total_anns": sum(len(v) for v in d["poc_anns"].values()),
         "ctl_total_anns": sum(len(v) for v in d["ctl_anns"].values()),
-        "date_range": _date_range(d["poc_candidates"] + d["ctl_candidates"]),
+        # PoC + control 樣本的 T0 分布（歷史研究資料）
+        "poc_ctl_t0_range": _date_range(d["poc_candidates"] + d["ctl_candidates"]),
+        # 前瞻性觀察名單當次掃描的 MOPS 重訊窗口（forward-looking 資料）
+        "watchlist_window": wl_scan.get("backfill_window") or {"start": "", "end": ""},
+        "watchlist_generated_at": wl_scan.get("generated_at", ""),
         "mops_files": d["mops_files"],
         "cache_mtime": d["cache_mtime"],
     }

@@ -99,6 +99,7 @@ def action_status(_p) -> dict:
             dates.append(dt.date.fromisoformat(c.get("T0", "")))
         except Exception:
             pass
+    wl = d.get("watchlist") or {}
     return {
         "surge_event_count": d.get("surge_event_count", 0),
         "poc_count": len(d.get("poc_candidates", [])),
@@ -107,10 +108,12 @@ def action_status(_p) -> dict:
         "ctl_hit_rate": _hit_rate(d.get("ctl_anns", {})),
         "poc_total_anns": sum(len(v) for v in d.get("poc_anns", {}).values()),
         "ctl_total_anns": sum(len(v) for v in d.get("ctl_anns", {}).values()),
-        "date_range": {
+        "poc_ctl_t0_range": {
             "min": min(dates).isoformat() if dates else "",
             "max": max(dates).isoformat() if dates else "",
         },
+        "watchlist_window": wl.get("backfill_window") or {"start": "", "end": ""},
+        "watchlist_generated_at": wl.get("generated_at", ""),
     }
 
 
