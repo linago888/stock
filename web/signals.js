@@ -362,27 +362,87 @@ async function pollRescan(jobId) {
   await loadStatus();
 }
 
+async function pollGhRun(sinceIso) {
+  const panel = $("#wlRescanProgress");
+  panel.classList.remove("hidden");
+  $("#wlRescanBar").style.width = "5%";
+  $("#wlRescanPct").textContent = "…";
+  $("#wlRescanStatus").textContent = "已觸發 GitHub Actions，等待執行…";
+  const start = Date.now();
+  let runUrl = "";
+  while (true) {
+    const s = await getJSON("/api/signals/trigger-status").catch(() => null);
+    if (s?.ok && s.runs?.length) {
+      // find the run that was created AFTER our trigger (or event=workflow_dispatch)
+      const run = s.runs.find((r) => r.event === "workflow_dispatch" && r.created_at >= sinceIso) || s.runs[0];
+      runUrl = run.html_url;
+      const elapsed = Math.round((Date.now() - start) / 1000);
+      const eta = Math.max(0, 240 - elapsed); // rough 4-min estimate
+      const pct = Math.min(95, 5 + (elapsed / 240) * 90);
+      $("#wlRescanBar").style.width = pct.toFixed(0) + "%";
+      $("#wlRescanPct").textContent = pct.toFixed(0) + "%";
+      $("#wlRescanDetail").innerHTML = `run #${run.run_number} · ${run.status}${run.conclusion ? ` (${run.conclusion})` : ""} · 已 ${elapsed} 秒，預估剩 ${eta} 秒 · <a href="${run.html_url}" target="_blank" rel="noopener">GitHub 查看</a>`;
+      $("#wlRescanStatus").textContent =
+        run.status === "completed"
+          ? (run.conclusion === "success" ? "✓ 完成，Vercel 正在 redeploy…" : `✗ ${run.conclusion}`)
+          : (run.status === "in_progress" ? "🔄 執行中…" : "⏳ 排隊中…");
+      $("#wlRescanStatus").className =
+        run.status === "completed" && run.conclusion === "success" ? "progress-status-done" :
+        run.status === "completed" ? "progress-status-error" : "";
+      if (run.status === "completed") {
+        if (run.conclusion === "success") {
+          $("#wlRescanBar").style.width = "100%";
+          $("#wlRescanPct").textContent = "100%";
+          setTimeout(() => window.location.reload(), 6000);
+        }
+        break;
+      }
+    }
+    if (Date.now() - start > 10 * 60 * 1000) {
+      $("#wlRescanStatus").textContent = "⏱ 超時，請到 GitHub 頁面查看";
+      break;
+    }
+    await new Promise((r) => setTimeout(r, 8000));
+  }
+}
+
 async function startRescan() {
   const isLocal = /localhost|127\.0\.0\.1/.test(location.hostname);
-  if (!isLocal) {
-    if (confirm("Vercel 版本不支援即時抓取（serverless 有 10 秒上限）。\n" +
-                "要開啟 GitHub Actions 手動觸發頁面嗎？點 Run workflow 可跑一次。")) {
-      window.open("https://github.com/linago888/stock/actions/workflows/scan-signals.yml", "_blank");
+  if (isLocal) {
+    if (!confirm("開始重新抓取 MOPS 資料？將掃描 500 檔高流動性股票 x 14 天，約需 3-5 分鐘（已快取則更快）。")) return;
+    try {
+      const r = await fetch("/api/signals/rescrape", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ limit: 500, days: 14, min_volume: 2000000 }),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const { job_id } = await r.json();
+      pollRescan(job_id);
+    } catch (err) {
+      alert(`啟動失敗：${err.message}`);
     }
     return;
   }
-  if (!confirm("開始重新抓取 MOPS 資料？將掃描 500 檔高流動性股票 x 14 天，約需 3-5 分鐘（已快取則更快）。")) return;
+  // Vercel — trigger GitHub Actions via our /api/signals/trigger endpoint
+  if (!confirm("將觸發 GitHub Actions 遠端執行掃描（約 3-5 分鐘）。\n完成後 Vercel 自動 redeploy，此頁會自動重新載入。")) return;
   try {
-    const r = await fetch("/api/signals/rescrape", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ limit: 500, days: 14, min_volume: 2000000 }),
-    });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const { job_id } = await r.json();
-    pollRescan(job_id);
+    const sinceIso = new Date().toISOString();
+    const r = await fetch("/api/signals/trigger", { method: "POST" });
+    const data = await r.json();
+    if (data.ok) {
+      pollGhRun(sinceIso);
+      return;
+    }
+    if (data.status_code === 501) {
+      // no token configured — offer manual GitHub link + show setup instructions
+      const msg = `${data.error}\n\n${data.instructions}\n\n改為開啟 GitHub Actions 頁面手動觸發嗎？`;
+      if (confirm(msg)) window.open(data.workflow_url, "_blank");
+      return;
+    }
+    alert(`觸發失敗 (${data.status_code}): ${data.error}\n${data.detail || ""}`);
   } catch (err) {
-    alert(`啟動失敗：${err.message}`);
+    alert(`觸發失敗：${err.message}`);
   }
 }
 

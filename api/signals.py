@@ -383,6 +383,98 @@ def action_watchlist_top(params) -> dict:
     }
 
 
+GH_OWNER = "linago888"
+GH_REPO = "stock"
+GH_WORKFLOW = "scan-signals.yml"
+
+
+def _gh_headers(token: str) -> dict:
+    return {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "stock-signals-app",
+    }
+
+
+def action_trigger(_params) -> dict:
+    """POST to GitHub Actions workflow_dispatch API — triggers a fresh MOPS scan
+    that will commit new data back and auto-redeploy Vercel."""
+    import os
+    from urllib.request import Request, urlopen
+    from urllib.error import HTTPError, URLError
+
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if not token:
+        return {
+            "ok": False,
+            "status_code": 501,
+            "error": "缺少 GITHUB_TOKEN 環境變數",
+            "instructions": (
+                "1) 到 https://github.com/settings/tokens/new 產生 PAT（scope: workflow） "
+                "2) Vercel 專案 Settings → Environment Variables 新增 GITHUB_TOKEN "
+                "3) Redeploy"
+            ),
+            "workflow_url": f"https://github.com/{GH_OWNER}/{GH_REPO}/actions/workflows/{GH_WORKFLOW}",
+        }
+    url = f"https://api.github.com/repos/{GH_OWNER}/{GH_REPO}/actions/workflows/{GH_WORKFLOW}/dispatches"
+    body = json.dumps({"ref": "main"}).encode("utf-8")
+    req = Request(url, data=body, method="POST", headers={**_gh_headers(token), "Content-Type": "application/json"})
+    try:
+        with urlopen(req, timeout=10) as r:
+            code = r.getcode()
+        return {
+            "ok": True,
+            "status_code": code,
+            "message": "已觸發 GitHub Actions，約 3-5 分鐘後資料自動更新並 redeploy",
+            "workflow_url": f"https://github.com/{GH_OWNER}/{GH_REPO}/actions/workflows/{GH_WORKFLOW}",
+        }
+    except HTTPError as e:
+        detail = ""
+        try:
+            detail = e.read().decode("utf-8", "ignore")[:400]
+        except Exception:
+            pass
+        return {"ok": False, "status_code": e.code, "error": e.reason, "detail": detail}
+    except URLError as e:
+        return {"ok": False, "status_code": 502, "error": str(e.reason)}
+
+
+def action_trigger_status(_params) -> dict:
+    """Recent workflow runs — for the frontend to show current progress."""
+    import os
+    from urllib.request import Request, urlopen
+    from urllib.error import HTTPError
+
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if not token:
+        return {"ok": False, "error": "no token", "runs": []}
+    url = f"https://api.github.com/repos/{GH_OWNER}/{GH_REPO}/actions/workflows/{GH_WORKFLOW}/runs?per_page=5"
+    req = Request(url, headers=_gh_headers(token))
+    try:
+        with urlopen(req, timeout=10) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except HTTPError as e:
+        return {"ok": False, "status_code": e.code, "error": e.reason, "runs": []}
+    runs = data.get("workflow_runs") or []
+    return {
+        "ok": True,
+        "runs": [
+            {
+                "id": r["id"],
+                "run_number": r["run_number"],
+                "status": r["status"],           # queued | in_progress | completed
+                "conclusion": r["conclusion"],   # success | failure | cancelled | null
+                "created_at": r["created_at"],
+                "updated_at": r["updated_at"],
+                "html_url": r["html_url"],
+                "event": r["event"],             # workflow_dispatch | schedule
+            }
+            for r in runs
+        ],
+    }
+
+
 HANDLERS = {
     "status": action_status,
     "comparison": action_comparison,
@@ -392,6 +484,8 @@ HANDLERS = {
     "watchlist": action_watchlist,
     "watchlist-top": action_watchlist_top,
     "breakout": action_breakout,
+    "trigger": action_trigger,
+    "trigger-status": action_trigger_status,
 }
 
 
