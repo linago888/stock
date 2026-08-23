@@ -219,6 +219,17 @@ def action_watchlist(_p) -> dict:
     return wl
 
 
+def action_breakout(params) -> dict:
+    d = _load()
+    bd = d.get("breakout") or {"items": [], "matched_count": 0, "three_step_count": 0}
+    limit = int((params.get("limit") or ["50"])[0])
+    three_only = (params.get("three_only") or ["0"])[0] == "1"
+    items = bd.get("items") or []
+    if three_only:
+        items = [i for i in items if i.get("steps_passed") == 3]
+    return {**bd, "items": items[:limit]}
+
+
 CATEGORY_WEIGHTS = {
     "投資 / 併購 / 轉投資": 2.75,
     "庫藏股 / 減資": 5.0,
@@ -380,6 +391,7 @@ HANDLERS = {
     "whitelist": action_whitelist,
     "watchlist": action_watchlist,
     "watchlist-top": action_watchlist_top,
+    "breakout": action_breakout,
 }
 
 

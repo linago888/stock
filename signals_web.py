@@ -22,6 +22,7 @@ POC_SUMMARY = DATA_DIR / "poc20_summary.json"
 CTL_SUMMARY = DATA_DIR / "control20_summary.json"
 SURGE_CSV = DATA_DIR / "surge_events.csv"
 WATCHLIST = DATA_DIR / "watchlist_scan.json"
+BREAKOUT = DATA_DIR / "breakout_scan.json"
 
 SIGNAL_RULES: list[tuple[str, list[str]]] = [
     ("資產處分（賣廠、賣土地、賣設備）", ["出售", "處分", "廠房", "土地", "設備", "轉讓"]),
@@ -345,6 +346,17 @@ def rescan_status(job_id: str) -> dict:
         "eta_sec": round(eta, 1) if eta is not None else None,
         "log_tail": last_lines,
     }
+
+
+def breakout_scan(limit: int = 50, three_step_only: bool = False) -> dict:
+    """Load breakout_scan.json produced by news_signals/breakout_filter.py."""
+    if not BREAKOUT.exists():
+        return {"generated_at": "", "items": [], "matched_count": 0, "three_step_count": 0}
+    d = json.loads(BREAKOUT.read_text(encoding="utf-8"))
+    items = d.get("items") or []
+    if three_step_only:
+        items = [i for i in items if i.get("steps_passed") == 3]
+    return {**d, "items": items[:limit]}
 
 
 def watchlist_scan() -> dict:

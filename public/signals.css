@@ -135,6 +135,8 @@
   max-width: 560px;
 }
 .subject-list li { padding: 1px 0; }
+.step-icons { font-family: monospace; font-size: 14px; letter-spacing: 2px; color: var(--muted); }
+.step-icons.full { color: var(--red); font-weight: 700; }
 .proxy-mark {
   background: rgba(251, 191, 36, 0.18);
   color: var(--amber);

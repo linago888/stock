@@ -39,6 +39,51 @@
 
       <section class="panel">
         <header class="panel-head">
+          <h2>🚀 外資+均線糾結+帶量長紅突破 三步驟濾網</h2>
+          <span class="hint" id="breakoutMeta">-</span>
+        </header>
+        <div class="watchlist-filters">
+          <label class="check-inline">
+            <input type="checkbox" id="boThreeOnly" />
+            <span>只看三步驟全通過</span>
+          </label>
+          <label class="field">
+            <span>顯示前 N 檔</span>
+            <input type="number" id="boLimit" min="5" max="100" step="5" value="20" />
+          </label>
+          <button id="boApply" class="secondary" type="button">套用</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="breakoutTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>代號</th>
+                <th>名稱</th>
+                <th class="num">綜合分</th>
+                <th>三步驟</th>
+                <th class="num">外資 5 日 (張)</th>
+                <th class="num">連買</th>
+                <th class="num">MA 糾結 %</th>
+                <th class="num">量比</th>
+                <th class="num">實體 %</th>
+                <th>突破</th>
+                <th class="num">收盤</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint" style="margin-top: 8px;">
+          <b>Step 1 外資買超</b>：取近 5 日累積外資(含外資自營)淨買超 &gt; 0，前 200 檔進入。
+          <b>Step 2 均線糾結</b>：MA5/10/20 (max−min)/收盤 ≤ 2.5% 且 20 日震幅 ≤ 15%。
+          <b>Step 3 帶量突破</b>：紅 K 實體 ≥ 2%、量比 ≥ 1.5×、且收盤 &gt; max(MA5/10/20) &amp; 過去 20 日高。
+          綜合分 = 外資分（0-30）+ 糾結分（越緊越高）+ 突破分（20-45）。
+        </p>
+      </section>
+
+      <section class="panel">
+        <header class="panel-head">
           <h2>🔥 最近 14 天飆漲機率最高 Top 10</h2>
           <span class="hint" id="topRankMeta">-</span>
         </header>

@@ -68,6 +68,8 @@ def main() -> int:
 
     watchlist_path = DATA / "watchlist_scan.json"
     watchlist = json.loads(watchlist_path.read_text(encoding="utf-8")) if watchlist_path.exists() else {}
+    breakout_path = DATA / "breakout_scan.json"
+    breakout = json.loads(breakout_path.read_text(encoding="utf-8")) if breakout_path.exists() else {}
 
     bundle = {
         "surge_event_count": surge_count,
@@ -78,6 +80,7 @@ def main() -> int:
         "poc_anns": poc_a,
         "ctl_anns": ctl_a,
         "watchlist": watchlist,
+        "breakout": breakout,
     }
     raw = json.dumps(bundle, ensure_ascii=False).encode("utf-8")
     with gzip.open(OUT, "wb", compresslevel=9) as fh:

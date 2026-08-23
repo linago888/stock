@@ -174,6 +174,40 @@ function renderWatchlist() {
   }).join("");
 }
 
+async function loadBreakout() {
+  const limit = Number(document.querySelector("#boLimit")?.value) || 20;
+  const three = document.querySelector("#boThreeOnly")?.checked ? 1 : 0;
+  const data = await getJSON(`/api/signals/breakout?limit=${limit}&three_only=${three}`);
+  const days = data.trading_days || [];
+  const dr = days.length ? `${days[0]} → ${days[days.length - 1]}` : "-";
+  $("#breakoutMeta").textContent = data.items?.length
+    ? `外資窗口 ${dr} · 3 步驟通過 ${data.three_step_count} / 排序前 ${data.matched_count} 檔`
+    : "尚未掃描（本機執行 news_signals/breakout_filter.py）";
+  const tbody = document.querySelector("#breakoutTable tbody");
+  tbody.innerHTML = (data.items || []).map((it, idx) => {
+    const stepIcons = "✓".repeat(it.steps_passed) + "·".repeat(3 - it.steps_passed);
+    const brk = it.breakout ? '<span class="tech-badge tech-breakout">✓</span>' : "·";
+    const consec = it.foreign_consec_tail || 0;
+    const consecCell = consec >= 3 ? `<span class="delta-pos">${consec} 天</span>` : `${consec} 天`;
+    return `
+      <tr class="top-rank-row">
+        <td><b>${idx + 1}</b></td>
+        <td>${it.co_id}</td>
+        <td>${it.name}</td>
+        <td class="num score-cell">${it.score}</td>
+        <td><span class="step-icons ${it.steps_passed === 3 ? 'full' : ''}">${stepIcons}</span></td>
+        <td class="num">${(it.foreign_5d_lots || 0).toLocaleString()}</td>
+        <td class="num">${consecCell}</td>
+        <td class="num">${it.ma_spread_pct}%</td>
+        <td class="num">${it.volume_ratio}×</td>
+        <td class="num ${it.body_pct > 0 ? 'delta-pos' : 'delta-neg'}">${it.body_pct > 0 ? '+' : ''}${it.body_pct}%</td>
+        <td>${brk}</td>
+        <td class="num">${it.close}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
 async function loadTopRank() {
   const data = await getJSON("/api/signals/watchlist-top?limit=10");
   $("#topRankMeta").textContent = data.items && data.items.length
@@ -431,7 +465,7 @@ async function loadWatchlist() {
 async function refreshAll() {
   try {
     await loadStatus();
-    await Promise.all([loadTopRank(), loadBrewing(), loadWatchlist(), loadComparison(), loadWhitelist(), loadStocks("poc")]);
+    await Promise.all([loadBreakout(), loadTopRank(), loadBrewing(), loadWatchlist(), loadComparison(), loadWhitelist(), loadStocks("poc")]);
   } catch (err) {
     console.error(err);
     alert(`載入失敗：${err.message}`);
@@ -444,5 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   $("#annClose").addEventListener("click", () => $("#annPanel").classList.add("hidden"));
   document.querySelector("#wlRescan")?.addEventListener("click", startRescan);
+  document.querySelector("#boApply")?.addEventListener("click", loadBreakout);
+  document.querySelector("#boThreeOnly")?.addEventListener("change", loadBreakout);
   refreshAll();
 });

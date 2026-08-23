@@ -560,6 +560,17 @@ class Handler(SimpleHTTPRequestHandler):
             if path == "/api/signals/watchlist":
                 self.send_json(signals_web.watchlist_scan())
                 return
+            if path == "/api/signals/breakout":
+                from urllib.parse import parse_qs
+
+                params = parse_qs(query)
+                self.send_json(
+                    signals_web.breakout_scan(
+                        limit=int(params.get("limit", ["50"])[0]),
+                        three_step_only=params.get("three_only", ["0"])[0] == "1",
+                    )
+                )
+                return
             if path == "/api/signals/rescrape-status":
                 from urllib.parse import parse_qs
 
