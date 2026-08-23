@@ -137,6 +137,21 @@
 .subject-list li { padding: 1px 0; }
 .step-icons { font-family: monospace; font-size: 14px; letter-spacing: 2px; color: var(--muted); }
 .step-icons.full { color: var(--red); font-weight: 700; }
+
+.rescan-bar {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 18px;
+}
+.rescan-head {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.rescan-head .hint { font-size: 12px; color: var(--muted); }
+.rescan-bar #wlRescanProgress { margin-top: 12px; }
 .proxy-mark {
   background: rgba(251, 191, 36, 0.18);
   color: var(--amber);

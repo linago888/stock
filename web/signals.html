@@ -37,6 +37,27 @@
         <div title="前瞻性觀察名單當次抓取 MOPS 重訊的日期窗口"><span>MOPS 掃描窗口</span><strong id="sigScanWindow">-</strong></div>
       </section>
 
+      <section class="rescan-bar">
+        <div class="rescan-head">
+          <button id="wlRescan" class="primary" type="button" title="到 MOPS 抓取最新 14 天重訊，重跑觀察名單">🔄 重新抓取 MOPS 資料</button>
+          <span class="hint">觀察名單、Top 10、醞釀中都會用新資料重算。本機約 3-5 分鐘；Vercel 開啟 GitHub Actions 頁面手動觸發。</span>
+        </div>
+        <div id="wlRescanProgress" class="scrape-progress hidden">
+          <div class="progress-head">
+            <span id="wlRescanStatus">啟動中…</span>
+            <strong id="wlRescanPct">0%</strong>
+          </div>
+          <div class="progress-track">
+            <div id="wlRescanBar" class="progress-bar"></div>
+          </div>
+          <div id="wlRescanDetail" class="progress-detail">已處理 0 / 0</div>
+          <details>
+            <summary>查看日誌</summary>
+            <pre id="wlRescanLog" class="progress-log"></pre>
+          </details>
+        </div>
+      </section>
+
       <section class="panel">
         <header class="panel-head">
           <h2>🚀 外資+均線糾結+帶量長紅突破 三步驟濾網</h2>
@@ -149,25 +170,8 @@
       <section class="panel">
         <header class="panel-head">
           <h2>🎯 前瞻性觀察名單全表（每檔股票一列，指標彙整）</h2>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <span class="hint" id="watchlistMeta">-</span>
-            <button id="wlRescan" class="primary" type="button" title="重新到 MOPS 抓取最新 14 天重訊">🔄 重新抓取資料</button>
-          </div>
+          <span class="hint" id="watchlistMeta">-</span>
         </header>
-        <div id="wlRescanProgress" class="scrape-progress hidden">
-          <div class="progress-head">
-            <span id="wlRescanStatus">啟動中…</span>
-            <strong id="wlRescanPct">0%</strong>
-          </div>
-          <div class="progress-track">
-            <div id="wlRescanBar" class="progress-bar"></div>
-          </div>
-          <div id="wlRescanDetail" class="progress-detail">已處理 0 / 0</div>
-          <details>
-            <summary>查看日誌</summary>
-            <pre id="wlRescanLog" class="progress-log"></pre>
-          </details>
-        </div>
         <div class="watchlist-filters watchlist-filters-adv">
           <div class="wl-filter-row">
             <label class="field">
