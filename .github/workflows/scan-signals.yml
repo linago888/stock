@@ -49,7 +49,18 @@ jobs:
           git add data/watchlist_scan.json data/signals_bundle.json.gz data/mops/*.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
-          else
-            git commit -m "chore(cron): refresh watchlist scan $(date -u +%Y-%m-%d)"
-            git push
+            exit 0
           fi
+          git commit -m "chore(cron): refresh watchlist scan $(date -u +%Y-%m-%d)"
+          # Retry with rebase to survive concurrent pushes from local dev / other runs
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main || true
+            if git push; then
+              echo "pushed on attempt $i"
+              exit 0
+            fi
+            echo "push attempt $i failed, retrying…"
+            sleep $((i * 3))
+          done
+          echo "push failed after 5 attempts"
+          exit 1
