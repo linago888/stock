@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-19T19:24:01",
+  "generated_at": "2026-10-20T18:03:00",
   "mode": "deep",
   "backfill_window": {
-    "start": "2026-10-04",
-    "end": "2026-10-18"
+    "start": "2026-10-05",
+    "end": "2026-10-19"
   },
   "universe_size": 0,
   "source_date_range": {
